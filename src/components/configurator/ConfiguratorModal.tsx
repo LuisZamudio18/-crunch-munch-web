@@ -75,7 +75,16 @@ export default function ConfiguratorModal({
       });
     }
 
-    if (step === 4) return !!(eventForm.nombre && eventForm.telefono && eventForm.fecha && eventForm.lugar && eventForm.personas && eventForm.tipoEvento);
+    if (step === 4) {
+      const baseValid = !!(eventForm.nombre && eventForm.telefono && eventForm.fecha && eventForm.lugar && eventForm.personas && eventForm.tipoEvento);
+      if (!baseValid) return false;
+      const personas = parseInt(eventForm.personas) || 0;
+      const meetsMinimum = selectedServices.every((id) => {
+        const svc = SERVICE_MAP[id];
+        return !svc || personas >= svc.minPersonas;
+      });
+      return meetsMinimum;
+    }
     return true;
   };
 
@@ -137,6 +146,7 @@ export default function ConfiguratorModal({
           {step === 4 && (
             <StepEventForm
               eventForm={eventForm}
+              selectedServices={selectedServices}
               onChange={setEventForm}
             />
           )}

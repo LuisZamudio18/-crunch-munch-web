@@ -1,5 +1,6 @@
 'use client';
 
+import { SERVICE_MAP } from '@/data/services';
 import type { EventFormData } from '@/types';
 
 const EVENT_TYPES = [
@@ -10,15 +11,30 @@ const EVENT_TYPES = [
 
 interface StepEventFormProps {
   eventForm: EventFormData;
+  selectedServices: string[];
   onChange: (data: EventFormData) => void;
 }
 
-export default function StepEventForm({ eventForm, onChange }: StepEventFormProps) {
+export default function StepEventForm({ eventForm, selectedServices, onChange }: StepEventFormProps) {
   const update = (field: keyof EventFormData, value: string) =>
     onChange({ ...eventForm, [field]: value });
 
   const inputClass =
     'w-full border-b border-coffee-300 bg-transparent py-2.5 text-coffee-700 placeholder-coffee-300 focus:outline-none focus:border-coffee-600 text-sm transition-colors';
+
+  // Compute the highest minimum across all selected services
+  const minRequired = selectedServices.reduce((max, id) => {
+    const svc = SERVICE_MAP[id];
+    return svc ? Math.max(max, svc.minPersonas) : max;
+  }, 0);
+
+  const personas = parseInt(eventForm.personas) || 0;
+  const belowMinimum = personas > 0 && minRequired > 0 && personas < minRequired;
+
+  // Which specific bars are below minimum
+  const barrasBajoMinimo = selectedServices
+    .map((id) => SERVICE_MAP[id])
+    .filter((svc): svc is NonNullable<typeof svc> => !!svc && personas > 0 && personas < svc.minPersonas);
 
   return (
     <div>
@@ -72,6 +88,7 @@ export default function StepEventForm({ eventForm, onChange }: StepEventFormProp
               required
             />
           </div>
+
           <div>
             <label className="block text-xs uppercase tracking-widest text-gold-500 mb-1.5">
               No. de personas *
@@ -80,11 +97,28 @@ export default function StepEventForm({ eventForm, onChange }: StepEventFormProp
               type="number"
               value={eventForm.personas}
               onChange={(e) => update('personas', e.target.value)}
-              placeholder="Ej: 150"
-              min="1"
-              className={inputClass}
+              placeholder={`Mín. ${minRequired} personas`}
+              min={minRequired || 1}
+              className={`${inputClass} ${belowMinimum ? 'border-red-400 focus:border-red-500' : ''}`}
               required
             />
+            {/* Per-bar minimum hint when field is empty */}
+            {!eventForm.personas && minRequired > 0 && (
+              <p className="text-[11px] text-coffee-400 mt-1">
+                Mínimo requerido: {minRequired} personas
+              </p>
+            )}
+            {/* Warning when below minimum */}
+            {belowMinimum && (
+              <div className="mt-2 flex items-start gap-1.5 text-xs text-red-600">
+                <span className="shrink-0">⚠️</span>
+                <span>
+                  El mínimo para{' '}
+                  <strong>{barrasBajoMinimo.map((s) => s.name).join(', ')}</strong>{' '}
+                  es de {barrasBajoMinimo.length === 1 ? `${barrasBajoMinimo[0].minPersonas}` : `${minRequired}`} personas.
+                </span>
+              </div>
+            )}
           </div>
         </div>
 
