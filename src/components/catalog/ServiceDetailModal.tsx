@@ -231,9 +231,12 @@ export default function ServiceDetailModal({
 
           <div className="relative z-10 px-6 pt-14 pb-6">
             {!service.image && <div className="text-5xl mb-3">{service.emoji}</div>}
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center flex-wrap gap-2 mb-2">
               <span className={clsx('text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full font-medium', CATEGORY_COLORS[service.category])}>
                 {CATEGORY_LABELS[service.category]}
+              </span>
+              <span className="text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full font-medium bg-coffee-800/70 text-coffee-200">
+                Mín. {service.minPersonas} personas
               </span>
               {isSelected && (
                 <span className="text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full font-medium bg-gold-400/90 text-coffee-900">

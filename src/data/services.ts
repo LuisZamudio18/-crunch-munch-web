@@ -1,4 +1,4 @@
-import type { Service } from '@/types';
+﻿import type { Service } from '@/types';
 
 // ─── Shared topping pools ────────────────────────────────────────────────────
 
@@ -101,6 +101,7 @@ export const SERVICES: Service[] = [
     category: 'bebidas',
     emoji: '☕',
     image: '/barras/coffee-bar.jpg',
+    minPersonas: 30,
     selectionGroups: [
       {
         id: 'bebidas-calientes',
@@ -127,6 +128,7 @@ export const SERVICES: Service[] = [
     description: 'Smoothies frescos y naturales con frutas de temporada. Elige tus sabores favoritos y personaliza con toppings.',
     category: 'bebidas',
     image: '/barras/smoothies.jpg',
+    minPersonas: 30,
     emoji: '🥤',
     selectionGroups: [
       {
@@ -158,6 +160,7 @@ export const SERVICES: Service[] = [
     description: 'Deliciosos frappes artesanales en 16 sabores únicos. La bebida perfecta para eventos al aire libre.',
     category: 'bebidas',
     image: '/barras/frappes.jpg',
+    minPersonas: 30,
     emoji: '🧋',
     selectionGroups: [
       {
@@ -181,6 +184,7 @@ export const SERVICES: Service[] = [
     description: 'Barra de cócteles con alcohol. 24 opciones de tragos clásicos y modernos para animar tu celebración.',
     category: 'bebidas',
     image: '/barras/drinks-bar.jpg',
+    minPersonas: 30,
     emoji: '🍹',
     selectionGroups: [
       {
@@ -208,6 +212,7 @@ export const SERVICES: Service[] = [
     category: 'bebidas',
     emoji: '🍸',
     image: '/barras/mocktails.jpg',
+    minPersonas: 30,
     selectionGroups: [
       {
         id: 'mocktails',
@@ -233,6 +238,7 @@ export const SERVICES: Service[] = [
     category: 'bebidas',
     emoji: '🥂',
     image: '/barras/mimosas.jpg',
+    minPersonas: 30,
     selectionGroups: [
       {
         id: 'menu',
@@ -251,6 +257,7 @@ export const SERVICES: Service[] = [
     category: 'bebidas',
     emoji: '🍊',
     image: '/barras/cantaritos.jpg',
+    minPersonas: 30,
     selectionGroups: [
       {
         id: 'tequila',
@@ -274,6 +281,7 @@ export const SERVICES: Service[] = [
     description: 'Barra de tapiocas y bubble tea artesanal. Elige sabores, tipo de tapioca y perlas explosivas.',
     category: 'bebidas',
     image: '/barras/tapiocas.jpg',
+    minPersonas: 30,
     emoji: '🧋',
     selectionGroups: [
       {
@@ -316,6 +324,7 @@ export const SERVICES: Service[] = [
     category: 'dulce',
     emoji: '🥞',
     image: '/barras/hot-cakes.jpg',
+    minPersonas: 30,
     selectionGroups: [
       {
         id: 'toppings',
@@ -346,6 +355,7 @@ export const SERVICES: Service[] = [
     description: 'Mini donas esponjosas con variedad de toppings y glaseados coloridos para endulzar tu evento.',
     category: 'dulce',
     image: '/barras/donas.jpg',
+    minPersonas: 30,
     emoji: '🍩',
     selectionGroups: [
       {
@@ -377,6 +387,7 @@ export const SERVICES: Service[] = [
     description: 'Deliciosas crepas artesanales con rellenos dulces y salados. Personalizadas con tus toppings favoritos.',
     category: 'dulce',
     image: '/barras/crepas.jpg',
+    minPersonas: 30,
     emoji: '🥐',
     selectionGroups: [
       {
@@ -412,6 +423,7 @@ export const SERVICES: Service[] = [
     description: 'Barra de helados artesanales con toppings premium. Elige sabores, toppings y glaseados a tu gusto.',
     category: 'dulce',
     image: '/barras/helados.jpg',
+    minPersonas: 30,
     emoji: '🍦',
     selectionGroups: [
       {
@@ -452,6 +464,7 @@ export const SERVICES: Service[] = [
     category: 'dulce',
     emoji: '🎂',
     image: '/barras/cake-bar.jpg',
+    minPersonas: 30,
     selectionGroups: [
       {
         id: 'sabor-pastel',
@@ -489,6 +502,7 @@ export const SERVICES: Service[] = [
     description: 'Rolles artesanales esponjosos con toppings dulces y glaseados coloridos. Una experiencia única y deliciosa.',
     category: 'dulce',
     image: '/barras/rolles.jpg',
+    minPersonas: 30,
     emoji: '🌀',
     selectionGroups: [
       {
@@ -520,6 +534,7 @@ export const SERVICES: Service[] = [
     description: 'Barra de postres premium con más de 25 opciones artesanales. Desde cheesecakes hasta galletas personalizadas.',
     category: 'dulce',
     image: '/barras/dessert-bar.jpg',
+    minPersonas: 30,
     emoji: '🍮',
     selectionGroups: [
       {
@@ -565,6 +580,7 @@ export const SERVICES: Service[] = [
     description: 'La barra más divertida con más de 50 opciones de botanas, gomitas, dulces y frutas. ¡Imposible resistirse!',
     category: 'salado',
     image: '/barras/snack-bar.jpg',
+    minPersonas: 30,
     emoji: '🍿',
     selectionGroups: [
       {
@@ -591,6 +607,7 @@ export const SERVICES: Service[] = [
     category: 'salado',
     emoji: '🧀',
     image: '/barras/charcuteria.jpg',
+    minPersonas: 30,
     selectionGroups: [
       {
         id: 'toppings',
@@ -633,6 +650,7 @@ export const SERVICES: Service[] = [
     description: 'Esquites estilo Crunch & Munch con botanas, cacahuates y verduras para armar tu combinación perfecta.',
     category: 'salado',
     image: '/barras/esquites.jpg',
+    minPersonas: 30,
     emoji: '🌽',
     selectionGroups: [
       {
@@ -657,6 +675,7 @@ export const SERVICES: Service[] = [
     category: 'salado',
     emoji: '🌽',
     image: '/barras/tostielotes.jpg',
+    minPersonas: 30,
     selectionGroups: [
       {
         id: 'toppings',
@@ -679,6 +698,7 @@ export const SERVICES: Service[] = [
     description: 'La popular barra de maruchan con toppings al estilo snack. Un hit garantizado en cualquier reunión.',
     category: 'salado',
     image: '/barras/maruchan.jpg',
+    minPersonas: 30,
     emoji: '🍜',
     selectionGroups: [
       {
@@ -702,6 +722,7 @@ export const SERVICES: Service[] = [
     description: 'Auténticos chilaquiles en salsa roja y verde. Elige tu proteína favorita para el desayuno perfecto.',
     category: 'salado',
     image: '/barras/chilaquiles.jpg',
+    minPersonas: 30,
     emoji: '🌶️',
     selectionGroups: [
       {
@@ -728,6 +749,7 @@ export const SERVICES: Service[] = [
     category: 'salado',
     emoji: '🍡',
     image: '/barras/ice-bar.jpg',
+    minPersonas: 30,
     selectionGroups: [
       {
         id: 'sabor-paleta',
@@ -761,6 +783,7 @@ export const SERVICES: Service[] = [
     category: 'brunch',
     image: '/barras/brunch.jpg',
     emoji: '🥗',
+    minPersonas: 20,
     selectionGroups: [
       {
         id: 'alimentos',
@@ -803,6 +826,7 @@ export const SERVICES: Service[] = [
     category: 'brunch',
     image: '/barras/desayuno-buffet.jpg',
     emoji: '🍳',
+    minPersonas: 20,
     selectionGroups: [
       {
         id: 'menu',

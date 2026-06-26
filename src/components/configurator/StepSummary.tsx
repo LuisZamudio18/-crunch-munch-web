@@ -33,6 +33,11 @@ export default function StepSummary({
     return `${day}/${m}/${y}`;
   };
 
+  const personas = parseInt(eventForm.personas) || 0;
+  const barrasBajoMinimo = selectedServices
+    .map((id) => SERVICE_MAP[id])
+    .filter((svc): svc is NonNullable<typeof svc> => !!svc && personas > 0 && personas < svc.minPersonas);
+
   return (
     <div>
       <div className="mb-5">
@@ -41,6 +46,17 @@ export default function StepSummary({
           Revisa tu selección y envíanos la información para recibir tu cotización personalizada.
         </p>
       </div>
+
+      {barrasBajoMinimo.length > 0 && (
+        <div className="mb-4 flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5 text-xs text-amber-700">
+          <span className="shrink-0 mt-0.5">⚠️</span>
+          <span>
+            El mínimo no se cumple para:{' '}
+            <strong>{barrasBajoMinimo.map((s) => `${s.name} (mín. ${s.minPersonas})`).join(', ')}</strong>.
+            Puedes igualmente enviar tu cotización y nuestro equipo te orientará.
+          </span>
+        </div>
+      )}
 
       <div className="space-y-4 mb-6">
         {/* Services */}

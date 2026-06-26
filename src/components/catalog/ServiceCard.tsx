@@ -32,15 +32,6 @@ interface ServiceCardProps {
 }
 
 export default function ServiceCard({ service, selected = false, onSelect }: ServiceCardProps) {
-  const selectionSummary = service.selectionGroups
-    .filter((g) => g.type !== 'fixed-display')
-    .map((g) => {
-      if (g.type === 'choose-1') return `1 ${g.label.toLowerCase()}`;
-      if (g.totalMax) return `Hasta ${g.totalMax} ${g.label.toLowerCase()}`;
-      return g.label;
-    })
-    .join(' · ');
-
   return (
     <div
       onClick={onSelect}
@@ -112,14 +103,12 @@ export default function ServiceCard({ service, selected = false, onSelect }: Ser
       </div>
 
       {/* Footer bar */}
-      <div className="bg-coffee-900/95 px-5 py-3 flex items-center justify-between">
-        {selectionSummary ? (
-          <p className="text-[10px] text-coffee-400 truncate max-w-[70%]">{selectionSummary}</p>
-        ) : (
-          <p className="text-[10px] text-coffee-400">Menú completo incluido</p>
-        )}
+      <div className="bg-coffee-900/95 px-5 py-3 flex items-center justify-between gap-2">
+        <p className="text-[10px] text-coffee-400 shrink-0">
+          Mín. {service.minPersonas} personas
+        </p>
         <span className={clsx(
-          'text-[10px] font-semibold tracking-wider uppercase transition-colors',
+          'text-[10px] font-semibold tracking-wider uppercase transition-colors shrink-0',
           selected ? 'text-gold-400' : 'text-cream-400 group-hover:text-gold-400'
         )}>
           {selected ? 'Seleccionado ✓' : 'Ver más →'}

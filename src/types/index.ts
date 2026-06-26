@@ -27,6 +27,7 @@ export interface Service {
   category: ServiceCategory;
   emoji: string;
   image?: string;
+  minPersonas: number;
   selectionGroups: SelectionGroup[];
 }
 
