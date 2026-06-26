@@ -93,7 +93,7 @@ export default function ConfiguratorModal({
       {/* Panel */}
       <div className="relative w-full sm:max-w-2xl bg-cream-50 rounded-t-3xl sm:rounded-3xl shadow-2xl z-10 max-h-[95vh] flex flex-col">
         {/* Header */}
-        <div className="px-6 pt-6 pb-4 border-b border-cream-200 shrink-0">
+        <div className="px-4 sm:px-6 pt-6 pb-4 border-b border-cream-200 shrink-0">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-display text-xl text-coffee-800">
               Arma tu <em className="gold-text">evento</em>
@@ -110,7 +110,7 @@ export default function ConfiguratorModal({
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-hidden px-6 py-5">
+        <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-5">
           {step === 1 && (
             <StepServices
               selectedServices={selectedServices}
@@ -153,7 +153,7 @@ export default function ConfiguratorModal({
 
         {/* Footer navigation */}
         {step < 5 && (
-          <div className="px-6 pb-6 pt-3 border-t border-cream-200 shrink-0">
+          <div className="px-4 sm:px-6 pb-6 pt-3 border-t border-cream-200 shrink-0">
             {/* Warning message for step 2 */}
             {step === 2 && !canGoNext() && (
               <div className="mb-3 flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5 text-xs text-amber-700">

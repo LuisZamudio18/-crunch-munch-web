@@ -56,7 +56,7 @@ export default function StepServices({ selectedServices, onToggle, onGoToCatalog
           </p>
         </div>
       ) : (
-        <div className="space-y-3 max-h-[45vh] overflow-y-auto pr-1">
+        <div className="space-y-3">
           {selected.map((service) => (
             <div
               key={service.id}

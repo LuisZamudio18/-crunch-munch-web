@@ -38,7 +38,7 @@ export default function Chip({
       {isSelected && (
         <button
           onClick={onRemove}
-          className="w-6 h-6 rounded-full flex items-center justify-center text-cream-200 hover:text-cream-50 hover:bg-coffee-600 transition-colors ml-1 shrink-0"
+          className="w-7 h-7 rounded-full flex items-center justify-center text-cream-200 hover:text-cream-50 hover:bg-coffee-600 transition-colors ml-1 shrink-0"
           aria-label={`Quitar ${label}`}
         >
           −
@@ -64,7 +64,7 @@ export default function Chip({
         onClick={canAdd ? onAdd : undefined}
         disabled={!canAdd}
         className={clsx(
-          'w-6 h-6 rounded-full flex items-center justify-center transition-colors mr-1 shrink-0',
+          'w-7 h-7 rounded-full flex items-center justify-center transition-colors mr-1 shrink-0',
           isSelected
             ? canAdd
               ? 'text-cream-200 hover:text-cream-50 hover:bg-coffee-600'

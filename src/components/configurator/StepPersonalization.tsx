@@ -42,7 +42,7 @@ export default function StepPersonalization({
         </p>
       </div>
 
-      <div className="max-h-[55vh] overflow-y-auto pr-1 space-y-6">
+      <div className="space-y-6">
 
         {/* Decoración — single select, aplica a todas las barras */}
         <div>

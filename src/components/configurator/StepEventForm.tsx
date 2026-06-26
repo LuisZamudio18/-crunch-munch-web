@@ -29,7 +29,7 @@ export default function StepEventForm({ eventForm, onChange }: StepEventFormProp
         </p>
       </div>
 
-      <div className="max-h-[55vh] overflow-y-auto pr-1 space-y-5">
+      <div className="space-y-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
             <label className="block text-xs uppercase tracking-widest text-gold-500 mb-1.5">

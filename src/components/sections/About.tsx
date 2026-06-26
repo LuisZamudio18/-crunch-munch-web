@@ -20,7 +20,7 @@ export default function About() {
   return (
     <section id="nosotros" className="bg-cream-gradient section-padding">
       <div className="container-max">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div>
             <p className="text-xs uppercase tracking-widest text-gold-500 mb-4">Nuestra historia</p>
             <h2 className="text-display text-4xl md:text-5xl text-coffee-800 leading-tight mb-6">

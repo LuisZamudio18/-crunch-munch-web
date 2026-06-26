@@ -289,8 +289,8 @@ export default function ServiceDetailModal({
         </div>
 
         {/* Footer CTA */}
-        <div className="px-6 pb-6 pt-3 border-t border-cream-200 shrink-0 flex gap-3">
-          <Button variant="ghost" size="md" onClick={onClose} className="text-coffee-600">
+        <div className="px-4 sm:px-6 pb-6 pt-3 border-t border-cream-200 shrink-0 flex flex-col-reverse gap-2 sm:flex-row sm:gap-3">
+          <Button variant="ghost" size="md" onClick={onClose} className="text-coffee-600 sm:flex-none">
             Seguir viendo
           </Button>
           <Button

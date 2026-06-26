@@ -40,12 +40,12 @@ export default function Home() {
 
       <Footer />
 
-      {/* Floating WhatsApp help button */}
+      {/* Floating WhatsApp help button — hidden when any modal is open */}
       <a
         href={`https://wa.me/529931100808?text=${encodeURIComponent('¡Hola! Estoy viendo sus servicios y tengo algunas dudas. ¿Podrían ayudarme? 😊')}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-[110] flex items-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group px-4 py-3"
+        className={`fixed bottom-6 right-6 z-[80] flex items-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group px-4 py-3 ${configurator.isOpen ? 'hidden' : ''}`}
         aria-label="Contactar por WhatsApp"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">

@@ -193,9 +193,9 @@ export default function StepToppings({
         <p className="text-sm text-coffee-500">Configura las opciones de cada barra seleccionada.</p>
       </div>
 
-      {/* Service tabs */}
+      {/* Service tabs — horizontal scroll on mobile */}
       {selectedServices.length > 1 && (
-        <div className="flex gap-2 flex-wrap mb-5">
+        <div className="flex gap-2 mb-4 overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {selectedServices.map((id, idx) => {
             const svc = SERVICE_MAP[id];
             const interactiveGroups = svc?.selectionGroups.filter((g) => g.type !== 'fixed-display') ?? [];
@@ -207,7 +207,7 @@ export default function StepToppings({
                 key={id}
                 onClick={() => setActiveServiceIdx(idx)}
                 className={clsx(
-                  'relative px-3 py-1.5 rounded-full text-xs font-medium transition-all border',
+                  'relative shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-all border',
                   idx === activeServiceIdx
                     ? 'bg-coffee-700 text-cream-50 border-coffee-700'
                     : 'border-cream-300 text-coffee-600 hover:border-coffee-500'
@@ -225,7 +225,7 @@ export default function StepToppings({
 
       {/* Active service config */}
       {service && (
-        <div className="max-h-[55vh] overflow-y-auto pr-1">
+        <div>
           <div className="flex items-center gap-2 mb-4 pb-3 border-b border-cream-200">
             <span className="text-2xl">{service.emoji}</span>
             <h4 className="text-display text-xl text-coffee-700">{service.name}</h4>

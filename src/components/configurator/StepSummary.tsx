@@ -42,7 +42,7 @@ export default function StepSummary({
         </p>
       </div>
 
-      <div className="max-h-[50vh] overflow-y-auto pr-1 space-y-4 mb-6">
+      <div className="space-y-4 mb-6">
         {/* Services */}
         <div className="bg-cream-100 rounded-xl p-4">
           <p className="text-xs uppercase tracking-widest text-gold-500 mb-3">Barras seleccionadas</p>
@@ -112,7 +112,7 @@ export default function StepSummary({
         {/* Event data */}
         <div className="bg-cream-100 rounded-xl p-4">
           <p className="text-xs uppercase tracking-widest text-gold-500 mb-3">Datos del evento</p>
-          <div className="grid grid-cols-2 gap-y-1 gap-x-4 text-sm text-coffee-600">
+          <div className="grid grid-cols-1 min-[380px]:grid-cols-2 gap-y-1 gap-x-4 text-sm text-coffee-600">
             {eventForm.nombre && <><span className="text-coffee-400">Nombre:</span><span>{eventForm.nombre}</span></>}
             {eventForm.telefono && <><span className="text-coffee-400">Teléfono:</span><span>{eventForm.telefono}</span></>}
             {eventForm.fecha && <><span className="text-coffee-400">Fecha:</span><span>{formatDate(eventForm.fecha)}</span></>}
