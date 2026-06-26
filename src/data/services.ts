@@ -754,8 +754,8 @@ export const SERVICES: Service[] = [
       {
         id: 'sabor-paleta',
         label: 'Sabor de Paleta',
-        instruction: 'Elige 1 sabor de paleta',
-        type: 'choose-1',
+        instruction: 'Elige los sabores que quieras',
+        type: 'choose-n',
         options: ['Variado', 'Mango', 'Piña', 'Fresa', 'Limón', 'Uva', 'Piña chamoy', 'Chicle', 'Mango chamoy'],
       },
       {
