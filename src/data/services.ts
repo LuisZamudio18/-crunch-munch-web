@@ -194,7 +194,7 @@ export const SERVICES: Service[] = [
           'Piña colada', 'Blue lagoon', 'Sex on the beach', 'Tequila sunrise',
           'Cosmopolitan', 'Daiquiri de fresa', 'Daiquiri de mango',
           'Cuba libre', 'Gin tonic', 'Paloma', 'Cantarito',
-          'Michelada', 'Clamato', 'Rusa', 'Vampiro', 'Destornillador', 'Screwdriver',
+          'Michelada', 'Clamato', 'Rusa', 'Vampiro',
         ],
       },
     ],
