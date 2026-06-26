@@ -104,20 +104,15 @@ export const SERVICES: Service[] = [
     minPersonas: 30,
     selectionGroups: [
       {
-        id: 'bebidas-calientes',
-        label: 'Bebidas Calientes',
-        instruction: 'Elige hasta 4 bebidas en total entre calientes y frías',
+        id: 'bebidas',
+        label: 'Bebidas',
+        instruction: 'Elige 4 bebidas en total entre calientes y frías',
         type: 'choose-n',
         totalMax: 4,
-        options: COFFEE_HOT_8,
-      },
-      {
-        id: 'bebidas-frias',
-        label: 'Bebidas Frías',
-        instruction: 'Continúa eligiendo (máx 4 en total entre ambas categorías)',
-        type: 'choose-n',
-        totalMax: 4,
-        options: COFFEE_COLD_24,
+        categories: [
+          { name: 'Calientes', options: COFFEE_HOT_8 },
+          { name: 'Frías', options: COFFEE_COLD_24 },
+        ],
       },
     ],
   },
