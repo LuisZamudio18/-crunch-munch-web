@@ -2,25 +2,46 @@
 
 // ─── Shared topping pools ────────────────────────────────────────────────────
 
-const CHOCOLATES_12 = [
+// Toppings reales para: Mini Hot Cakes, Mini Donas, Rolles, Helados
+const CHOCOLATES_BARRA = [
+  'Chispas Turin', 'Chispas de chocolate', 'Lunetas', 'm&m',
+  'Chocoretas', 'Krankys', 'Chispas de chocolate blanco', 'Kinder delice',
+  'Bocadín', 'Carlos V', 'Kinder bueno', 'Kisses',
+];
+
+const GALETAS_CEREALES_BARRA = [
+  'Oreo', 'Galleta de chispas', 'Cremax', 'Emperador',
+  'Mamut', 'Mazapán', 'Bombones', 'Chococrispi',
+  'Froot loops', 'Cheerios miel', 'Cookie crisp', 'Nesquik',
+];
+
+const FRUTAS_SEMILLAS_BARRA = [
+  'Fresas', 'Plátano', 'Uvas', 'Moras y zarzamora',
+  'Durazno', 'Arándanos', 'Coco rallado', 'Almendras',
+  'Nueces', 'Granola', 'Ciruela pasa',
+];
+
+const GLASEADOS_BARRA = [
+  'Chocolate liquido', 'Lechera', 'Miel de maple', 'Miel natural',
+  'Nutella', 'Cajeta', 'Crema batida', 'Mermelada de fresa',
+  'Mermelada de frutos rojos', 'Mermelada de piña',
+];
+
+// Toppings para Crepas Bar (lista diferente — pendiente de confirmar con catálogo)
+const CHOCOLATES_CREPAS = [
   'Nutella', 'M&Ms', 'Chips de chocolate', 'Ferrero Rocher', 'Kit Kat',
   'Milky Way', 'Oreo triturada', 'Snickers', 'Twix', 'Crema de avellana',
   'Hersheys', 'Kinder',
 ];
 
-const GALETAS_CEREALES_12 = [
+const GALETAS_CEREALES_CREPAS = [
   'Oreo', 'Chocapic', 'Granola', 'Corn flakes', 'Zucaritas', 'Avena tostada',
   'Galleta María', 'Graham crackers', 'Canelitas', 'Arcoíris', 'Maizoro', 'Froot Loops',
 ];
 
-const FRUTAS_SEMILLAS_11 = [
+const FRUTAS_SEMILLAS_CREPAS = [
   'Fresa', 'Mango', 'Plátano', 'Kiwi', 'Arándano', 'Frambuesa',
   'Coco rallado', 'Chía', 'Ajonjolí', 'Almendra fileteada', 'Nuez',
-];
-
-const GLASEADOS_10 = [
-  'Rosa', 'Blanco', 'Chocolate', 'Caramelo', 'Pistache',
-  'Nata', 'Matcha', 'Oreo', 'Rainbow', 'Fresa',
 ];
 
 const UNTABLES_12 = [
@@ -335,18 +356,18 @@ export const SERVICES: Service[] = [
         type: 'choose-n',
         totalMax: 6,
         categories: [
-          { name: 'Frutas y Semillas', options: [...FRUTAS_SEMILLAS_11, 'Jamón'], maxPerCategory: 2 },
-          { name: 'Galetas y Cereales', options: GALETAS_CEREALES_12, maxPerCategory: 2 },
-          { name: 'Chocolates', options: CHOCOLATES_12, maxPerCategory: 2 },
+          { name: 'Frutas y Semillas', options: FRUTAS_SEMILLAS_BARRA, maxPerCategory: 2 },
+          { name: 'Galetas y Cereales', options: GALETAS_CEREALES_BARRA, maxPerCategory: 2 },
+          { name: 'Chocolates', options: CHOCOLATES_BARRA, maxPerCategory: 2 },
         ],
       },
       {
-        id: 'untables',
-        label: 'Untables / Glaseados',
-        instruction: 'Elige 4 untables para tus hot cakes',
+        id: 'glaseados',
+        label: 'Glaseados',
+        instruction: 'Elige 5 glaseados',
         type: 'choose-n',
-        totalMax: 4,
-        options: UNTABLES_12,
+        totalMax: 5,
+        options: GLASEADOS_BARRA,
       },
     ],
   },
@@ -367,18 +388,18 @@ export const SERVICES: Service[] = [
         type: 'choose-n',
         totalMax: 6,
         categories: [
-          { name: 'Frutas y Semillas', options: [...FRUTAS_SEMILLAS_11, 'Jamón'], maxPerCategory: 2 },
-          { name: 'Galetas y Cereales', options: GALETAS_CEREALES_12, maxPerCategory: 2 },
-          { name: 'Chocolates', options: CHOCOLATES_12, maxPerCategory: 2 },
+          { name: 'Frutas y Semillas', options: FRUTAS_SEMILLAS_BARRA, maxPerCategory: 2 },
+          { name: 'Galetas y Cereales', options: GALETAS_CEREALES_BARRA, maxPerCategory: 2 },
+          { name: 'Chocolates', options: CHOCOLATES_BARRA, maxPerCategory: 2 },
         ],
       },
       {
-        id: 'untables',
-        label: 'Untables / Glaseados',
-        instruction: 'Elige 4 untables para tus donas',
+        id: 'glaseados',
+        label: 'Glaseados',
+        instruction: 'Elige 5 glaseados',
         type: 'choose-n',
-        totalMax: 4,
-        options: UNTABLES_12,
+        totalMax: 5,
+        options: GLASEADOS_BARRA,
       },
     ],
   },
@@ -399,9 +420,9 @@ export const SERVICES: Service[] = [
         type: 'choose-n',
         totalMax: 6,
         categories: [
-          { name: 'Frutas y Semillas', options: [...FRUTAS_SEMILLAS_11, 'Jamón'], maxPerCategory: 2 },
-          { name: 'Galetas y Cereales', options: GALETAS_CEREALES_12, maxPerCategory: 2 },
-          { name: 'Chocolates', options: CHOCOLATES_12, maxPerCategory: 2 },
+          { name: 'Frutas y Semillas', options: [...FRUTAS_SEMILLAS_CREPAS, 'Jamón'], maxPerCategory: 2 },
+          { name: 'Galetas y Cereales', options: GALETAS_CEREALES_CREPAS, maxPerCategory: 2 },
+          { name: 'Chocolates', options: CHOCOLATES_CREPAS, maxPerCategory: 2 },
         ],
       },
       {
@@ -439,18 +460,18 @@ export const SERVICES: Service[] = [
         type: 'choose-n',
         totalMax: 6,
         categories: [
-          { name: 'Chocolates', options: CHOCOLATES_12, maxPerCategory: 2 },
-          { name: 'Galetas y Cereales', options: GALETAS_CEREALES_12, maxPerCategory: 2 },
-          { name: 'Frutas y Semillas', options: FRUTAS_SEMILLAS_11, maxPerCategory: 2 },
+          { name: 'Frutas y Semillas', options: FRUTAS_SEMILLAS_BARRA, maxPerCategory: 2 },
+          { name: 'Galetas y Cereales', options: GALETAS_CEREALES_BARRA, maxPerCategory: 2 },
+          { name: 'Chocolates', options: CHOCOLATES_BARRA, maxPerCategory: 2 },
         ],
       },
       {
         id: 'glaseados',
         label: 'Glaseados',
-        instruction: 'Elige 3 glaseados',
+        instruction: 'Elige 5 glaseados',
         type: 'choose-n',
-        totalMax: 3,
-        options: GLASEADOS_10,
+        totalMax: 5,
+        options: GLASEADOS_BARRA,
       },
     ],
   },
@@ -478,18 +499,18 @@ export const SERVICES: Service[] = [
         type: 'choose-n',
         totalMax: 6,
         categories: [
-          { name: 'Frutas y Semillas', options: [...FRUTAS_SEMILLAS_11, 'Jamón'], maxPerCategory: 2 },
-          { name: 'Galetas y Cereales', options: GALETAS_CEREALES_12, maxPerCategory: 2 },
-          { name: 'Chocolates', options: CHOCOLATES_12, maxPerCategory: 2 },
+          { name: 'Frutas y Semillas', options: FRUTAS_SEMILLAS_BARRA, maxPerCategory: 2 },
+          { name: 'Galetas y Cereales', options: GALETAS_CEREALES_BARRA, maxPerCategory: 2 },
+          { name: 'Chocolates', options: CHOCOLATES_BARRA, maxPerCategory: 2 },
         ],
       },
       {
-        id: 'untables',
-        label: 'Untables / Glaseados',
-        instruction: 'Elige 4 untables para tu pastel',
+        id: 'glaseados',
+        label: 'Glaseados',
+        instruction: 'Elige 5 glaseados',
         type: 'choose-n',
-        totalMax: 4,
-        options: UNTABLES_12,
+        totalMax: 5,
+        options: GLASEADOS_BARRA,
       },
     ],
   },
@@ -510,18 +531,18 @@ export const SERVICES: Service[] = [
         type: 'choose-n',
         totalMax: 6,
         categories: [
-          { name: 'Frutas y Semillas', options: [...FRUTAS_SEMILLAS_11, 'Jamón'], maxPerCategory: 2 },
-          { name: 'Galetas y Cereales', options: GALETAS_CEREALES_12, maxPerCategory: 2 },
-          { name: 'Chocolates', options: CHOCOLATES_12, maxPerCategory: 2 },
+          { name: 'Frutas y Semillas', options: FRUTAS_SEMILLAS_BARRA, maxPerCategory: 2 },
+          { name: 'Galetas y Cereales', options: GALETAS_CEREALES_BARRA, maxPerCategory: 2 },
+          { name: 'Chocolates', options: CHOCOLATES_BARRA, maxPerCategory: 2 },
         ],
       },
       {
-        id: 'untables',
-        label: 'Untables / Glaseados',
-        instruction: 'Elige 4 untables para tus rolles',
+        id: 'glaseados',
+        label: 'Glaseados',
+        instruction: 'Elige 5 glaseados',
         type: 'choose-n',
-        totalMax: 4,
-        options: UNTABLES_12,
+        totalMax: 5,
+        options: GLASEADOS_BARRA,
       },
     ],
   },
