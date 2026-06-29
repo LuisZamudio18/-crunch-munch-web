@@ -27,21 +27,11 @@ const GLASEADOS_BARRA = [
   'Mermelada de frutos rojos', 'Mermelada de piña',
 ];
 
-// Toppings para Crepas Bar (lista diferente — pendiente de confirmar con catálogo)
-const CHOCOLATES_CREPAS = [
-  'Nutella', 'M&Ms', 'Chips de chocolate', 'Ferrero Rocher', 'Kit Kat',
-  'Milky Way', 'Oreo triturada', 'Snickers', 'Twix', 'Crema de avellana',
-  'Hersheys', 'Kinder',
-];
-
-const GALETAS_CEREALES_CREPAS = [
-  'Oreo', 'Chocapic', 'Granola', 'Corn flakes', 'Zucaritas', 'Avena tostada',
-  'Galleta María', 'Graham crackers', 'Canelitas', 'Arcoíris', 'Maizoro', 'Froot Loops',
-];
-
-const FRUTAS_SEMILLAS_CREPAS = [
-  'Fresa', 'Mango', 'Plátano', 'Kiwi', 'Arándano', 'Frambuesa',
-  'Coco rallado', 'Chía', 'Ajonjolí', 'Almendra fileteada', 'Nuez',
+// Glaseados de Crepas: mismos que las otras barras + Queso crema y Queso manchego
+const GLASEADOS_CREPAS = [
+  'Chocolate liquido', 'Lechera', 'Miel de maple', 'Miel natural',
+  'Nutella', 'Cajeta', 'Queso crema', 'Mermelada de fresa',
+  'Mermelada de frutos rojos', 'Mermelada de piña', 'Queso manchego', 'Crema batida',
 ];
 
 const UNTABLES_12 = [
@@ -420,18 +410,18 @@ export const SERVICES: Service[] = [
         type: 'choose-n',
         totalMax: 6,
         categories: [
-          { name: 'Frutas y Semillas', options: [...FRUTAS_SEMILLAS_CREPAS, 'Jamón'], maxPerCategory: 2 },
-          { name: 'Galetas y Cereales', options: GALETAS_CEREALES_CREPAS, maxPerCategory: 2 },
-          { name: 'Chocolates', options: CHOCOLATES_CREPAS, maxPerCategory: 2 },
+          { name: 'Frutas y Semillas', options: [...FRUTAS_SEMILLAS_BARRA, 'Jamón'], maxPerCategory: 2 },
+          { name: 'Galetas y Cereales', options: GALETAS_CEREALES_BARRA, maxPerCategory: 2 },
+          { name: 'Chocolates', options: CHOCOLATES_BARRA, maxPerCategory: 2 },
         ],
       },
       {
-        id: 'untables',
-        label: 'Untables / Glaseados',
-        instruction: 'Elige 4 untables para tus crepas',
+        id: 'glaseados',
+        label: 'Glaseados',
+        instruction: 'Elige 4 glaseados',
         type: 'choose-n',
         totalMax: 4,
-        options: UNTABLES_12,
+        options: GLASEADOS_CREPAS,
       },
     ],
   },
