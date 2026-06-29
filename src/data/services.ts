@@ -304,9 +304,8 @@ export const SERVICES: Service[] = [
       {
         id: 'perlas',
         label: 'Perlas Explosivas',
-        instruction: 'Elige hasta 2 tipos de perlas explosivas',
-        type: 'choose-n',
-        totalMax: 2,
+        instruction: 'Elige 1 tipo de perla explosiva',
+        type: 'choose-1',
         options: ['Mango', 'Fresa', 'Mora azul', 'Manzana verde'],
       },
     ],
@@ -338,9 +337,9 @@ export const SERVICES: Service[] = [
       {
         id: 'glaseados',
         label: 'Glaseados',
-        instruction: 'Elige 3 glaseados',
+        instruction: 'Elige 4 glaseados',
         type: 'choose-n',
-        totalMax: 3,
+        totalMax: 4,
         options: GLASEADOS_10,
       },
     ],
@@ -536,29 +535,29 @@ export const SERVICES: Service[] = [
     selectionGroups: [
       {
         id: 'menu',
-        label: 'Postres Disponibles',
-        instruction: 'Menú completo incluido',
-        type: 'fixed-display',
-        fixedItems: [
+        label: 'Postres',
+        instruction: 'Elige los postres que desees — tu cotización se calcula según los tipos seleccionados',
+        type: 'choose-n',
+        categories: [
           {
-            label: 'Postres Clásicos',
-            items: [
+            name: 'Postres Clásicos',
+            options: [
               'Carlota (limón o durazno)', 'Pay de limón', 'Tartaletas frutales',
               'Mini pan de queso de bola', 'Mojaditos', 'Beso de nuez',
               'Alfajores', 'Mini Queso napolitano', 'Mini flan', 'Tortuga', 'Miki pay de queso',
             ],
           },
           {
-            label: 'Mini Cheesecakes',
-            items: [
+            name: 'Mini Cheesecakes',
+            options: [
               'Mini cheesecake frutos rojos', 'Mini cheesecake de lotus',
               'Mini cheesecake oreo', 'Mini cheesecake de tortuga',
               'Mini cheesecake Ferrero', 'Mini cheesecake maracuyá',
             ],
           },
           {
-            label: 'Dulces y Galletas',
-            items: [
+            name: 'Dulces y Galletas',
+            options: [
               'Brownie', 'Cupcakes', 'Galletas personalizadas', 'Polvorones',
               'Galletas de avellana y nuez', 'Mini muffins',
               'Empanaditas (queso y jamón / queso / carne)', 'Canapés rellenos',
@@ -827,29 +826,29 @@ export const SERVICES: Service[] = [
     selectionGroups: [
       {
         id: 'menu',
-        label: 'Catálogo del Buffet',
-        instruction: 'Selección según paquete contratado',
-        type: 'fixed-display',
-        fixedItems: [
+        label: 'Menú del Buffet',
+        instruction: 'Elige lo que desees — tu cotización se calcula según los tipos seleccionados',
+        type: 'choose-n',
+        categories: [
           {
-            label: 'Alimentos',
-            items: [
+            name: 'Alimentos',
+            options: [
               'Chilaquiles rojos', 'Chilaquiles verde', 'Croissant', 'Chapatas', 'Bagels',
               'Tacos dorados', 'Salbutes', 'Molletes', 'Sincronizadas',
               'Huevos con salchicha', 'Huevos con jamón', 'Huevos estrellados',
             ],
           },
           {
-            label: 'Acompañamientos',
-            items: [
+            name: 'Acompañamientos',
+            options: [
               'Hot cakes', 'Waffles', 'Frijoles', 'Fruta', 'Yogurt',
               'Bowls frutales', 'Ensalada', 'Tocino', 'Cereales (2 opciones)',
               'Tabla de queso y carnes frías', 'Avena y granola',
             ],
           },
           {
-            label: 'Bebidas',
-            items: [
+            name: 'Bebidas',
+            options: [
               'Café americano', 'Jugo de naranja', 'Agua de jamaica', 'Agua de horchata',
               'Agua de limón', 'Agua de fresa limón', 'Jugo verde', 'Jugo de toronja',
               'Jugo de piña', 'Smoothie de frutos rojos', 'Smoothie chocolate',
@@ -857,8 +856,8 @@ export const SERVICES: Service[] = [
             ],
           },
           {
-            label: 'Pan, Galletas y Postres',
-            items: [
+            name: 'Pan, Galletas y Postres',
+            options: [
               'Mini hot cakes', 'Mini donas', 'Mix de pan dulce', 'Mix de galletas',
               'Galletas de chispas', 'Mini donas dulces', 'Muffins', 'Orejitas', 'Empanaditas',
             ],
