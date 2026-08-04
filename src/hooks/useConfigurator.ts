@@ -14,6 +14,7 @@ const DEFAULT_EVENT_FORM: EventFormData = {
   nombre: '',
   telefono: '',
   fecha: '',
+  horario: '',
   lugar: '',
   personas: '',
   tipoEvento: '',

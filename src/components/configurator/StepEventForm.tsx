@@ -122,18 +122,33 @@ export default function StepEventForm({ eventForm, selectedServices, onChange }:
           </div>
         </div>
 
-        <div>
-          <label className="block text-xs uppercase tracking-widest text-gold-500 mb-1.5">
-            Lugar del evento *
-          </label>
-          <input
-            type="text"
-            value={eventForm.lugar}
-            onChange={(e) => update('lugar', e.target.value)}
-            placeholder="Salón, dirección o ciudad"
-            className={inputClass}
-            required
-          />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label className="block text-xs uppercase tracking-widest text-gold-500 mb-1.5">
+              Lugar del evento *
+            </label>
+            <input
+              type="text"
+              value={eventForm.lugar}
+              onChange={(e) => update('lugar', e.target.value)}
+              placeholder="Salón, dirección o ciudad"
+              className={inputClass}
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs uppercase tracking-widest text-gold-500 mb-1.5">
+              Horario del servicio *
+            </label>
+            <input
+              type="time"
+              value={eventForm.horario}
+              onChange={(e) => update('horario', e.target.value)}
+              className={inputClass}
+              required
+            />
+          </div>
         </div>
 
         <div>
@@ -164,7 +179,7 @@ export default function StepEventForm({ eventForm, selectedServices, onChange }:
           <textarea
             value={eventForm.comentarios}
             onChange={(e) => update('comentarios', e.target.value)}
-            placeholder="Horario aproximado, necesidades especiales, preguntas…"
+            placeholder="Necesidades especiales, preguntas…"
             rows={3}
             className="w-full border border-cream-200 rounded-xl bg-cream-50 p-3 text-coffee-700 placeholder-coffee-300 focus:outline-none focus:border-coffee-400 text-sm resize-none transition-colors"
           />

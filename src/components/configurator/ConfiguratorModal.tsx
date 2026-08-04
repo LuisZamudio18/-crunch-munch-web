@@ -76,7 +76,7 @@ export default function ConfiguratorModal({
     }
 
     if (step === 4) {
-      const baseValid = !!(eventForm.nombre && eventForm.telefono && eventForm.fecha && eventForm.lugar && eventForm.personas && eventForm.tipoEvento);
+      const baseValid = !!(eventForm.nombre && eventForm.telefono && eventForm.fecha && eventForm.horario && eventForm.lugar && eventForm.personas && eventForm.tipoEvento);
       if (!baseValid) return false;
       const personas = parseInt(eventForm.personas) || 0;
       const meetsMinimum = selectedServices.every((id) => {

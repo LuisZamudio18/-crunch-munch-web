@@ -49,6 +49,7 @@ export interface EventFormData {
   nombre: string;
   telefono: string;
   fecha: string;
+  horario: string;
   lugar: string;
   personas: string;
   tipoEvento: string;

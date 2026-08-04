@@ -132,6 +132,7 @@ export default function StepSummary({
             {eventForm.nombre && <><span className="text-coffee-400">Nombre:</span><span>{eventForm.nombre}</span></>}
             {eventForm.telefono && <><span className="text-coffee-400">Teléfono:</span><span>{eventForm.telefono}</span></>}
             {eventForm.fecha && <><span className="text-coffee-400">Fecha:</span><span>{formatDate(eventForm.fecha)}</span></>}
+            {eventForm.horario && <><span className="text-coffee-400">Horario:</span><span>{eventForm.horario}</span></>}
             {eventForm.personas && <><span className="text-coffee-400">Personas:</span><span>{eventForm.personas}</span></>}
             {eventForm.lugar && <><span className="text-coffee-400 col-span-1">Lugar:</span><span className="col-span-1">{eventForm.lugar}</span></>}
             {eventForm.tipoEvento && <><span className="text-coffee-400">Tipo:</span><span>{eventForm.tipoEvento}</span></>}

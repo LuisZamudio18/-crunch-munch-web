@@ -62,6 +62,7 @@ export function buildWhatsAppMessage(params: {
     `  · Nombre: ${eventForm.nombre}`,
     `  · Teléfono: ${eventForm.telefono}`,
     `  · Fecha: ${eventForm.fecha}`,
+    `  · Horario: ${eventForm.horario}`,
     `  · Lugar: ${eventForm.lugar}`,
     `  · No. de personas: ${eventForm.personas}`,
     `  · Tipo de evento: ${eventForm.tipoEvento}`,
