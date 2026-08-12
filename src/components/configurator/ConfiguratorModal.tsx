@@ -5,13 +5,23 @@ import ProgressBar from '@/components/ui/ProgressBar';
 import Button from '@/components/ui/Button';
 import StepServices from './StepServices';
 import StepToppings from './StepToppings';
+import StepServiceType from './StepServiceType';
 import StepPersonalization from './StepPersonalization';
 import StepEventForm from './StepEventForm';
 import StepSummary from './StepSummary';
-import { SERVICE_MAP } from '@/data/services';
+import { COCKTAIL_BAR_IDS, SERVICE_MAP, SERVICE_TYPE_GROUP_ID } from '@/data/services';
 import type { PersonalizationData, EventFormData } from '@/types';
 
-const STEP_LABELS = ['Barras', 'Toppings', 'Estilo', 'Evento', 'Resumen'];
+type StepKey = 'services' | 'toppings' | 'serviceType' | 'style' | 'event' | 'summary';
+
+const STEP_LABELS: Record<StepKey, string> = {
+  services: 'Barras',
+  toppings: 'Toppings',
+  serviceType: 'Tipo de Servicio',
+  style: 'Estilo',
+  event: 'Evento',
+  summary: 'Resumen',
+};
 
 interface ConfiguratorModalProps {
   isOpen: boolean;
@@ -61,21 +71,43 @@ export default function ConfiguratorModal({
 
   if (!isOpen) return null;
 
-  const canGoNext = () => {
-    if (step === 1) return selectedServices.length > 0;
+  const hasServiceTypeStep = selectedServices.some((id) => COCKTAIL_BAR_IDS.includes(id));
 
-    if (step === 2) {
+  const STEPS: StepKey[] = [
+    'services',
+    'toppings',
+    ...(hasServiceTypeStep ? (['serviceType'] as const) : []),
+    'style',
+    'event',
+    'summary',
+  ];
+  const totalSteps = STEPS.length;
+  const currentKey = STEPS[step - 1] ?? STEPS[STEPS.length - 1];
+  const stepLabels = STEPS.map((key) => STEP_LABELS[key]);
+
+  const canGoNext = () => {
+    if (currentKey === 'services') return selectedServices.length > 0;
+
+    if (currentKey === 'toppings') {
       return selectedServices.every((serviceId) => {
         const service = SERVICE_MAP[serviceId];
         if (!service) return true;
-        const interactiveGroups = service.selectionGroups.filter((g) => g.type !== 'fixed-display');
+        const interactiveGroups = service.selectionGroups.filter(
+          (g) => g.type !== 'fixed-display' && g.id !== SERVICE_TYPE_GROUP_ID
+        );
         if (interactiveGroups.length === 0) return true;
         const svcSelections = serviceSelections[serviceId] ?? {};
         return interactiveGroups.every((g) => (svcSelections[g.id] ?? []).length > 0);
       });
     }
 
-    if (step === 4) {
+    if (currentKey === 'serviceType') {
+      return selectedServices
+        .filter((id) => COCKTAIL_BAR_IDS.includes(id))
+        .every((id) => (serviceSelections[id]?.[SERVICE_TYPE_GROUP_ID] ?? []).length > 0);
+    }
+
+    if (currentKey === 'event') {
       const baseValid = !!(eventForm.nombre && eventForm.telefono && eventForm.fecha && eventForm.horario && eventForm.lugar && eventForm.personas && eventForm.tipoEvento);
       if (!baseValid) return false;
       const personas = parseInt(eventForm.personas) || 0;
@@ -88,7 +120,7 @@ export default function ConfiguratorModal({
     return true;
   };
 
-  const handleNext = () => { if (step < 5) setStep(step + 1); };
+  const handleNext = () => { if (step < totalSteps) setStep(step + 1); };
   const handleBack = () => { if (step > 1) setStep(step - 1); };
 
   return (
@@ -115,19 +147,19 @@ export default function ConfiguratorModal({
               ×
             </button>
           </div>
-          <ProgressBar currentStep={step} totalSteps={5} labels={STEP_LABELS} />
+          <ProgressBar currentStep={step} totalSteps={totalSteps} labels={stepLabels} />
         </div>
 
         {/* Content */}
         <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-5">
-          {step === 1 && (
+          {currentKey === 'services' && (
             <StepServices
               selectedServices={selectedServices}
               onToggle={toggleService}
               onGoToCatalog={onGoToCatalog}
             />
           )}
-          {step === 2 && (
+          {currentKey === 'toppings' && (
             <StepToppings
               selectedServices={selectedServices}
               serviceSelections={serviceSelections}
@@ -136,21 +168,28 @@ export default function ConfiguratorModal({
               onChooseOne={setGroupSelection}
             />
           )}
-          {step === 3 && (
+          {currentKey === 'serviceType' && (
+            <StepServiceType
+              selectedServices={selectedServices}
+              serviceSelections={serviceSelections}
+              onChooseOne={setGroupSelection}
+            />
+          )}
+          {currentKey === 'style' && (
             <StepPersonalization
               personalization={personalization}
               selectedServices={selectedServices}
               onChange={setPersonalization}
             />
           )}
-          {step === 4 && (
+          {currentKey === 'event' && (
             <StepEventForm
               eventForm={eventForm}
               selectedServices={selectedServices}
               onChange={setEventForm}
             />
           )}
-          {step === 5 && (
+          {currentKey === 'summary' && (
             <StepSummary
               selectedServices={selectedServices}
               serviceSelections={serviceSelections}
@@ -162,10 +201,10 @@ export default function ConfiguratorModal({
         </div>
 
         {/* Footer navigation */}
-        {step < 5 && (
+        {step < totalSteps && (
           <div className="px-4 sm:px-6 pb-6 pt-3 border-t border-cream-200 shrink-0">
-            {/* Warning message for step 2 */}
-            {step === 2 && !canGoNext() && (
+            {/* Warning message for toppings step */}
+            {currentKey === 'toppings' && !canGoNext() && (
               <div className="mb-3 flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5 text-xs text-amber-700">
                 <span className="shrink-0 mt-0.5">⚠️</span>
                 <span>
@@ -175,7 +214,9 @@ export default function ConfiguratorModal({
                       .filter((id) => {
                         const svc = SERVICE_MAP[id];
                         if (!svc) return false;
-                        const interactive = svc.selectionGroups.filter((g) => g.type !== 'fixed-display');
+                        const interactive = svc.selectionGroups.filter(
+                          (g) => g.type !== 'fixed-display' && g.id !== SERVICE_TYPE_GROUP_ID
+                        );
                         if (interactive.length === 0) return false;
                         const sel = serviceSelections[id] ?? {};
                         return !interactive.every((g) => (sel[g.id] ?? []).length > 0);
@@ -185,6 +226,14 @@ export default function ConfiguratorModal({
                   </strong>
                   . Selecciona al menos una opción en cada sección para continuar.
                 </span>
+              </div>
+            )}
+
+            {/* Warning message for service type step */}
+            {currentKey === 'serviceType' && !canGoNext() && (
+              <div className="mb-3 flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5 text-xs text-amber-700">
+                <span className="shrink-0 mt-0.5">⚠️</span>
+                <span>Elige el tipo de servicio para cada barra de cócteles antes de continuar.</span>
               </div>
             )}
 
@@ -203,7 +252,7 @@ export default function ConfiguratorModal({
               disabled={!canGoNext()}
               className="ml-auto"
             >
-              {step === 4 ? 'Ver resumen →' : 'Continuar →'}
+              {currentKey === 'event' ? 'Ver resumen →' : 'Continuar →'}
             </Button>
             </div>
           </div>

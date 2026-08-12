@@ -1,7 +1,7 @@
 'use client';
 
 import Chip from '@/components/ui/Chip';
-import { SERVICE_MAP } from '@/data/services';
+import { SERVICE_MAP, SERVICE_TYPE_GROUP_ID } from '@/data/services';
 import type { SelectionGroup } from '@/types';
 import { clsx } from 'clsx';
 import { useState } from 'react';
@@ -198,7 +198,7 @@ export default function StepToppings({
         <div className="flex gap-2 mb-4 overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {selectedServices.map((id, idx) => {
             const svc = SERVICE_MAP[id];
-            const interactiveGroups = svc?.selectionGroups.filter((g) => g.type !== 'fixed-display') ?? [];
+            const interactiveGroups = svc?.selectionGroups.filter((g) => g.type !== 'fixed-display' && g.id !== SERVICE_TYPE_GROUP_ID) ?? [];
             const svcSel = serviceSelections[id] ?? {};
             const incomplete = interactiveGroups.length > 0 &&
               !interactiveGroups.every((g) => (svcSel[g.id] ?? []).length > 0);
@@ -231,7 +231,9 @@ export default function StepToppings({
             <h4 className="text-display text-xl text-coffee-700">{service.name}</h4>
           </div>
 
-          {service.selectionGroups.map((group) => (
+          {service.selectionGroups
+            .filter((group) => group.id !== SERVICE_TYPE_GROUP_ID)
+            .map((group) => (
             <GroupPanel
               key={group.id}
               serviceId={activeId}
