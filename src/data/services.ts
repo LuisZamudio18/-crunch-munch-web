@@ -1,7 +1,7 @@
 ﻿import type { Service } from '@/types';
 
 // Barras que además del catálogo de bebidas requieren elegir tipo de servicio
-export const COCKTAIL_BAR_IDS = ['drinks-bar', 'mocktails-bar'];
+export const COCKTAIL_BAR_IDS = ['drinks-bar', 'mocktails-bar', 'cantaritos-bar', 'mimosas-bar'];
 export const SERVICE_TYPE_GROUP_ID = 'tipo-servicio';
 export const SERVICE_TYPE_OPTIONS = ['1 cóctel por persona', 'Refill ilimitado'];
 
@@ -280,6 +280,13 @@ export const SERVICES: Service[] = [
         type: 'fixed-display',
         fixedItems: [{ label: 'Sabor', items: ['Mimosa Clásica'] }],
       },
+      {
+        id: SERVICE_TYPE_GROUP_ID,
+        label: 'Tipo de Servicio',
+        instruction: 'Elige el tipo de servicio para tu barra',
+        type: 'choose-1',
+        options: SERVICE_TYPE_OPTIONS,
+      },
     ],
   },
   {
@@ -304,6 +311,13 @@ export const SERVICES: Service[] = [
           'Gran Malo',
           'Tequila Azul',
         ],
+      },
+      {
+        id: SERVICE_TYPE_GROUP_ID,
+        label: 'Tipo de Servicio',
+        instruction: 'Elige el tipo de servicio para tu barra',
+        type: 'choose-1',
+        options: SERVICE_TYPE_OPTIONS,
       },
     ],
   },
