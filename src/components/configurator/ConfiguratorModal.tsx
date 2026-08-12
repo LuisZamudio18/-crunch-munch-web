@@ -201,8 +201,7 @@ export default function ConfiguratorModal({
         </div>
 
         {/* Footer navigation */}
-        {step < totalSteps && (
-          <div className="px-4 sm:px-6 pb-6 pt-3 border-t border-cream-200 shrink-0">
+        <div className="px-4 sm:px-6 pb-6 pt-3 border-t border-cream-200 shrink-0">
             {/* Warning message for toppings step */}
             {currentKey === 'toppings' && !canGoNext() && (
               <div className="mb-3 flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5 text-xs text-amber-700">
@@ -245,18 +244,19 @@ export default function ConfiguratorModal({
             ) : (
               <div />
             )}
-            <Button
-              variant="gold"
-              size="md"
-              onClick={handleNext}
-              disabled={!canGoNext()}
-              className="ml-auto"
-            >
-              {currentKey === 'event' ? 'Ver resumen →' : 'Continuar →'}
-            </Button>
+            {step < totalSteps && (
+              <Button
+                variant="gold"
+                size="md"
+                onClick={handleNext}
+                disabled={!canGoNext()}
+                className="ml-auto"
+              >
+                {currentKey === 'event' ? 'Ver resumen →' : 'Continuar →'}
+              </Button>
+            )}
             </div>
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );
