@@ -58,15 +58,8 @@ export default function ServiceCard({ service, selected = false, onSelect }: Ser
           <div className={`absolute inset-0 bg-gradient-to-br ${CATEGORY_GRADIENT[service.category]}`} />
         )}
 
-        {/* Overlay — heavier at bottom for text readability */}
-        <div
-          className={clsx(
-            'absolute inset-0',
-            service.image
-              ? 'bg-gradient-to-t from-coffee-900/80 via-coffee-900/20 to-transparent'
-              : 'bg-gradient-to-t from-black/40 to-transparent'
-          )}
-        />
+        {/* Text legibility scrim — only behind the bottom text block, rest of the photo stays fully clear */}
+        <div className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-coffee-900/95 via-coffee-900/55 to-transparent" />
 
         {/* Top row: category badge + checkmark */}
         <div className="relative z-10 p-5 flex items-start justify-between">
