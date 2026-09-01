@@ -27,12 +27,12 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://www.instagram.com/crunchandmuch_snackbar"
+                  href="https://www.instagram.com/crunchandmunch_snackbar"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-gold-400 transition-colors"
                 >
-                  Instagram: @crunchandmuch_snackbar
+                  Instagram: @crunchandmunch_snackbar
                 </a>
               </li>
             </ul>
