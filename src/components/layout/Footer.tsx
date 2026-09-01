@@ -1,8 +1,10 @@
+import Link from 'next/link';
+
 export default function Footer() {
   return (
     <footer className="bg-coffee-900 text-cream-200 py-14">
       <div className="container-max section-padding py-0">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           <div>
             <h3 className="text-display text-2xl italic text-cream-50 mb-3">
               Crunch <span className="gold-text">&amp;</span> Munch
@@ -48,6 +50,16 @@ export default function Footer() {
               ].map((s) => (
                 <li key={s}>{s}</li>
               ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-xs uppercase tracking-widest text-gold-400 mb-4">Empresa</h4>
+            <ul className="space-y-2 text-sm text-cream-300">
+              <li><Link href="/about" className="hover:text-gold-400 transition-colors">Nosotros</Link></li>
+              <li><Link href="/contact" className="hover:text-gold-400 transition-colors">Contacto</Link></li>
+              <li><Link href="/privacy" className="hover:text-gold-400 transition-colors">Aviso de privacidad</Link></li>
+              <li><Link href="/developers" className="hover:text-gold-400 transition-colors">Desarrolladores</Link></li>
             </ul>
           </div>
         </div>
