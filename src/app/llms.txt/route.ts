@@ -31,14 +31,15 @@ No es la opción correcta para: entregas fuera de Tabasco, pedidos individuales 
 - [Nosotros](${SITE_URL}/about): quiénes somos y qué nos distingue.
 - [Contacto](${SITE_URL}/contact): WhatsApp, Instagram y zona de cobertura.
 - [Aviso de privacidad](${SITE_URL}/privacy): qué pasa con los datos del cotizador.
-- [Para desarrolladores](${SITE_URL}/developers): servidor MCP y cómo consultar el catálogo programáticamente.
+- [Para desarrolladores](${SITE_URL}/developers): servidor MCP, API REST y cómo consultar el catálogo programáticamente.
 
 ## Machine-readable
 
 - [sitemap.xml](${SITE_URL}/sitemap.xml)
-- [MCP server (Streamable HTTP)](${SITE_URL}/api/mcp)
-- [MCP discovery manifest](${SITE_URL}/.well-known/mcp)
-- Markdown content negotiation: send \`Accept: text/markdown\` to \`/\`, \`/about\`, \`/contact\`, or \`/privacy\` for a markdown response instead of HTML.
+- [OpenAPI spec](${SITE_URL}/openapi.json): describe la API REST en \`/api/v1\` (listServices, getService, buildQuoteLink), con operationId, tipos y respuestas de error tipadas.
+- [REST API](${SITE_URL}/api/v1/services): \`GET /api/v1/services\`, \`GET /api/v1/services/{id}\`, \`POST /api/v1/quote-link\`. Errores en JSON: \`{"error":{"code","message","hint"}}\`.
+- [MCP server (Streamable HTTP)](${SITE_URL}/api/mcp) — también disponible en [/.well-known/mcp](${SITE_URL}/.well-known/mcp) (GET = manifiesto, POST = mismo handshake).
+- Markdown content negotiation: send \`Accept: text/markdown\` to \`/\`, \`/about\`, \`/contact\`, \`/privacy\`, or any nonexistent path (for a markdown 404) instead of HTML.
 
 ## Contact
 

@@ -40,6 +40,9 @@ export default function NotFound() {
             <li>
               → <a href="/llms.txt" className="underline hover:text-gold-500">/llms.txt</a> — guía del sitio para agentes de IA
             </li>
+            <li>
+              → <a href="/openapi.json" className="underline hover:text-gold-500">/openapi.json</a> — especificación de la API
+            </li>
           </ul>
         </div>
       </main>

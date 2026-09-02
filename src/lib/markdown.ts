@@ -83,3 +83,21 @@ export function renderHomeMarkdown(): string {
 
   return lines.join('\n').trim() + '\n';
 }
+
+/** Markdown body for a 404 response to an unknown path (see src/middleware.ts). */
+export function renderNotFoundMarkdown(pathname: string): string {
+  return [
+    '# 404 — Página no encontrada',
+    '',
+    `No existe \`${pathname}\` en ${SITE_NAME}. Aquí tienes dónde seguir buscando:`,
+    '',
+    `- [Inicio y catálogo completo](${SITE_URL}/)`,
+    `- [Nosotros](${SITE_URL}/about)`,
+    `- [Contacto](${SITE_URL}/contact)`,
+    `- [Para desarrolladores](${SITE_URL}/developers)`,
+    `- [sitemap.xml](${SITE_URL}/sitemap.xml)`,
+    `- [llms.txt](${SITE_URL}/llms.txt)`,
+    `- [openapi.json](${SITE_URL}/openapi.json)`,
+    '',
+  ].join('\n');
+}

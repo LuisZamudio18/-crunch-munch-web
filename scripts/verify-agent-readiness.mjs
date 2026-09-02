@@ -31,10 +31,18 @@ async function main() {
 
   // 1. Agent-friendly 404
   {
-    const res = await fetch(`${BASE_URL}/this-path-does-not-exist-${Date.now()}`);
+    const unknownPath = `/this-path-does-not-exist-${Date.now()}`;
+    const res = await fetch(`${BASE_URL}${unknownPath}`);
     const body = await res.text();
     check('404: real HTTP 404 status', res.status === 404, `got ${res.status}`);
     check('404: has recovery links (sitemap + llms.txt)', body.includes('/sitemap.xml') && body.includes('/llms.txt'));
+
+    const mdRes = await fetch(`${BASE_URL}${unknownPath}`, { headers: { Accept: 'text/markdown' } });
+    const mdContentType = mdRes.headers.get('content-type') || '';
+    const mdBody = await mdRes.text();
+    check('404 + Accept: text/markdown: still a real 404 status', mdRes.status === 404, `got ${mdRes.status}`);
+    check('404 + Accept: text/markdown: Content-Type text/markdown', mdContentType.includes('text/markdown'), mdContentType);
+    check('404 + Accept: text/markdown: markdown body with recovery links', mdBody.trim().startsWith('#') && mdBody.includes('/sitemap.xml'));
   }
 
   // 2. Markdown content negotiation
@@ -123,34 +131,104 @@ async function main() {
     check('opengraph-image: 200 OK image/png', res.status === 200 && (res.headers.get('content-type') || '').includes('image/png'));
   }
 
-  // 11. MCP server + well-known handshake
+  // 2, 3, 5, 6. REST API: OpenAPI spec + JSON error responses + typed schemas
   {
-    const res = await fetch(`${BASE_URL}/.well-known/mcp`);
-    const json = await res.json();
-    check('/.well-known/mcp: 200 OK JSON', res.status === 200);
-    check('/.well-known/mcp: points at /api/mcp streamable-http', json?.mcp?.endpoint?.endsWith('/api/mcp') && json?.mcp?.transport === 'streamable-http');
+    const res = await fetch(`${BASE_URL}/openapi.json`);
+    const spec = await res.json();
+    check('/openapi.json: 200 OK', res.status === 200);
+    check('/openapi.json: openapi 3.x', /^3\./.test(spec.openapi || ''));
+    const ops = Object.values(spec.paths || {}).flatMap((methods) => Object.values(methods));
+    check('/openapi.json: every operation has an operationId', ops.length > 0 && ops.every((op) => typeof op.operationId === 'string' && op.operationId.length > 0));
+    check('/openapi.json: operationIds are unique', new Set(ops.map((op) => op.operationId)).size === ops.length);
+    check('/openapi.json: every operation has a description', ops.every((op) => typeof op.description === 'string' && op.description.length > 0));
+    check('/openapi.json: every operation has typed responses', ops.every((op) => op.responses && Object.keys(op.responses).length > 0));
   }
   {
-    const res = await fetch(`${BASE_URL}/api/mcp`, {
+    const res = await fetch(`${BASE_URL}/api/v1/services?category=bebidas`);
+    const json = await res.json();
+    check('GET /api/v1/services?category=bebidas: 200 OK', res.status === 200);
+    check('GET /api/v1/services: returns data array', Array.isArray(json.data) && json.data.length > 0, JSON.stringify(json).slice(0, 120));
+    check('GET /api/v1/services: filtered by category', json.data.every((s) => s.category === 'bebidas'));
+  }
+  {
+    const res = await fetch(`${BASE_URL}/api/v1/services?category=not-a-real-category`);
+    const json = await res.json();
+    check('GET /api/v1/services?category=bad: 400', res.status === 400, `got ${res.status}`);
+    check('GET /api/v1/services?category=bad: structured JSON error', !!json.error?.code && !!json.error?.message, JSON.stringify(json));
+  }
+  {
+    const res = await fetch(`${BASE_URL}/api/v1/services/coffee-bar`);
+    const json = await res.json();
+    check('GET /api/v1/services/coffee-bar: 200 OK', res.status === 200);
+    check('GET /api/v1/services/coffee-bar: has selectionGroups', Array.isArray(json.data?.selectionGroups));
+  }
+  {
+    const res = await fetch(`${BASE_URL}/api/v1/services/not-a-real-id`);
+    const json = await res.json();
+    check('GET /api/v1/services/{unknown}: 404', res.status === 404, `got ${res.status}`);
+    check('GET /api/v1/services/{unknown}: structured JSON error', json.error?.code === 'SERVICE_NOT_FOUND', JSON.stringify(json));
+  }
+  {
+    const res = await fetch(`${BASE_URL}/api/v1/quote-link`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ serviceIds: ['coffee-bar'] }),
+    });
+    const json = await res.json();
+    check('POST /api/v1/quote-link: 200 OK', res.status === 200);
+    check('POST /api/v1/quote-link: returns a wa.me url', typeof json.data?.url === 'string' && json.data.url.startsWith('https://wa.me/'), json.data?.url);
+  }
+  {
+    const res = await fetch(`${BASE_URL}/api/v1/quote-link`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({}),
+    });
+    const json = await res.json();
+    check('POST /api/v1/quote-link (missing serviceIds): 400', res.status === 400, `got ${res.status}`);
+    check('POST /api/v1/quote-link (bad body): structured JSON error', !!json.error?.code, JSON.stringify(json));
+  }
+  {
+    const res = await fetch(`${BASE_URL}/api/v1/services`, { method: 'POST' });
+    const json = await res.json();
+    check('POST /api/v1/services (wrong method): JSON 405, not HTML', res.status === 405 && json.error?.code === 'METHOD_NOT_ALLOWED', `${res.status} ${JSON.stringify(json)}`);
+  }
+
+  // 7. Developer resources reachable + named
+  {
+    const res = await fetch(`${BASE_URL}/developers`);
+    const body = await res.text();
+    check('/developers: mentions /openapi.json and /api/v1', body.includes('/openapi.json') && body.includes('/api/v1'));
+  }
+
+  // 11. MCP server + well-known handshake (live, not just a manifest)
+  async function mcpToolsList(url) {
+    const res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json, text/event-stream' },
-      body: JSON.stringify({
-        jsonrpc: '2.0',
-        id: 1,
-        method: 'tools/list',
-        params: {},
-      }),
+      body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'tools/list', params: {} }),
     });
     const bodyText = await res.text();
     const dataLine = bodyText.split('\n').find((l) => l.startsWith('data:'));
     const payload = dataLine ? JSON.parse(dataLine.slice(5)) : null;
-    const toolNames = payload?.result?.tools?.map((t) => t.name) ?? [];
-    check('MCP tools/list: 200 OK', res.status === 200, `got ${res.status}`);
-    check(
-      'MCP tools/list: exposes list_services, get_service, build_quote_link',
-      ['list_services', 'get_service', 'build_quote_link'].every((n) => toolNames.includes(n)),
-      toolNames.join(', ')
-    );
+    return { status: res.status, toolNames: payload?.result?.tools?.map((t) => t.name) ?? [] };
+  }
+  const EXPECTED_TOOLS = ['list_services', 'get_service', 'build_quote_link'];
+  {
+    const res = await fetch(`${BASE_URL}/.well-known/mcp`);
+    const json = await res.json();
+    check('/.well-known/mcp GET: 200 OK JSON manifest', res.status === 200);
+    check('/.well-known/mcp GET: points at /api/mcp streamable-http', json?.mcp?.endpoint?.endsWith('/api/mcp') && json?.mcp?.transport === 'streamable-http');
+  }
+  {
+    const { status, toolNames } = await mcpToolsList(`${BASE_URL}/api/mcp`);
+    check('POST /api/mcp tools/list: 200 OK', status === 200, `got ${status}`);
+    check('POST /api/mcp tools/list: exposes all 3 tools', EXPECTED_TOOLS.every((n) => toolNames.includes(n)), toolNames.join(', '));
+  }
+  {
+    const { status, toolNames } = await mcpToolsList(`${BASE_URL}/.well-known/mcp`);
+    check('POST /.well-known/mcp tools/list: live handshake works (200 OK)', status === 200, `got ${status}`);
+    check('POST /.well-known/mcp tools/list: exposes all 3 tools', EXPECTED_TOOLS.every((n) => toolNames.includes(n)), toolNames.join(', '));
   }
 
   console.log(`\n${passCount} passed, ${failures.length} failed.`);
