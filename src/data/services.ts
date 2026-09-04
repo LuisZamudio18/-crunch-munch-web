@@ -97,18 +97,17 @@ const VERDURAS_3 = ['Jícama', 'Pepino', 'Zanahoria'];
 // ─── Coffee Bar drinks ───────────────────────────────────────────────────────
 
 const COFFEE_HOT_8 = [
-  'Capuchino', 'Americano', 'Latte', 'Mocca', 'Té',
-  'Chocolate caliente', 'Chai latte', 'Matcha latte',
+  'Americano', 'Capuccino', 'Latte clásico', 'Latte caramelo',
+  'Latte vainilla', 'Moka latte', 'Matcha latte', 'Chaí latte',
 ];
 
 const COFFEE_COLD_24 = [
-  'Latte frío', 'Americano frío', 'Frappé de café', 'Frappé de vainilla',
-  'Frappé de mocca', 'Frappé de caramelo', 'Frappé de avellana', 'Frappé de oreo',
-  'Latte de vainilla frío', 'Latte de caramelo frío', 'Latte de avellana frío',
-  'Latte de chocolate frío', 'Smoothie de café', 'Chocolate frío',
-  'Té frío de limón', 'Té frío de durazno', 'Café de olla frío', 'Cold brew',
-  'Cold brew de vainilla', 'Cold brew de caramelo', 'Matcha frío',
-  'Chai frío', 'Latte de lavanda frío', 'Latte de coco frío',
+  'Chaí latte', 'Tiramisú latte', 'Horchata latte', 'Brown sugar shaken espresso',
+  'Coco matcha', 'Ice lotus latte', 'Strawberry matcha', 'Banana bread iced latte',
+  'Dalgona latte', 'Dalgona caramel', 'Frappe clásico', 'Frappe caramelo',
+  'Moka frappe', 'Chaí frappe', 'Taro Frappe', 'Matcha Frappe',
+  'Ice latte', 'Caramel latte', 'Vainilla latte', 'Affogato',
+  'Cold brew', 'Ice moka', 'Taro latte', 'Matcha latte',
 ];
 
 // ─── Services data ───────────────────────────────────────────────────────────
@@ -187,9 +186,10 @@ export const SERVICES: Service[] = [
         type: 'choose-n',
         totalMax: 2,
         options: [
-          'Vainilla', 'Chocolate', 'Caramelo', 'Café', 'Oreo', 'Fresa',
-          'Mango', 'Limón', 'Mocca', 'Avellana', 'Dulce de leche',
-          'Capuchino', 'Nuez', 'Pistache', 'Coco', 'Taro',
+          'Frappe ferrero', 'Frappe pinguino', 'Frappe gansito', 'Frappe de galleta chips',
+          'Frappe clásico', 'Frappe caramelo', 'Moka frappe', 'Oreo frappe',
+          'Taro frappe', 'Chaí frappe', 'Chocoroll frappe', 'Nutella frappe',
+          'Lotus frappes', 'Frappe abuelita', 'Frappe chessecake', 'Frappe fresa',
         ],
       },
     ],
