@@ -1,16 +1,42 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Button from '@/components/ui/Button';
 
 interface HeroProps {
   onOpenConfigurator: () => void;
 }
 
+// Optional background video for the hero, configured per-deploy — no video
+// configured (or it fails to load) falls back to the existing bg-hero-gradient
+// with nothing else changing.
+const HERO_VIDEO_URL = process.env.NEXT_PUBLIC_HERO_VIDEO_URL;
+
 export default function Hero({ onOpenConfigurator }: HeroProps) {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoFailed, setVideoFailed] = useState(false);
+  const showVideo = Boolean(HERO_VIDEO_URL) && !videoFailed;
+
+  // Respect prefers-reduced-motion: pause the video (muted+looping autoplay
+  // is exactly the kind of motion that setting asks sites to avoid) without
+  // tearing down the gradient fallback underneath it.
+  useEffect(() => {
+    if (!showVideo || !videoRef.current) return;
+    const video = videoRef.current;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const applyMotionPreference = () => {
+      if (reducedMotion.matches) video.pause();
+      else video.play().catch(() => {}); // autoplay can still be blocked by the browser; the gradient underneath covers that too
+    };
+
+    applyMotionPreference();
+    reducedMotion.addEventListener('change', applyMotionPreference);
+    return () => reducedMotion.removeEventListener('change', applyMotionPreference);
+  }, [showVideo]);
 
   useEffect(() => {
     const els = [titleRef.current, subRef.current, ctaRef.current];
@@ -29,6 +55,31 @@ export default function Hero({ onOpenConfigurator }: HeroProps) {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-hero-gradient">
+      {/* Background video (optional) — sits above the section's own
+          bg-hero-gradient (visible instantly, and as the permanent fallback
+          if there's no video, it fails to load, or autoplay is blocked). */}
+      {showVideo && (
+        <video
+          ref={videoRef}
+          className="absolute inset-0 w-full h-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden="true"
+          onError={() => {
+            console.error('[hero] No se pudo cargar el video de fondo, usando el degradado.');
+            setVideoFailed(true);
+          }}
+        >
+          <source src={HERO_VIDEO_URL} type="video/mp4" />
+        </video>
+      )}
+
+      {/* Same gradient as the fallback, layered translucently over the video
+          so the hero text keeps exactly the contrast it always had. */}
+      {showVideo && <div className="absolute inset-0 bg-hero-gradient opacity-80" aria-hidden="true" />}
+
       {/* Subtle texture overlay */}
       <div className="absolute inset-0 opacity-10"
         style={{

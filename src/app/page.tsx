@@ -5,6 +5,7 @@ import Footer from '@/components/layout/Footer';
 import Hero from '@/components/sections/Hero';
 import About from '@/components/sections/About';
 import ServicesSection from '@/components/sections/ServicesSection';
+import Instagram from '@/components/sections/Instagram';
 import Testimonials from '@/components/sections/Testimonials';
 import ConfiguratorModal from '@/components/configurator/ConfiguratorModal';
 import { useConfigurator } from '@/hooks/useConfigurator';
@@ -35,6 +36,7 @@ export default function Home() {
           selectedServices={configurator.selectedServices}
           serviceSelections={configurator.serviceSelections}
         />
+        <Instagram />
         <Testimonials />
       </main>
 

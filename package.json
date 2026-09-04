@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "verify": "node scripts/verify-agent-readiness.mjs"
+    "verify": "node scripts/verify-agent-readiness.mjs",
+    "verify:instagram": "node scripts/verify-instagram-and-hero.mjs"
   },
   "dependencies": {
     "next": "14.2.5",

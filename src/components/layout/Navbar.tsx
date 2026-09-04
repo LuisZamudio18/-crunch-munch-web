@@ -19,6 +19,7 @@ export default function Navbar({ onOpenConfigurator }: NavbarProps) {
 
   const links = [
     { href: '#servicios', label: 'Servicios' },
+    { href: '#instagram', label: 'Instagram' },
     { href: '#nosotros', label: 'Nosotros' },
     { href: '#testimonios', label: 'Testimonios' },
   ];
