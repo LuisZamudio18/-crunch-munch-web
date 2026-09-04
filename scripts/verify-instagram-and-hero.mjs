@@ -52,23 +52,21 @@ async function main() {
     const instaIdx = html.indexOf('id="instagram"');
     const instaHtml = html.slice(instaIdx, instaIdx + 20000);
     const hasEmptyStateMessage = instaHtml.includes('Muy pronto vas a ver aquí publicaciones reales');
-    const embedCount = (instaHtml.match(/class="instagram-media"/g) || []).length;
-    // Either real embeds are configured (curated posts render as
-    // <blockquote class="instagram-media">, later hydrated into iframes by
-    // Instagram's script) or the list is empty and the graceful fallback
-    // copy shows instead — never both, never neither.
+    // Cards are lazy (IntersectionObserver) — the <blockquote> only mounts
+    // once scrolled near, so a plain server-rendered fetch like this one
+    // sees the pulse placeholder (min-h-[400px]) instead, not the embed
+    // markup itself. Real embed processing/resizing can only be checked in
+    // an actual browser (see the manual QA note in the project — this
+    // script can't drive real scrolling + Instagram's postMessage resize).
+    const placeholderCount = (instaHtml.match(/min-h-\[400px\]/g) || []).length;
     check(
-      'Instagram section: renders curated embeds OR graceful empty-state (never a broken/blank section)',
-      embedCount > 0 || hasEmptyStateMessage,
-      `embedCount=${embedCount} hasEmptyStateMessage=${hasEmptyStateMessage}`
+      'Instagram section: renders one lazy-load placeholder per curated post OR graceful empty-state',
+      placeholderCount > 0 || hasEmptyStateMessage,
+      `placeholderCount=${placeholderCount} hasEmptyStateMessage=${hasEmptyStateMessage}`
     );
-    if (embedCount > 0) {
-      console.log(`  ..  ${embedCount} curated post(s) present as embed blockquotes`);
+    if (placeholderCount > 0) {
+      console.log(`  ..  ${placeholderCount} curated post(s) queued for lazy-load`);
     }
-    // embed.js itself is injected client-side (see InstagramEmbedCard.tsx)
-    // so it never appears in a plain server-rendered HTML fetch like this
-    // one — verified separately in the browser that it loads and turns
-    // each <blockquote class="instagram-media"> into a real iframe.
 
     const heroHtml = html.slice(html.indexOf('Luxury Mobile Bars'), html.indexOf('Luxury Mobile Bars') + 6000);
     const heroVideoConfigured = !!process.env.NEXT_PUBLIC_HERO_VIDEO_URL;
