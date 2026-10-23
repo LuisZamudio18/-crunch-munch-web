@@ -70,6 +70,8 @@ export interface ServiceOptions {
   takeHome?: boolean;
   /** Human-readable summary of the choices, echoed back on the estimate line. */
   label?: string;
+  /** The same choices as separate lines (presentation, service type…), for the quote text. */
+  lines?: string[];
 }
 
 export interface EstimateInput {
@@ -99,6 +101,8 @@ export interface EstimateLine {
   takeHomeExtra: number;
   /** Summary of the choices that shaped the price, e.g. "Cristalería premium · Refill ilimitado". */
   detail?: string;
+  /** The same choices, one per line. */
+  choices: string[];
 }
 
 export interface AppliedDiscount {
@@ -209,6 +213,7 @@ export function computeEstimate(input: EstimateInput, config: PricingConfig): Es
       refillApplied,
       takeHomeExtra,
       detail: opts.label,
+      choices: opts.lines ?? [],
     });
   }
 

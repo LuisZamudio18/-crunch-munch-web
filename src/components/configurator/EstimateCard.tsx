@@ -21,6 +21,7 @@ import {
   type Estimate,
   type ServiceOptions,
 } from '@/lib/estimate';
+import { QUOTE_COPY } from '@/data/quoteCopy';
 import type { PersonalizationData } from '@/types';
 
 /** What the customer picked in the configurator that changes a bar's price. */
@@ -39,11 +40,19 @@ function serviceOptions(id: string, choices: EstimateChoices): ServiceOptions {
   const label = [presentation, refill ? REFILL_OPTION : null, takeHome ? 'Cantaritos de regalo' : null]
     .filter(Boolean)
     .join(' · ');
+  // The same choices, one per line, in the order the owner writes them in a quote
+  const emoji = SERVICE_MAP[id]?.emoji;
+  const lines = [
+    presentation ? `${presentation}${emoji ? ` ${emoji}` : ''}` : undefined,
+    COCKTAIL_BAR_IDS.includes(id) ? sel[SERVICE_TYPE_GROUP_ID]?.[0] : undefined,
+    sel[TAKE_HOME_GROUP_ID]?.[0],
+  ].filter((line): line is string => !!line);
   return {
     variant: presentation ? PRESENTATION_VARIANT[presentation] : undefined,
     refill,
     takeHome,
     label: label || undefined,
+    lines,
   };
 }
 
@@ -66,15 +75,22 @@ export function useEstimate(
   }, [selectedServices, personas, choices, personasByService]);
 }
 
-/** Plain-text lines for the WhatsApp message, so the team sees what the customer saw. */
-export function estimateToWhatsAppLines(estimate: Estimate): string[] {
-  return [
-    // Only the range is shown to the customer, so the message carries no per-bar or per-discount amounts either.
-    ...estimate.lines.map((l) => `  · ${l.name} (${[`${l.personas} personas`, l.detail].filter(Boolean).join(' · ')})`),
-    ...estimate.discounts.map((d) => `  · ${d.rule.label} (${d.rule.percent}%) aplicado`),
-    ...(estimate.unpricedServiceIds.length ? [`  · Barras por confirmar: ${estimate.unpricedServiceIds.length}`] : []),
-    `  · Rango estimado: ${formatMXN(estimate.low)} – ${formatMXN(estimate.high)}`,
-  ];
+/**
+ * The quote as the owner writes it for each bar (name, choices, "N personas $price✨", what is
+ * included), so she only has to confirm it or correct the price before sending it to the customer.
+ */
+export function estimateToQuoteLines(estimate: Estimate): string[] {
+  const lines: string[] = [];
+  for (const l of estimate.lines) {
+    lines.push(`*${l.name.toUpperCase()}*`, ...l.choices, `${l.personas} personas ${formatMXN(l.subtotal)}✨`);
+    const copy = QUOTE_COPY[l.serviceId];
+    if (copy?.length) lines.push('', ...copy);
+    lines.push('');
+  }
+  if (estimate.unpricedServiceIds.length) lines.push(`Barras por confirmar: ${estimate.unpricedServiceIds.length}`);
+  for (const d of estimate.discounts) lines.push(`${d.rule.label} (${d.rule.percent}%): -${formatMXN(d.amount)}`);
+  lines.push(`*TOTAL ESTIMADO: ${formatMXN(estimate.total)}* (rango que vio el cliente: ${formatMXN(estimate.low)} – ${formatMXN(estimate.high)})`);
+  return lines;
 }
 
 interface DiscountNudgeProps {
@@ -149,11 +165,14 @@ export default function EstimateCard({ estimate }: EstimateCardProps) {
 
       <div className="space-y-1.5 text-sm border-t border-gold-200/70 pt-3">
         {estimate.lines.map((l) => (
-          <div key={l.serviceId} className="text-coffee-600">
-            {l.name}
-            <span className="block text-xs text-coffee-400">
-              {[`${l.personas} personas`, l.detail].filter(Boolean).join(' · ')}
+          <div key={l.serviceId} className="flex justify-between gap-3 text-coffee-600">
+            <span>
+              {l.name}
+              <span className="block text-xs text-coffee-400">
+                {[`${l.personas} personas`, l.detail].filter(Boolean).join(' · ')}
+              </span>
             </span>
+            <span className="tabular-nums text-coffee-700 shrink-0">{formatMXN(l.subtotal)}</span>
           </div>
         ))}
 
@@ -162,7 +181,7 @@ export default function EstimateCard({ estimate }: EstimateCardProps) {
             <span>
               {d.rule.label} ({d.rule.percent}%)
             </span>
-            <span>aplicado</span>
+            <span className="tabular-nums">−{formatMXN(d.amount)}</span>
           </div>
         ))}
 

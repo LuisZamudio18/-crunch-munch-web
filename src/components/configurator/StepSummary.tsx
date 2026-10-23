@@ -6,7 +6,7 @@ import { SERVICE_MAP } from '@/data/services';
 import type { EventFormData, PersonalizationData } from '@/types';
 import { buildWhatsAppMessage } from '@/lib/whatsapp';
 import { guestsByBar, guestsFor } from '@/lib/guests';
-import EstimateCard, { DiscountNudge, estimateToWhatsAppLines, useEstimate } from './EstimateCard';
+import EstimateCard, { DiscountNudge, estimateToQuoteLines, useEstimate } from './EstimateCard';
 
 interface StepSummaryProps {
   selectedServices: string[];
@@ -33,7 +33,7 @@ export default function StepSummary({
     serviceSelections,
     personalization,
     eventForm,
-    estimateLines: estimate ? estimateToWhatsAppLines(estimate) : undefined,
+    quoteLines: estimate ? estimateToQuoteLines(estimate) : undefined,
   });
 
   const formatDate = (d: string) => {
