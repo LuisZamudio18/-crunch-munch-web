@@ -1,10 +1,11 @@
 import type { PriceTier, PricingConfig, ServicePricing } from '@/lib/estimate';
 
 /**
- * Preliminary-estimate feature. OFF unless NEXT_PUBLIC_ESTIMATE_ENABLED=true,
- * so nothing price-related ever reaches the public site by accident.
+ * Preliminary-estimate feature. ON by default now that the numbers are the
+ * owner's real tariff. Set NEXT_PUBLIC_ESTIMATE_ENABLED=false (and redeploy) to
+ * switch it off without touching code.
  */
-export const ESTIMATE_ENABLED = process.env.NEXT_PUBLIC_ESTIMATE_ENABLED === 'true';
+export const ESTIMATE_ENABLED = process.env.NEXT_PUBLIC_ESTIMATE_ENABLED !== 'false';
 
 /**
  * While true, the numbers below are stand-ins and the estimate card shows a

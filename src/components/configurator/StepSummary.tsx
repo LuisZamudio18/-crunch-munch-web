@@ -67,7 +67,7 @@ export default function StepSummary({
       )}
 
       <div className="space-y-4 mb-6">
-        {/* Preliminary estimate (pilot, behind NEXT_PUBLIC_ESTIMATE_ENABLED) */}
+        {/* Preliminary estimate (on unless NEXT_PUBLIC_ESTIMATE_ENABLED=false) */}
         {estimate && (
           <>
             <EstimateCard estimate={estimate} />
