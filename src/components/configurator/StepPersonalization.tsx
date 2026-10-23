@@ -1,9 +1,10 @@
 'use client';
 
 import { clsx } from 'clsx';
-import { PRESENTATION_CHOICE_BAR_IDS, PRESENTATION_FIXED, PRESENTATION_OPTIONS, SERVICE_MAP } from '@/data/services';
-import { PRESENTATION_PHOTO_BY_BAR, PRESENTATION_PHOTO_BY_OPTION } from '@/data/presentations';
+import { PRESENTATION_CHOICE_BAR_IDS, PRESENTATION_FIXED, SERVICE_MAP } from '@/data/services';
+import { PRESENTATION_PHOTO_BY_BAR } from '@/data/presentations';
 import PresentationPhoto from '@/components/catalog/PresentationPhoto';
+import PresentationPicker from '@/components/catalog/PresentationPicker';
 import type { PersonalizationData } from '@/types';
 
 const DECORACION_OPTIONS = ['Flores', 'Espejo selfie', 'Imágenes', 'Globos'];
@@ -104,36 +105,10 @@ export default function StepPersonalization({
               {!hasOtherPresentations && (
                 <p className="text-xs text-coffee-400 mb-3">Elige una opción (obligatorio)</p>
               )}
-              <div className="grid grid-cols-2 gap-3" role="radiogroup" aria-label="Presentación de las bebidas">
-                {PRESENTATION_OPTIONS.map((item) => {
-                  const active = selectedPresentacion === item;
-                  return (
-                    <button
-                      key={item}
-                      type="button"
-                      role="radio"
-                      aria-checked={active}
-                      onClick={() => update('presentacion', active ? [] : [item])}
-                      className={clsx(
-                        'rounded-2xl border p-2 text-left transition-all duration-200',
-                        active
-                          ? 'border-coffee-700 bg-coffee-700/5 ring-2 ring-coffee-700'
-                          : 'border-coffee-300 hover:border-coffee-500'
-                      )}
-                    >
-                      <PresentationPhoto photo={PRESENTATION_PHOTO_BY_OPTION[item]} caption={item} />
-                      <span
-                        className={clsx(
-                          'mt-2 block rounded-full px-3 py-1.5 text-center text-xs font-medium',
-                          active ? 'bg-coffee-700 text-cream-50' : 'bg-cream-100 text-coffee-600'
-                        )}
-                      >
-                        {active ? '✓ Elegida' : 'Elegir'}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
+              <PresentationPicker
+                value={selectedPresentacion}
+                onChange={(value) => update('presentacion', value ? [value] : [])}
+              />
             </div>
           )}
         </div>

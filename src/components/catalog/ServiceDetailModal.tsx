@@ -6,8 +6,9 @@ import { clsx } from 'clsx';
 import Button from '@/components/ui/Button';
 import Chip from '@/components/ui/Chip';
 import PresentationPhoto from './PresentationPhoto';
-import { PRESENTATION_CHOICE_BAR_IDS, PRESENTATION_FIXED, PRESENTATION_OPTIONS } from '@/data/services';
-import { PRESENTATION_PHOTO_BY_BAR, PRESENTATION_PHOTO_BY_OPTION } from '@/data/presentations';
+import PresentationPicker from './PresentationPicker';
+import { PRESENTATION_CHOICE_BAR_IDS, PRESENTATION_FIXED } from '@/data/services';
+import { PRESENTATION_PHOTO_BY_BAR } from '@/data/presentations';
 import type { Service, ServiceCategory, SelectionGroup } from '@/types';
 
 const CATEGORY_LABELS: Record<ServiceCategory, string> = {
@@ -28,8 +29,11 @@ interface ServiceDetailModalProps {
   service: Service | null;
   isSelected: boolean;
   initialSelections: Record<string, string[]>;
+  /** Presentation already chosen in the quote (shared by Drinks Bar and Mocktails Bar). */
+  initialPresentation: string | null;
   onClose: () => void;
-  onSelect: (selections: Record<string, string[]>) => void;
+  /** `presentation` is null unless this bar lets the customer choose one and they did. */
+  onSelect: (selections: Record<string, string[]>, presentation: string | null) => void;
 }
 
 function InteractiveGroup({
@@ -181,15 +185,18 @@ export default function ServiceDetailModal({
   service,
   isSelected,
   initialSelections,
+  initialPresentation,
   onClose,
   onSelect,
 }: ServiceDetailModalProps) {
   const [localSelections, setLocalSelections] = useState<Record<string, string[]>>({});
+  const [presentation, setPresentation] = useState<string | null>(null);
 
   // Sync when modal opens for a new service
   useEffect(() => {
     if (service) {
       setLocalSelections(initialSelections ?? {});
+      setPresentation(initialPresentation);
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -264,12 +271,10 @@ export default function ServiceDetailModal({
           {PRESENTATION_CHOICE_BAR_IDS.includes(service.id) && (
             <div className="mb-5">
               <h3 className="font-semibold text-coffee-800 text-sm mb-1">Presentación</h3>
-              <p className="text-xs text-coffee-400 mb-3">Puedes elegirla entre estas dos opciones al armar tu cotización.</p>
-              <div className="grid grid-cols-2 gap-3">
-                {PRESENTATION_OPTIONS.map((option) => (
-                  <PresentationPhoto key={option} photo={PRESENTATION_PHOTO_BY_OPTION[option]} caption={option} />
-                ))}
-              </div>
+              <p className="text-xs text-coffee-400 mb-3">
+                Elige cómo quieres tus bebidas. Aplica para Drinks Bar y Mocktails Bar, y puedes cambiarla después.
+              </p>
+              <PresentationPicker value={presentation} onChange={setPresentation} />
             </div>
           )}
           {PRESENTATION_PHOTO_BY_BAR[service.id] && (
@@ -328,7 +333,7 @@ export default function ServiceDetailModal({
             variant="gold"
             size="md"
             className="flex-1"
-            onClick={() => onSelect(localSelections)}
+            onClick={() => onSelect(localSelections, PRESENTATION_CHOICE_BAR_IDS.includes(service.id) ? presentation : null)}
           >
             {isSelected ? '→ Ir a mi cotización' : '✦ Añadir a mi cotización'}
           </Button>

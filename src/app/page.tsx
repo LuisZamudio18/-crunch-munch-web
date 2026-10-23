@@ -13,12 +13,16 @@ import { useConfigurator } from '@/hooks/useConfigurator';
 export default function Home() {
   const configurator = useConfigurator();
 
-  function handleSelectService(id: string, selections?: Record<string, string[]>) {
+  function handleSelectService(id: string, selections?: Record<string, string[]>, presentation?: string | null) {
     if (!configurator.selectedServices.includes(id)) {
       configurator.toggleService(id);
     }
     if (selections) {
       configurator.applyServiceSelections(id, selections);
+    }
+    // Presentation picked in the bar preview carries over to the configurator's "Estilo" step
+    if (presentation) {
+      configurator.setPersonalization({ ...configurator.personalization, presentacion: [presentation] });
     }
     configurator.open();
   }
@@ -35,6 +39,7 @@ export default function Home() {
           onSelectService={handleSelectService}
           selectedServices={configurator.selectedServices}
           serviceSelections={configurator.serviceSelections}
+          presentation={configurator.personalization.presentacion[0] ?? null}
         />
         <Instagram />
         <Testimonials />

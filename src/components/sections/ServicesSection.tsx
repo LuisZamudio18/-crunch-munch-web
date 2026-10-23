@@ -17,12 +17,14 @@ const FILTERS: { label: string; value: 'all' | ServiceCategory }[] = [
 
 interface ServicesSectionProps {
   onOpenConfigurator: () => void;
-  onSelectService: (id: string, selections?: Record<string, string[]>) => void;
+  onSelectService: (id: string, selections?: Record<string, string[]>, presentation?: string | null) => void;
   selectedServices: string[];
   serviceSelections: Record<string, Record<string, string[]>>;
+  /** Drinks presentation already chosen in the quote, if any. */
+  presentation: string | null;
 }
 
-export default function ServicesSection({ onOpenConfigurator, onSelectService, selectedServices, serviceSelections }: ServicesSectionProps) {
+export default function ServicesSection({ onOpenConfigurator, onSelectService, selectedServices, serviceSelections, presentation }: ServicesSectionProps) {
   const [activeFilter, setActiveFilter] = useState<'all' | ServiceCategory>('all');
   const [detailId, setDetailId] = useState<string | null>(null);
 
@@ -84,10 +86,11 @@ export default function ServicesSection({ onOpenConfigurator, onSelectService, s
           service={detailService}
           isSelected={detailId ? selectedServices.includes(detailId) : false}
           initialSelections={detailId ? (serviceSelections[detailId] ?? {}) : {}}
+          initialPresentation={presentation}
           onClose={() => setDetailId(null)}
-          onSelect={(selections) => {
+          onSelect={(selections, chosenPresentation) => {
             if (detailId) {
-              onSelectService(detailId, selections);
+              onSelectService(detailId, selections, chosenPresentation);
               setDetailId(null);
             }
           }}
