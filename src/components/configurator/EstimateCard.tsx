@@ -69,8 +69,9 @@ export function useEstimate(
 /** Plain-text lines for the WhatsApp message, so the team sees what the customer saw. */
 export function estimateToWhatsAppLines(estimate: Estimate): string[] {
   return [
-    ...estimate.lines.map((l) => `  · ${l.name} (${[`${l.personas} personas`, l.detail].filter(Boolean).join(' · ')}): ${formatMXN(l.subtotal)}`),
-    ...estimate.discounts.map((d) => `  · ${d.rule.label} (${d.rule.percent}%): -${formatMXN(d.amount)}`),
+    // Only the range is shown to the customer, so the message carries no per-bar or per-discount amounts either.
+    ...estimate.lines.map((l) => `  · ${l.name} (${[`${l.personas} personas`, l.detail].filter(Boolean).join(' · ')})`),
+    ...estimate.discounts.map((d) => `  · ${d.rule.label} (${d.rule.percent}%) aplicado`),
     ...(estimate.unpricedServiceIds.length ? [`  · Barras por confirmar: ${estimate.unpricedServiceIds.length}`] : []),
     `  · Rango estimado: ${formatMXN(estimate.low)} – ${formatMXN(estimate.high)}`,
   ];
@@ -148,14 +149,11 @@ export default function EstimateCard({ estimate }: EstimateCardProps) {
 
       <div className="space-y-1.5 text-sm border-t border-gold-200/70 pt-3">
         {estimate.lines.map((l) => (
-          <div key={l.serviceId} className="flex justify-between gap-3 text-coffee-600">
-            <span>
-              {l.name}
-              <span className="block text-xs text-coffee-400">
-                {[`${l.personas} personas`, l.detail].filter(Boolean).join(' · ')}
-              </span>
+          <div key={l.serviceId} className="text-coffee-600">
+            {l.name}
+            <span className="block text-xs text-coffee-400">
+              {[`${l.personas} personas`, l.detail].filter(Boolean).join(' · ')}
             </span>
-            <span className="tabular-nums text-coffee-700 shrink-0">{formatMXN(l.subtotal)}</span>
           </div>
         ))}
 
@@ -164,7 +162,7 @@ export default function EstimateCard({ estimate }: EstimateCardProps) {
             <span>
               {d.rule.label} ({d.rule.percent}%)
             </span>
-            <span className="tabular-nums">−{formatMXN(d.amount)}</span>
+            <span>aplicado</span>
           </div>
         ))}
 
