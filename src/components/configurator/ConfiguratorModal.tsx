@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import ProgressBar from '@/components/ui/ProgressBar';
 import Button from '@/components/ui/Button';
 import StepServices from './StepServices';
@@ -76,6 +76,13 @@ export default function ConfiguratorModal({
     }
     return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
+
+  // The scrolling area is the same element in every step, so without this a new step opens at the
+  // scroll position of the previous one (on a phone the summary opened at its bottom).
+  const contentRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    contentRef.current?.scrollTo({ top: 0 });
+  }, [step, isOpen]);
 
   if (!isOpen) return null;
 
@@ -167,7 +174,7 @@ export default function ConfiguratorModal({
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-5">
+        <div ref={contentRef} className="flex-1 overflow-y-auto px-4 sm:px-6 py-5">
           {currentKey === 'services' && (
             <StepServices
               selectedServices={selectedServices}
