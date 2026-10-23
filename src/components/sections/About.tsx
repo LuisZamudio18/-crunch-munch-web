@@ -18,9 +18,9 @@ export default function About() {
   ];
 
   return (
-    <section id="nosotros" className="bg-cream-gradient section-padding">
+    <section id="nosotros" className="bg-cream-gradient section-padding py-14 md:py-16">
       <div className="container-max">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
           <div>
             <p className="text-xs uppercase tracking-widest text-gold-500 mb-4">Nuestra historia</p>
             <h2 className="text-display text-4xl md:text-5xl text-coffee-800 leading-tight mb-6">
@@ -38,11 +38,11 @@ export default function About() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-5">
+          <div className="grid grid-cols-1 gap-4">
             {pillars.map((p) => (
               <div
                 key={p.title}
-                className="glass-card rounded-2xl p-6 flex gap-5 hover:shadow-md transition-shadow"
+                className="glass-card rounded-2xl p-5 flex gap-5 hover:shadow-md transition-shadow"
               >
                 <div className="text-gold-400 text-2xl shrink-0 mt-1">{p.icon}</div>
                 <div>

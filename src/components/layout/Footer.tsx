@@ -2,9 +2,9 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="bg-coffee-900 text-cream-200 py-14">
+    <footer className="bg-coffee-900 text-cream-200 py-11">
       <div className="container-max section-padding py-0">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <h3 className="text-display text-2xl italic text-cream-50 mb-3">
               Crunch <span className="gold-text">&amp;</span> Munch
@@ -64,7 +64,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-coffee-700 text-center text-xs text-coffee-400">
+        <div className="mt-8 pt-5 border-t border-coffee-700 text-center text-xs text-coffee-400">
           © {new Date().getFullYear()} Crunch &amp; Munch Snack Bar · Todos los derechos reservados
         </div>
       </div>

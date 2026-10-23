@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import Button from '@/components/ui/Button';
 
 interface HeroProps {
@@ -11,6 +12,20 @@ interface HeroProps {
 // configured (or it fails to load) falls back to the existing bg-hero-gradient
 // with nothing else changing.
 const HERO_VIDEO_URL = process.env.NEXT_PUBLIC_HERO_VIDEO_URL;
+
+const PREVIEW_BARS = [
+  { name: 'Coffee Bar', image: '/barras/coffee-bar.jpg' },
+  { name: 'Charcutería', image: '/barras/charcuteria.jpg' },
+  { name: 'Dessert Bar', image: '/barras/dessert-bar.jpg' },
+  { name: 'Drinks Bar', image: '/barras/drinks-bar.jpg' },
+];
+
+const STATS = [
+  { value: '24', label: 'Barras distintas' },
+  { value: '+25', label: 'Tipos de servicio' },
+  { value: '100%', label: 'Personalizable' },
+  { value: 'Tabasco', label: 'Cobertura estatal' },
+];
 
 export default function Hero({ onOpenConfigurator }: HeroProps) {
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -54,7 +69,7 @@ export default function Hero({ onOpenConfigurator }: HeroProps) {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-hero-gradient">
+    <section className="relative overflow-hidden bg-hero-gradient">
       {/* Background video (optional) — sits above the section's own
           bg-hero-gradient (visible instantly, and as the permanent fallback
           if there's no video, it fails to load, or autoplay is blocked). */}
@@ -88,49 +103,62 @@ export default function Hero({ onOpenConfigurator }: HeroProps) {
         }}
       />
 
-      {/* Floating decorative elements */}
-      <div className="absolute top-1/4 left-[10%] w-px h-32 bg-gradient-to-b from-transparent via-gold-400/30 to-transparent hidden lg:block" />
-      <div className="absolute top-1/3 right-[10%] w-px h-24 bg-gradient-to-b from-transparent via-gold-400/20 to-transparent hidden lg:block" />
+      <div className="container-max section-padding py-16 md:py-20 lg:py-24 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-14 items-center">
+          {/* Text column */}
+          <div className="text-center lg:text-left">
+            <p ref={subRef as React.RefObject<HTMLParagraphElement>} className="text-xs uppercase tracking-widest3 text-gold-400 mb-5 font-sans">
+              Luxury Mobile Bars
+            </p>
 
-      <div className="container-max section-padding py-0 text-center relative z-10">
-        <p ref={subRef as React.RefObject<HTMLParagraphElement>} className="text-xs uppercase tracking-widest3 text-gold-400 mb-6 font-sans">
-          Luxury Mobile Bars
-        </p>
+            <h1
+              ref={titleRef}
+              className="text-display text-4xl sm:text-5xl md:text-6xl text-cream-50 leading-[1.12] mb-5"
+            >
+              Eleva cada <em className="gold-text not-italic">momento</em> a una experiencia
+            </h1>
 
-        <h1
-          ref={titleRef}
-          className="text-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-cream-50 leading-[1.1] mb-6"
-        >
-          Eleva cada{' '}
-          <em className="gold-text not-italic">momento</em>
-          <br />a una experiencia
-        </h1>
+            <p className="text-cream-300 text-base max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed font-sans">
+              Barras móviles premium para bodas, corporativos y celebraciones especiales — 24 conceptos distintos, cada uno diseñado para sorprender.
+            </p>
 
-        <p className="text-cream-300 text-base md:text-lg max-w-xl mx-auto mb-10 leading-relaxed font-sans">
-          Barras móviles premium para bodas, corporativos y celebraciones especiales.
-          Diseñadas para crear recuerdos únicos.
-        </p>
+            <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-9">
+              <Button variant="gold" size="lg" onClick={onOpenConfigurator}>
+                Diseña tu Evento ✦
+              </Button>
+              <Button
+                variant="ghost"
+                size="lg"
+                className="text-cream-200 hover:text-cream-50 hover:bg-white/10"
+                onClick={() => document.getElementById('servicios')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Ver catálogo completo
+              </Button>
+            </div>
 
-        <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button variant="gold" size="lg" onClick={onOpenConfigurator}>
-            Diseña tu Evento ✦
-          </Button>
-          <Button
-            variant="ghost"
-            size="lg"
-            className="text-cream-200 hover:text-cream-50 hover:bg-white/10"
-            onClick={() => document.getElementById('servicios')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            Ver servicios
-          </Button>
-        </div>
+            <div className="flex gap-8 justify-start pt-6 border-t border-cream-50/10 overflow-x-auto">
+              {STATS.map((stat) => (
+                <div key={stat.label} className="shrink-0">
+                  <div className="text-display text-2xl text-cream-50">{stat.value}</div>
+                  <div className="text-[11px] text-cream-400 whitespace-nowrap">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-cream-400 animate-bounce">
-          <span className="text-xs tracking-widest uppercase">Scroll</span>
-          <svg width="16" height="20" viewBox="0 0 16 20" fill="none">
-            <path d="M8 0v16M1 9l7 7 7-7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          {/* Preview mosaic */}
+          <div className="hidden sm:grid grid-cols-2 gap-3.5">
+            {PREVIEW_BARS.map((bar, i) => (
+              <div
+                key={bar.name}
+                className={`relative rounded-2xl overflow-hidden h-40 lg:h-44 ${i % 2 === 1 ? 'mt-6' : ''}`}
+              >
+                <Image src={bar.image} alt={bar.name} fill className="object-cover" sizes="220px" />
+                <div className="absolute inset-0 bg-gradient-to-t from-coffee-900/85 via-coffee-900/10 to-transparent" />
+                <span className="absolute bottom-3 left-3.5 text-cream-50 text-sm font-sans">{bar.name}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

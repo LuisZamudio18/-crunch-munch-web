@@ -27,9 +27,9 @@ const TESTIMONIALS = [
 
 export default function Testimonials() {
   return (
-    <section id="testimonios" className="bg-coffee-900 section-padding">
+    <section id="testimonios" className="bg-coffee-900 section-padding py-14 md:py-16">
       <div className="container-max">
-        <div className="text-center mb-14">
+        <div className="text-center mb-10">
           <p className="text-xs uppercase tracking-widest text-gold-400 mb-3">Lo que dicen</p>
           <h2 className="text-display text-4xl md:text-5xl text-cream-50">
             Historias que nos{' '}
@@ -37,18 +37,18 @@ export default function Testimonials() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="flex gap-5 overflow-x-auto pb-3 -mx-5 px-5 md:-mx-10 md:px-10 lg:-mx-20 lg:px-20 snap-x snap-mandatory scroll-smooth">
           {TESTIMONIALS.map((t) => (
             <div
               key={t.name}
-              className="bg-coffee-800/60 border border-coffee-700 rounded-2xl p-7 hover:border-gold-500/40 transition-colors"
+              className="flex-none w-[270px] snap-start bg-coffee-800/60 border border-coffee-700 rounded-2xl p-6 hover:border-gold-500/40 transition-colors"
             >
-              <div className="flex gap-1 mb-4">
+              <div className="flex gap-1 mb-3">
                 {Array.from({ length: t.stars }).map((_, i) => (
                   <span key={i} className="text-gold-400 text-sm">★</span>
                 ))}
               </div>
-              <p className="text-cream-300 leading-relaxed mb-5 text-sm italic">"{t.text}"</p>
+              <p className="text-cream-300 leading-relaxed mb-4 text-sm italic">"{t.text}"</p>
               <div>
                 <p className="text-cream-100 font-semibold text-sm">{t.name}</p>
                 <p className="text-coffee-400 text-xs uppercase tracking-wider">{t.event}</p>

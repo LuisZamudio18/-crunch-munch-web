@@ -6,9 +6,9 @@ export default function Instagram() {
   const hasPosts = INSTAGRAM_POSTS.length > 0;
 
   return (
-    <section id="instagram" className="bg-cream-100 section-padding">
+    <section id="instagram" className="bg-cream-100 section-padding py-14 md:py-16">
       <div className="container-max">
-        <div className="text-center mb-10 max-w-xl mx-auto">
+        <div className="text-center mb-8 max-w-xl mx-auto">
           <p className="flex items-center justify-center gap-2 text-coffee-500 text-sm font-sans mb-3">
             <span className="w-1.5 h-1.5 rounded-full bg-gold-500" />
             {CONTACT.instagramHandle}
@@ -22,7 +22,7 @@ export default function Instagram() {
         </div>
 
         {hasPosts ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
             {INSTAGRAM_POSTS.map((permalink) => (
               <InstagramEmbedCard key={permalink} permalink={permalink} />
             ))}

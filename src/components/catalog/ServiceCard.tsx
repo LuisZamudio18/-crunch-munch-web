@@ -44,7 +44,7 @@ export default function ServiceCard({ service, selected = false, onSelect }: Ser
       )}
     >
       {/* Photo or gradient background */}
-      <div className="relative min-h-[220px] flex flex-col justify-between">
+      <div className="relative min-h-[180px] flex flex-col justify-between">
 
         {service.image ? (
           <Image
