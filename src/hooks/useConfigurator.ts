@@ -17,6 +17,7 @@ const DEFAULT_EVENT_FORM: EventFormData = {
   horario: '',
   lugar: '',
   personas: '',
+  personasPorBarra: {},
   tipoEvento: '',
   comentarios: '',
 };

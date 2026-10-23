@@ -4,6 +4,25 @@
 export const COCKTAIL_BAR_IDS = ['drinks-bar', 'mocktails-bar', 'cantaritos-bar', 'mimosas-bar'];
 export const SERVICE_TYPE_GROUP_ID = 'tipo-servicio';
 export const SERVICE_TYPE_OPTIONS = ['1 cóctel por persona', 'Refill ilimitado'];
+export const REFILL_OPTION = 'Refill ilimitado';
+
+// Cantaritos Bar: los cantaritos son de barro y, si los invitados se los llevan, tiene costo extra por pieza
+export const TAKE_HOME_GROUP_ID = 'cantarito-recuerdo';
+export const TAKE_HOME_NO = 'Cantaritos rentados';
+export const TAKE_HOME_YES = 'Cantaritos de regalo para los invitados';
+export const TAKE_HOME_OPTIONS = [TAKE_HOME_NO, TAKE_HOME_YES];
+
+// Presentación de las bebidas: Drinks y Mocktails se ofrecen en cristalería o desechables y hay que elegir una.
+// Mimosas Bar (copas de cristal) y Cantaritos Bar (cantarito de barro) tienen una sola presentación.
+export const PRESENTATION_OPTIONS = ['Cristalería', 'Vasos desechables'];
+export const PRESENTATION_CHOICE_BAR_IDS = ['drinks-bar', 'mocktails-bar'];
+export const PRESENTATION_FIXED: Record<string, string> = {
+  'mimosas-bar': 'Copas de cristal',
+  'cantaritos-bar': 'Cantarito de barro',
+};
+
+// Grupos que se eligen en su propio paso (no en "Toppings")
+export const SERVICE_STEP_GROUP_IDS = [SERVICE_TYPE_GROUP_ID, TAKE_HOME_GROUP_ID];
 
 // ─── Shared topping pools ────────────────────────────────────────────────────
 
@@ -318,6 +337,13 @@ export const SERVICES: Service[] = [
         instruction: 'Elige el tipo de servicio para tu barra',
         type: 'choose-1',
         options: SERVICE_TYPE_OPTIONS,
+      },
+      {
+        id: TAKE_HOME_GROUP_ID,
+        label: 'Cantaritos rentados o de regalo',
+        instruction: 'Elige si los cantaritos de barro son rentados o de regalo para los invitados',
+        type: 'choose-1',
+        options: TAKE_HOME_OPTIONS,
       },
     ],
   },

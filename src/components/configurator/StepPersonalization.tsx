@@ -1,17 +1,12 @@
 'use client';
 
 import { clsx } from 'clsx';
+import { PRESENTATION_CHOICE_BAR_IDS, PRESENTATION_FIXED, PRESENTATION_OPTIONS, SERVICE_MAP } from '@/data/services';
+import { PRESENTATION_PHOTO_BY_BAR, PRESENTATION_PHOTO_BY_OPTION } from '@/data/presentations';
+import PresentationPhoto from '@/components/catalog/PresentationPhoto';
 import type { PersonalizationData } from '@/types';
 
 const DECORACION_OPTIONS = ['Flores', 'Espejo selfie', 'Imágenes', 'Globos'];
-
-const PRESENTACION_BEBIDAS = [
-  'Cristalería premium',
-  'Vasos desechables de acrílico',
-  'Vasos desechables PU',
-];
-
-const DRINKS_BARS = ['drinks-bar', 'mocktails-bar'];
 
 interface StepPersonalizationProps {
   personalization: PersonalizationData;
@@ -27,8 +22,12 @@ export default function StepPersonalization({
   const update = (field: keyof PersonalizationData, value: string | string[]) =>
     onChange({ ...personalization, [field]: value });
 
-  const hasDrinksBars = selectedServices.some((id) => DRINKS_BARS.includes(id));
-  const hasOtherBars = selectedServices.some((id) => !DRINKS_BARS.includes(id));
+  const hasDrinksBars = selectedServices.some((id) => PRESENTATION_CHOICE_BAR_IDS.includes(id));
+  const fixedBars = selectedServices.filter((id) => id in PRESENTATION_FIXED);
+  const hasOtherBars = selectedServices.some(
+    (id) => !PRESENTATION_CHOICE_BAR_IDS.includes(id) && !(id in PRESENTATION_FIXED)
+  );
+  const hasOtherPresentations = hasOtherBars || fixedBars.length > 0;
 
   const selectedDecoracion = personalization.decoracion[0] ?? null;
   const selectedPresentacion = personalization.presentacion[0] ?? null;
@@ -70,10 +69,23 @@ export default function StepPersonalization({
         <div>
           <p className="text-xs uppercase tracking-widest text-gold-500 mb-1">Presentación</p>
 
+          {/* Barras con una sola presentación (Mimosas, Cantaritos) */}
+          {fixedBars.map((id) => (
+            <div key={id} className="mb-3">
+              <p className="text-[11px] text-coffee-400 mb-2">{SERVICE_MAP[id]?.name}</p>
+              <div className="w-44">
+                {PRESENTATION_PHOTO_BY_BAR[id] && (
+                  <PresentationPhoto photo={PRESENTATION_PHOTO_BY_BAR[id]} caption={PRESENTATION_FIXED[id]} />
+                )}
+              </div>
+              <p className="mt-1 text-[11px] text-coffee-400">Es la única presentación de esta barra.</p>
+            </div>
+          ))}
+
           {/* Barras normales → desechables fijo */}
           {hasOtherBars && (
             <div className="mb-3">
-              {hasDrinksBars && (
+              {(hasDrinksBars || fixedBars.length > 0) && (
                 <p className="text-[11px] text-coffee-400 mb-2">Resto de barras</p>
               )}
               <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-cream-100 border border-cream-200 text-sm text-coffee-600">
@@ -86,27 +98,41 @@ export default function StepPersonalization({
           {/* Drinks Bar / Mocktails Bar → elegir entre 3 opciones */}
           {hasDrinksBars && (
             <div>
-              {hasOtherBars && (
-                <p className="text-[11px] text-coffee-400 mb-2">Drinks Bar / Mocktails Bar — elige una opción</p>
+              {hasOtherPresentations && (
+                <p className="text-[11px] text-coffee-400 mb-2">Drinks Bar / Mocktails Bar — elige una opción (obligatorio)</p>
               )}
-              {!hasOtherBars && (
-                <p className="text-xs text-coffee-400 mb-3">Elige una opción</p>
+              {!hasOtherPresentations && (
+                <p className="text-xs text-coffee-400 mb-3">Elige una opción (obligatorio)</p>
               )}
-              <div className="flex flex-wrap gap-2">
-                {PRESENTACION_BEBIDAS.map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => update('presentacion', selectedPresentacion === item ? [] : [item])}
-                    className={clsx(
-                      'px-4 py-2 rounded-full border text-sm transition-all duration-200',
-                      selectedPresentacion === item
-                        ? 'bg-coffee-700 border-coffee-700 text-cream-50'
-                        : 'border-coffee-300 text-coffee-600 hover:border-coffee-500'
-                    )}
-                  >
-                    {item}
-                  </button>
-                ))}
+              <div className="grid grid-cols-2 gap-3" role="radiogroup" aria-label="Presentación de las bebidas">
+                {PRESENTATION_OPTIONS.map((item) => {
+                  const active = selectedPresentacion === item;
+                  return (
+                    <button
+                      key={item}
+                      type="button"
+                      role="radio"
+                      aria-checked={active}
+                      onClick={() => update('presentacion', active ? [] : [item])}
+                      className={clsx(
+                        'rounded-2xl border p-2 text-left transition-all duration-200',
+                        active
+                          ? 'border-coffee-700 bg-coffee-700/5 ring-2 ring-coffee-700'
+                          : 'border-coffee-300 hover:border-coffee-500'
+                      )}
+                    >
+                      <PresentationPhoto photo={PRESENTATION_PHOTO_BY_OPTION[item]} caption={item} />
+                      <span
+                        className={clsx(
+                          'mt-2 block rounded-full px-3 py-1.5 text-center text-xs font-medium',
+                          active ? 'bg-coffee-700 text-cream-50' : 'bg-cream-100 text-coffee-600'
+                        )}
+                      >
+                        {active ? '✓ Elegida' : 'Elegir'}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}

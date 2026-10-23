@@ -1,5 +1,6 @@
 import type { EventFormData, PersonalizationData, Service } from '@/types';
 import { SERVICE_MAP } from '@/data/services';
+import { guestsFor } from '@/lib/guests';
 
 const WA_NUMBER = '529931100808';
 
@@ -31,8 +32,10 @@ export function buildWhatsAppMessage(params: {
   serviceSelections: Record<string, Record<string, string[]>>;
   personalization: PersonalizationData;
   eventForm: EventFormData;
+  /** Optional preliminary-estimate lines, so the team sees what the customer saw. */
+  estimateLines?: string[];
 }): string {
-  const { selectedServices, serviceSelections, personalization, eventForm } = params;
+  const { selectedServices, serviceSelections, personalization, eventForm, estimateLines } = params;
 
   const servicesBlock = selectedServices
     .map((id) => {
@@ -65,8 +68,14 @@ export function buildWhatsAppMessage(params: {
     `  · Horario: ${eventForm.horario}`,
     `  · Lugar: ${eventForm.lugar}`,
     `  · No. de personas: ${eventForm.personas}`,
+    ...(selectedServices.length > 1 && selectedServices.some((id) => guestsFor(eventForm, id) !== (parseInt(eventForm.personas) || 0))
+      ? [`  · Personas por barra: ${selectedServices.map((id) => `${SERVICE_MAP[id]?.name ?? id} ${guestsFor(eventForm, id)}`).join(', ')}`]
+      : []),
     `  · Tipo de evento: ${eventForm.tipoEvento}`,
     ...(eventForm.comentarios ? [`  · Comentarios: ${eventForm.comentarios}`] : []),
+    ...(estimateLines?.length
+      ? ['', '💰 *ESTIMADO PRELIMINAR (mostrado en el sitio, sujeto a confirmación):*', ...estimateLines]
+      : []),
     '',
     'Quedo en espera de cotización y tiempo de duración del servicio. ¡Gracias! 🙏',
   ].join('\n');

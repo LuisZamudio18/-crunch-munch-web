@@ -5,6 +5,9 @@ import Image from 'next/image';
 import { clsx } from 'clsx';
 import Button from '@/components/ui/Button';
 import Chip from '@/components/ui/Chip';
+import PresentationPhoto from './PresentationPhoto';
+import { PRESENTATION_CHOICE_BAR_IDS, PRESENTATION_FIXED, PRESENTATION_OPTIONS } from '@/data/services';
+import { PRESENTATION_PHOTO_BY_BAR, PRESENTATION_PHOTO_BY_OPTION } from '@/data/presentations';
 import type { Service, ServiceCategory, SelectionGroup } from '@/types';
 
 const CATEGORY_LABELS: Record<ServiceCategory, string> = {
@@ -255,6 +258,31 @@ export default function ServiceDetailModal({
             <p className="text-xs text-coffee-400 italic mb-3">
               Puedes pre-seleccionar tus opciones antes de añadir a la cotización.
             </p>
+          )}
+
+          {/* Presentation: how the drinks are served, with photos */}
+          {PRESENTATION_CHOICE_BAR_IDS.includes(service.id) && (
+            <div className="mb-5">
+              <h3 className="font-semibold text-coffee-800 text-sm mb-1">Presentación</h3>
+              <p className="text-xs text-coffee-400 mb-3">Puedes elegirla entre estas dos opciones al armar tu cotización.</p>
+              <div className="grid grid-cols-2 gap-3">
+                {PRESENTATION_OPTIONS.map((option) => (
+                  <PresentationPhoto key={option} photo={PRESENTATION_PHOTO_BY_OPTION[option]} caption={option} />
+                ))}
+              </div>
+            </div>
+          )}
+          {PRESENTATION_PHOTO_BY_BAR[service.id] && (
+            <div className="mb-5">
+              <h3 className="font-semibold text-coffee-800 text-sm mb-1">Presentación</h3>
+              <p className="text-xs text-coffee-400 mb-3">Esta barra se sirve en {PRESENTATION_FIXED[service.id]?.toLowerCase()}.</p>
+              <PresentationPhoto
+                photo={PRESENTATION_PHOTO_BY_BAR[service.id]}
+                caption={PRESENTATION_FIXED[service.id]}
+                className="max-w-xs"
+                sizes="(max-width: 640px) 80vw, 320px"
+              />
+            </div>
           )}
 
           {service.selectionGroups.map((group) => {

@@ -54,6 +54,8 @@ export interface EventFormData {
   personas: string;
   tipoEvento: string;
   comentarios: string;
+  /** Guests per bar when a bar differs from `personas` (keyed by service id). */
+  personasPorBarra?: Record<string, string>;
 }
 
 export interface ConfiguratorState {

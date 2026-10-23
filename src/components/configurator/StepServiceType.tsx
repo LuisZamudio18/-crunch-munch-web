@@ -1,7 +1,17 @@
 'use client';
 
 import { clsx } from 'clsx';
-import { COCKTAIL_BAR_IDS, SERVICE_MAP, SERVICE_TYPE_GROUP_ID, SERVICE_TYPE_OPTIONS } from '@/data/services';
+import {
+  COCKTAIL_BAR_IDS,
+  SERVICE_MAP,
+  SERVICE_TYPE_GROUP_ID,
+  SERVICE_TYPE_OPTIONS,
+  TAKE_HOME_GROUP_ID,
+  TAKE_HOME_OPTIONS,
+} from '@/data/services';
+import { PRICING, ESTIMATE_ENABLED } from '@/data/pricing';
+import { formatMXN } from '@/lib/estimate';
+import PresentationPhoto from '@/components/catalog/PresentationPhoto';
 
 interface StepServiceTypeProps {
   selectedServices: string[];
@@ -49,6 +59,43 @@ export default function StepServiceType({ selectedServices, serviceSelections, o
                   </button>
                 ))}
               </div>
+
+              {id === 'cantaritos-bar' && (
+                <div className="mt-4">
+                  <PresentationPhoto photo="cantaritos" caption="Así se ven nuestros cantaritos de barro" className="mb-4 max-w-xs" />
+                  <p className="text-xs uppercase tracking-widest text-gold-500 mb-2">Cantaritos rentados o de regalo</p>
+                  <ul className="text-xs text-coffee-500 mb-3 space-y-1">
+                    <li>
+                      <strong className="font-semibold text-coffee-700">Rentados:</strong> los usas durante tu evento y nosotros
+                      los recogemos al terminar.
+                    </li>
+                    <li>
+                      <strong className="font-semibold text-coffee-700">De regalo:</strong> cada invitado se lleva su cantarito
+                      de barro a casa
+                      {ESTIMATE_ENABLED && PRICING.services[id]?.takeHomePerPerson
+                        ? ` (costo extra de ${formatMXN(PRICING.services[id].takeHomePerPerson ?? 0)} por cantarito)`
+                        : ' (con costo extra por cantarito)'}
+                      .
+                    </li>
+                  </ul>
+                  <div className="flex flex-wrap gap-2">
+                    {TAKE_HOME_OPTIONS.map((option) => (
+                      <button
+                        key={option}
+                        onClick={() => onChooseOne(id, TAKE_HOME_GROUP_ID, option)}
+                        className={clsx(
+                          'px-4 py-2 rounded-full border text-sm transition-all duration-200',
+                          serviceSelections[id]?.[TAKE_HOME_GROUP_ID]?.[0] === option
+                            ? 'bg-coffee-700 border-coffee-700 text-cream-50'
+                            : 'border-coffee-300 text-coffee-600 hover:border-coffee-500'
+                        )}
+                      >
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           );
         })}

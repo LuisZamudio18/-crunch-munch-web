@@ -9,7 +9,15 @@ import StepServiceType from './StepServiceType';
 import StepPersonalization from './StepPersonalization';
 import StepEventForm from './StepEventForm';
 import StepSummary from './StepSummary';
-import { COCKTAIL_BAR_IDS, SERVICE_MAP, SERVICE_TYPE_GROUP_ID } from '@/data/services';
+import { guestsFor } from '@/lib/guests';
+import {
+  COCKTAIL_BAR_IDS,
+  PRESENTATION_CHOICE_BAR_IDS,
+  SERVICE_MAP,
+  SERVICE_STEP_GROUP_IDS,
+  SERVICE_TYPE_GROUP_ID,
+  TAKE_HOME_GROUP_ID,
+} from '@/data/services';
 import type { PersonalizationData, EventFormData } from '@/types';
 
 type StepKey = 'services' | 'toppings' | 'serviceType' | 'style' | 'event' | 'summary';
@@ -72,6 +80,7 @@ export default function ConfiguratorModal({
   if (!isOpen) return null;
 
   const hasServiceTypeStep = selectedServices.some((id) => COCKTAIL_BAR_IDS.includes(id));
+  const needsPresentation = selectedServices.some((id) => PRESENTATION_CHOICE_BAR_IDS.includes(id));
 
   const STEPS: StepKey[] = [
     'services',
@@ -93,7 +102,7 @@ export default function ConfiguratorModal({
         const service = SERVICE_MAP[serviceId];
         if (!service) return true;
         const interactiveGroups = service.selectionGroups.filter(
-          (g) => g.type !== 'fixed-display' && g.id !== SERVICE_TYPE_GROUP_ID
+          (g) => g.type !== 'fixed-display' && !SERVICE_STEP_GROUP_IDS.includes(g.id)
         );
         if (interactiveGroups.length === 0) return true;
         const svcSelections = serviceSelections[serviceId] ?? {};
@@ -104,16 +113,23 @@ export default function ConfiguratorModal({
     if (currentKey === 'serviceType') {
       return selectedServices
         .filter((id) => COCKTAIL_BAR_IDS.includes(id))
-        .every((id) => (serviceSelections[id]?.[SERVICE_TYPE_GROUP_ID] ?? []).length > 0);
+        .every((id) => {
+          const sel = serviceSelections[id] ?? {};
+          const takeHomeOk = id !== 'cantaritos-bar' || (sel[TAKE_HOME_GROUP_ID] ?? []).length > 0;
+          return (sel[SERVICE_TYPE_GROUP_ID] ?? []).length > 0 && takeHomeOk;
+        });
+    }
+
+    if (currentKey === 'style') {
+      return !needsPresentation || personalization.presentacion.length > 0;
     }
 
     if (currentKey === 'event') {
       const baseValid = !!(eventForm.nombre && eventForm.telefono && eventForm.fecha && eventForm.horario && eventForm.lugar && eventForm.personas && eventForm.tipoEvento);
       if (!baseValid) return false;
-      const personas = parseInt(eventForm.personas) || 0;
       const meetsMinimum = selectedServices.every((id) => {
         const svc = SERVICE_MAP[id];
-        return !svc || personas >= svc.minPersonas;
+        return !svc || guestsFor(eventForm, id) >= svc.minPersonas;
       });
       return meetsMinimum;
     }
@@ -214,7 +230,7 @@ export default function ConfiguratorModal({
                         const svc = SERVICE_MAP[id];
                         if (!svc) return false;
                         const interactive = svc.selectionGroups.filter(
-                          (g) => g.type !== 'fixed-display' && g.id !== SERVICE_TYPE_GROUP_ID
+                          (g) => g.type !== 'fixed-display' && !SERVICE_STEP_GROUP_IDS.includes(g.id)
                         );
                         if (interactive.length === 0) return false;
                         const sel = serviceSelections[id] ?? {};
@@ -232,7 +248,15 @@ export default function ConfiguratorModal({
             {currentKey === 'serviceType' && !canGoNext() && (
               <div className="mb-3 flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5 text-xs text-amber-700">
                 <span className="shrink-0 mt-0.5">⚠️</span>
-                <span>Elige el tipo de servicio para cada barra de bebidas antes de continuar.</span>
+                <span>Elige el tipo de servicio para cada barra de bebidas (y si los cantaritos son rentados o de regalo) antes de continuar.</span>
+              </div>
+            )}
+
+            {/* Warning message for style step: presentation is required for bars whose price depends on it */}
+            {currentKey === 'style' && !canGoNext() && (
+              <div className="mb-3 flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5 text-xs text-amber-700">
+                <span className="shrink-0 mt-0.5">⚠️</span>
+                <span>Elige la presentación de las bebidas (cristalería o desechables) para continuar.</span>
               </div>
             )}
 

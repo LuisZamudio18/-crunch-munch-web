@@ -1,7 +1,10 @@
 'use client';
 
 import { SERVICE_MAP } from '@/data/services';
+import { ESTIMATE_ENABLED, PRICING } from '@/data/pricing';
 import type { EventFormData } from '@/types';
+import { guestsByBar, guestsFor } from '@/lib/guests';
+import { DiscountNudge, useEstimate } from './EstimateCard';
 
 const EVENT_TYPES = [
   'Boda', 'Quinceañera', 'Baby shower', 'Gender reveal',
@@ -29,12 +32,15 @@ export default function StepEventForm({ eventForm, selectedServices, onChange }:
   }, 0);
 
   const personas = parseInt(eventForm.personas) || 0;
-  const belowMinimum = personas > 0 && minRequired > 0 && personas < minRequired;
-
-  // Which specific bars are below minimum
   const barrasBajoMinimo = selectedServices
     .map((id) => SERVICE_MAP[id])
-    .filter((svc): svc is NonNullable<typeof svc> => !!svc && personas > 0 && personas < svc.minPersonas);
+    .filter((svc): svc is NonNullable<typeof svc> => !!svc && guestsFor(eventForm, svc.id) > 0 && guestsFor(eventForm, svc.id) < svc.minPersonas);
+  const belowMinimum = barrasBajoMinimo.length > 0;
+  const guests = guestsByBar(eventForm, selectedServices);
+  const { progress } = useEstimate(selectedServices, personas, undefined, guests);
+  const setBarGuests = (id: string, value: string) =>
+    onChange({ ...eventForm, personasPorBarra: { ...(eventForm.personasPorBarra ?? {}), [id]: value } });
+  const showDiscountNudge = ESTIMATE_ENABLED && selectedServices.some((id) => PRICING.services[id]);
 
   return (
     <div>
@@ -121,6 +127,50 @@ export default function StepEventForm({ eventForm, selectedServices, onChange }:
             )}
           </div>
         </div>
+
+        {selectedServices.length > 1 && (
+          <div className="rounded-xl border border-cream-200 bg-cream-100/60 p-4">
+            <p className="text-xs uppercase tracking-widest text-gold-500 mb-1">Personas por barra</p>
+            <p className="text-xs text-coffee-400 mb-3">
+              Cada barra se calcula con su propio número de invitados. Si no cambias nada, usamos el total del evento.
+            </p>
+            <div className="space-y-3">
+              {selectedServices.map((id) => {
+                const svc = SERVICE_MAP[id];
+                if (!svc) return null;
+                const own = eventForm.personasPorBarra?.[id] ?? '';
+                const effective = guestsFor(eventForm, id);
+                const low = effective > 0 && effective < svc.minPersonas;
+                return (
+                  <div key={id}>
+                    <div className="flex items-center justify-between gap-3">
+                      <label htmlFor={`personas-${id}`} className="text-sm text-coffee-700">
+                        {svc.emoji} {svc.name}
+                      </label>
+                      <input
+                        id={`personas-${id}`}
+                        type="number"
+                        inputMode="numeric"
+                        min={svc.minPersonas}
+                        value={own}
+                        onChange={(e) => setBarGuests(id, e.target.value)}
+                        placeholder={eventForm.personas || `Mín. ${svc.minPersonas}`}
+                        className={`w-28 border-b bg-transparent py-1.5 text-right text-sm text-coffee-700 placeholder-coffee-300 focus:outline-none transition-colors ${
+                          low ? 'border-red-400 focus:border-red-500' : 'border-coffee-300 focus:border-coffee-600'
+                        }`}
+                      />
+                    </div>
+                    {low && (
+                      <p className="mt-1 text-xs text-red-600">El mínimo para {svc.name} es de {svc.minPersonas} personas.</p>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {showDiscountNudge && <DiscountNudge progress={progress} />}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>

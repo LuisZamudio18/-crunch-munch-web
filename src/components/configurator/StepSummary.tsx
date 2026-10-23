@@ -1,9 +1,12 @@
 'use client';
 
+import { useMemo } from 'react';
 import Button from '@/components/ui/Button';
 import { SERVICE_MAP } from '@/data/services';
 import type { EventFormData, PersonalizationData } from '@/types';
 import { buildWhatsAppMessage } from '@/lib/whatsapp';
+import { guestsByBar, guestsFor } from '@/lib/guests';
+import EstimateCard, { DiscountNudge, estimateToWhatsAppLines, useEstimate } from './EstimateCard';
 
 interface StepSummaryProps {
   selectedServices: string[];
@@ -20,11 +23,17 @@ export default function StepSummary({
   eventForm,
   onReset,
 }: StepSummaryProps) {
+  const personas = parseInt(eventForm.personas) || 0;
+  const choices = useMemo(() => ({ serviceSelections, personalization }), [serviceSelections, personalization]);
+  const guests = useMemo(() => guestsByBar(eventForm, selectedServices), [eventForm, selectedServices]);
+  const { estimate, progress } = useEstimate(selectedServices, personas, choices, guests);
+
   const waUrl = buildWhatsAppMessage({
     selectedServices,
     serviceSelections,
     personalization,
     eventForm,
+    estimateLines: estimate ? estimateToWhatsAppLines(estimate) : undefined,
   });
 
   const formatDate = (d: string) => {
@@ -33,10 +42,9 @@ export default function StepSummary({
     return `${day}/${m}/${y}`;
   };
 
-  const personas = parseInt(eventForm.personas) || 0;
   const barrasBajoMinimo = selectedServices
     .map((id) => SERVICE_MAP[id])
-    .filter((svc): svc is NonNullable<typeof svc> => !!svc && personas > 0 && personas < svc.minPersonas);
+    .filter((svc): svc is NonNullable<typeof svc> => !!svc && guestsFor(eventForm, svc.id) > 0 && guestsFor(eventForm, svc.id) < svc.minPersonas);
 
   return (
     <div>
@@ -59,6 +67,14 @@ export default function StepSummary({
       )}
 
       <div className="space-y-4 mb-6">
+        {/* Preliminary estimate (pilot, behind NEXT_PUBLIC_ESTIMATE_ENABLED) */}
+        {estimate && (
+          <>
+            <EstimateCard estimate={estimate} />
+            <DiscountNudge progress={progress} />
+          </>
+        )}
+
         {/* Services */}
         <div className="bg-cream-100 rounded-xl p-4">
           <p className="text-xs uppercase tracking-widest text-gold-500 mb-3">Barras seleccionadas</p>
