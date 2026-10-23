@@ -17,6 +17,7 @@ import { PRICING, PRESENTATION_VARIANT } from '../src/data/pricing.ts';
 import { PRESENTATION_CHOICE_BAR_IDS, PRESENTATION_FIXED, PRESENTATION_OPTIONS } from '../src/data/services.ts';
 import { PRESENTATION_PHOTOS, PRESENTATION_PHOTO_BY_BAR, PRESENTATION_PHOTO_BY_OPTION } from '../src/data/presentations.ts';
 import { existsSync } from 'node:fs';
+import { QUOTE_COPY } from '../src/data/quoteCopy.ts';
 import { SERVICES } from '../src/data/services.ts';
 
 const failures = [];
@@ -218,6 +219,9 @@ check('below the first tier -> not priced', est(['snack'], 20) === null);
   const startsAtMin = SERVICES.every((svc) => lists(PRICING.services[svc.id]).every((t) => t[0].fromPersonas === svc.minPersonas));
   check("each bar's first price bracket starts at the bar's minimum guests", startsAtMin);
   check('every bar has a minimum charge', Object.values(PRICING.services).every((p) => p.minimumTotal > 0));
+  check('every bar has quote text for the WhatsApp message', ids.every((id) => (QUOTE_COPY[id]?.length ?? 0) > 0), ids.filter((id) => !QUOTE_COPY[id]).join());
+  check('quote text only for bars that exist', Object.keys(QUOTE_COPY).every((id) => ids.includes(id)));
+  check('"3 horas" is only claimed for Drinks Bar (the only duration we know)', Object.entries(QUOTE_COPY).every(([id, lines]) => id === 'drinks-bar' || !lines.some((l) => /horas/i.test(l))));
   check('only Drinks and Mocktails need a presentation choice', Object.entries(PRICING.services).filter(([, p]) => p.variants).map(([id]) => id).sort().join() === 'drinks-bar,mocktails-bar');
 }
 
