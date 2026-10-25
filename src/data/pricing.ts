@@ -90,7 +90,9 @@ export const PRICING: PricingConfig = {
 
     // ── Brunch (desde 20 personas)
     'brunch-bar': bar(tiersFrom20(115, 110, 100, 98, 95), 2000),
-    'desayuno-buffet': bar(tiersFrom20(150, 130, 120, 110, 100), 2000),
+    // El precio incluye 2 alimentos, 2 acompañamientos, 2 bebidas y 1 pan/galleta/postre (ver `included` en services.ts).
+    // Cada 2 opciones de más suben 15 % el precio por persona (1 sola no se cobra), y el aumento se compone: 120 → 138 → 158.70
+    'desayuno-buffet': { ...bar(tiersFrom20(150, 130, 120, 110, 100), 2000), extraPickSurcharge: { every: 2, percent: 15 } },
   },
 
   // Descuento por combinar barras: depende de cuántas barras se contratan y de que cada una

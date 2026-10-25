@@ -1,6 +1,7 @@
 'use client';
 
 import Chip from '@/components/ui/Chip';
+import ExtraPicksNote from '@/components/ui/ExtraPicksNote';
 import { SERVICE_MAP, SERVICE_STEP_GROUP_IDS } from '@/data/services';
 import type { SelectionGroup } from '@/types';
 import { clsx } from 'clsx';
@@ -127,6 +128,7 @@ function GroupPanel({
         </span>
       </div>
       <p className="text-xs text-coffee-400 mb-3">{group.instruction}</p>
+      {group.categories && <ExtraPicksNote serviceId={serviceId} categories={group.categories} selections={selections} />}
       {group.categories?.map((cat) => {
         const catTotal = catCount(cat.name, cat.options);
         const catMax = cat.maxPerCategory ?? Infinity;
@@ -135,6 +137,11 @@ function GroupPanel({
           <div key={cat.name} className="mb-4">
             <p className="text-xs uppercase tracking-wider text-coffee-400 mb-2 flex items-center gap-2">
               {cat.name}
+              {cat.included !== undefined && (
+                <span className={clsx('font-mono normal-case tracking-normal', catTotal > cat.included ? 'text-gold-500 font-bold' : '')}>
+                  ({catTotal}/{cat.included} incluidas{catTotal > cat.included ? ` · +${catTotal - cat.included} extra` : ''})
+                </span>
+              )}
               {catMax !== Infinity && (
                 <span className={clsx('font-mono', catReached ? 'text-gold-500 font-bold' : '')}>
                   ({catTotal}/{catMax})

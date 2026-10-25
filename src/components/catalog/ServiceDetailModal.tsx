@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { clsx } from 'clsx';
 import Button from '@/components/ui/Button';
 import Chip from '@/components/ui/Chip';
+import ExtraPicksNote from '@/components/ui/ExtraPicksNote';
 import PresentationPhoto from './PresentationPhoto';
 import PresentationPicker from './PresentationPicker';
 import { PRESENTATION_CHOICE_BAR_IDS, PRESENTATION_FIXED } from '@/data/services';
@@ -37,10 +38,12 @@ interface ServiceDetailModalProps {
 }
 
 function InteractiveGroup({
+  serviceId,
   group,
   selections,
   onChange,
 }: {
+  serviceId: string;
   group: SelectionGroup;
   selections: string[];
   onChange: (updated: string[]) => void;
@@ -140,6 +143,7 @@ function InteractiveGroup({
           </span>
         </div>
         <p className="text-xs text-coffee-400 mb-3">{group.instruction}</p>
+        <ExtraPicksNote serviceId={serviceId} categories={group.categories} selections={selections} />
         {group.categories.map((cat) => {
           const catTotal = catCount(cat.options);
           const catMax = cat.maxPerCategory ?? Infinity;
@@ -148,6 +152,11 @@ function InteractiveGroup({
             <div key={cat.name} className="mb-3">
               <p className="text-[10px] uppercase tracking-wider text-coffee-400 mb-2 flex items-center gap-2">
                 {cat.name}
+                {cat.included !== undefined && (
+                  <span className={clsx('font-mono normal-case tracking-normal', catTotal > cat.included ? 'text-gold-500 font-bold' : '')}>
+                    ({catTotal}/{cat.included} incluidas{catTotal > cat.included ? ` · +${catTotal - cat.included} extra` : ''})
+                  </span>
+                )}
                 {catMax !== Infinity && (
                   <span className={clsx('font-mono normal-case tracking-normal', catReached ? 'text-gold-500 font-bold' : '')}>
                     ({catTotal}/{catMax})
@@ -316,6 +325,7 @@ export default function ServiceDetailModal({
             return (
               <InteractiveGroup
                 key={group.id}
+                serviceId={service.id}
                 group={group}
                 selections={localSelections[group.id] ?? []}
                 onChange={(updated) => setLocalSelections((prev) => ({ ...prev, [group.id]: updated }))}

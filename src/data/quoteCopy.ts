@@ -75,7 +75,10 @@ const SPECIFIC: Record<string, string[]> = {
     '-Incluye 12 toppings de su elección (máximo 3 por categoría).',
   ],
   'brunch-bar': ['-Incluye 3 alimentos, 2 bebidas y 1 opción de pan o postre de su elección.'],
-  'desayuno-buffet': ['-Desayuno buffet con alimentos, acompañamientos, bebidas, pan, galletas y postres según su paquete.'],
+  'desayuno-buffet': [
+    '-Incluye 2 alimentos, 3 acompañamientos, 2 bebidas y 1 pan, galleta o postre de su elección.',
+    '-Cada 2 opciones extra que elijan suben 15 % el precio por persona.',
+  ],
 };
 
 /** Drinks Bar: the owner's own text (it already has its personalization lines; the duration is added after it). */

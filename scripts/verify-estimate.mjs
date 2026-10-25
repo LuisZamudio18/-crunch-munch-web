@@ -20,6 +20,7 @@ import { existsSync } from 'node:fs';
 import { QUOTE_COPY } from '../src/data/quoteCopy.ts';
 import { serviceHours, formatHours, serviceHoursText } from '../src/data/serviceHours.ts';
 import { SERVICES } from '../src/data/services.ts';
+import { countExtraPicks, extraPercent } from '../src/lib/extraPicks.ts';
 
 const failures = [];
 let passCount = 0;
@@ -254,6 +255,38 @@ check('below the first tier -> not priced', est(['snack'], 20) === null);
   check('brunch bars (20-29 guests) get the shortest service', reg(20) === 2 && ref(25) === 2.5);
   check('hours are written the way she says them', formatHours(2) === '2 horas' && formatHours(2.5) === '2 horas y media' && formatHours(3.5) === '3 horas y media' && formatHours(4) === '4 horas');
   check('the sentence adds "o hasta que se acabe el producto"', serviceHoursText(60, false) === 'El servicio es durante 2 horas o hasta que se acabe el producto.', serviceHoursText(60, false));
+}
+
+
+// Desayuno buffet: the price includes 2 + 2 + 2 + 1 picks; every 2 extra picks add 15 % per person, compounding
+{
+  const buffet = SERVICES.find((x) => x.id === 'desayuno-buffet');
+  const menu = buffet.selectionGroups[0];
+  const cat = (name) => menu.categories.find((c) => c.name === name);
+  const pick = (n, name) => cat(name).options.slice(0, n);
+  const sel = (a, b, c, d) => ({ menu: [...pick(a, 'Alimentos'), ...pick(b, 'Acompañamientos'), ...pick(c, 'Bebidas'), ...pick(d, 'Pan, Galletas y Postres')] });
+  const rule = PRICING.services['desayuno-buffet'].extraPickSurcharge;
+  check('buffet declares what is included: 2, 3, 2 and 1', menu.categories.map((c) => c.included).join() === '2,3,2,1');
+  check('buffet surcharge rule is 15 % per 2 extra picks', rule?.every === 2 && rule?.percent === 15, JSON.stringify(rule));
+  check('the included picks add no extras', countExtraPicks(buffet, sel(2, 3, 2, 1)) === 0);
+  check('fewer picks than included add no extras', countExtraPicks(buffet, sel(1, 0, 2, 0)) === 0);
+  check('extras are counted per category (3 + 4 + 2 + 1 → 1 + 1 = 2)', countExtraPicks(buffet, sel(3, 4, 2, 1)) === 2);
+  check('a missing category does not offset an extra in another', countExtraPicks(buffet, sel(3, 0, 2, 1)) === 1);
+
+  const estFor = (extraPicks, personas = 50) =>
+    computeEstimate({ selectedServices: ['desayuno-buffet'], personas, serviceNames: { 'desayuno-buffet': 'Buffet' }, options: { 'desayuno-buffet': { extraPicks } } }, PRICING);
+  const base = estFor(0).lines[0].pricePerPerson;
+  const at = (n) => estFor(n).lines[0].pricePerPerson;
+  check('no extras: the plain price per person', estFor(0).lines[0].extraPercent === 0 && base === 120, String(base));
+  check('2 extras: +15 %', Math.abs(at(2) - base * 1.15) < 0.01, String(at(2)));
+  check('1 extra alone is not charged', at(1) === base, String(at(1)));
+  check('3 extras: still one step; 4 extras: a second +15 % on top of the first', at(3) === at(2) && Math.abs(at(4) - base * 1.15 * 1.15) < 0.01, `${at(3)} ${at(4)}`);
+  check('6 extras: three compounded steps', Math.abs(at(6) - base * Math.pow(1.15, 3)) < 0.01, String(at(6)));
+  const example = computeEstimate({ selectedServices: ['desayuno-buffet'], personas: 50, serviceNames: {}, options: { 'desayuno-buffet': { extraPicks: 2 } } }, PRICING).lines[0];
+  check("the owner's example: 120 per person becomes 138", example.pricePerPerson === 138 && example.subtotal === 138 * 50, `${example.pricePerPerson} ${example.subtotal}`);
+  check('the line reports the extras and the percent', estFor(4).lines[0].extraPicks === 4 && estFor(4).lines[0].extraPercent === 32.3, String(estFor(4).lines[0].extraPercent));
+  check('extraPercent helper matches the engine', extraPercent(4, rule) === 32.3 && extraPercent(0, rule) === 0 && extraPercent(2, rule) === 15);
+  check('extras never touch other bars', computeEstimate({ selectedServices: ['coffee-bar'], personas: 50, serviceNames: {}, options: { 'coffee-bar': { extraPicks: 4 } } }, PRICING).lines[0].extraPercent === 0);
 }
 
 console.log(`\n${passCount} passed, ${failures.length} failed.`);

@@ -2,6 +2,8 @@ export interface ToppingCategory {
   name: string;
   options: string[];
   maxPerCategory?: number;
+  /** How many picks from this category the base price already covers; more are "extras" (see pricing.ts). */
+  included?: number;
 }
 
 export type SelectionGroupType = 'choose-n' | 'choose-1' | 'fixed-display';

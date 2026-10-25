@@ -27,6 +27,11 @@ export interface ServicePricing {
   minimumTotal?: number;
   /** Extra charge per guest when the customer asks for the take-home option. */
   takeHomePerPerson?: number;
+  /**
+   * For bars whose price covers a fixed number of picks: every full `every` picks beyond that raises the
+   * per-person price by `percent`, each step on top of the previous one (a lone extra is not charged).
+   */
+  extraPickSurcharge?: { every: number; percent: number };
 }
 
 export type DiscountKind = 'volume-guests' | 'multi-bar';
@@ -68,6 +73,8 @@ export interface ServiceOptions {
   refill?: boolean;
   /** Take-home option → ServicePricing.takeHomePerPerson applies. */
   takeHome?: boolean;
+  /** Picks beyond what the base price includes → ServicePricing.extraPickSurcharge applies. */
+  extraPicks?: number;
   /** Human-readable summary of the choices, echoed back on the estimate line. */
   label?: string;
   /** The same choices as separate lines (presentation, service type…), for the quote text. */
@@ -97,6 +104,10 @@ export interface EstimateLine {
   /** True when the minimumTotal floor raised this subtotal. */
   floorApplied: boolean;
   refillApplied: boolean;
+  /** Picks beyond the included ones (0 when none or when the bar has no such rule). */
+  extraPicks: number;
+  /** Total percent the extra picks added to the per-person price (0 when none). */
+  extraPercent: number;
   /** Amount of the subtotal that comes from the take-home option (0 when not chosen). */
   takeHomeExtra: number;
   /** Summary of the choices that shaped the price, e.g. "Cristalería premium · Refill ilimitado". */
@@ -194,7 +205,10 @@ export function computeEstimate(input: EstimateInput, config: PricingConfig): Es
     }
 
     const refillApplied = !!opts.refill && refillFactor !== 1;
-    const pricePerPerson = tier.pricePerPerson * (refillApplied ? refillFactor : 1);
+    const extraRule = pricing.extraPickSurcharge;
+    const extraPicks = extraRule ? Math.max(0, Math.floor(opts.extraPicks ?? 0)) : 0;
+    const extraFactor = extraRule ? Math.pow(1 + extraRule.percent / 100, Math.floor(extraPicks / extraRule.every)) : 1;
+    const pricePerPerson = tier.pricePerPerson * (refillApplied ? refillFactor : 1) * extraFactor;
     const raw = pricePerPerson * barGuests;
     const floor =
       pricing.minimumTotal === undefined
@@ -211,6 +225,8 @@ export function computeEstimate(input: EstimateInput, config: PricingConfig): Es
       subtotal: Math.round(base + takeHomeExtra),
       floorApplied: floor !== undefined && base > raw,
       refillApplied,
+      extraPicks,
+      extraPercent: Math.round(((extraFactor - 1) * 100 + 1e-9) * 10) / 10,
       takeHomeExtra,
       detail: opts.label,
       choices: opts.lines ?? [],

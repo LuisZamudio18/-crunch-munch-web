@@ -899,11 +899,12 @@ export const SERVICES: Service[] = [
       {
         id: 'menu',
         label: 'Menú del Buffet',
-        instruction: 'Elige lo que desees — tu cotización se calcula según los tipos seleccionados',
+        instruction: 'Tu paquete ya incluye una cantidad en cada categoría. Puedes elegir más: cada 2 opciones extra suben el precio por persona.',
         type: 'choose-n',
         categories: [
           {
             name: 'Alimentos',
+            included: 2,
             options: [
               'Chilaquiles rojos', 'Chilaquiles verde', 'Croissant', 'Chapatas', 'Bagels',
               'Tacos dorados', 'Salbutes', 'Molletes', 'Sincronizadas',
@@ -912,6 +913,7 @@ export const SERVICES: Service[] = [
           },
           {
             name: 'Acompañamientos',
+            included: 3,
             options: [
               'Hot cakes', 'Waffles', 'Frijoles', 'Fruta', 'Yogurt',
               'Bowls frutales', 'Ensalada', 'Tocino', 'Cereales (2 opciones)',
@@ -920,15 +922,20 @@ export const SERVICES: Service[] = [
           },
           {
             name: 'Bebidas',
+            included: 2,
             options: [
-              'Café americano', 'Jugo de naranja', 'Agua de jamaica', 'Agua de horchata',
-              'Agua de limón', 'Agua de fresa limón', 'Jugo verde', 'Jugo de toronja',
-              'Jugo de piña', 'Smoothie de frutos rojos', 'Smoothie chocolate',
-              'Agua piña colada', 'Naranjada', 'Agua de frutas',
+              'Café americano', 'Jugo de naranja', 'Jugo verde', 'Jugo de toronja', 'Jugo de piña',
+              'Smoothie de frutos rojos', 'Smoothie chocolate',
+              // Aguas frescas (lista de la dueña)
+              'Naranjada', 'Limonada', 'Fresa limón', 'Tamarindo', 'Piña colada', 'Pepino limón',
+              'Jamaica', 'Horchata', 'Horchata de coco', 'Mango', 'Maracuyá', 'Piñada',
+              'Sandía limón', 'Mango piña', 'Agua de piña colada', 'Agua de frutas',
+              'Jamaica con frutos rojos', 'Sandía',
             ],
           },
           {
             name: 'Pan, Galletas y Postres',
+            included: 1,
             options: [
               'Mini hot cakes', 'Mini donas', 'Mix de pan dulce', 'Mix de galletas',
               'Galletas de chispas', 'Mini donas dulces', 'Muffins', 'Orejitas', 'Empanaditas',

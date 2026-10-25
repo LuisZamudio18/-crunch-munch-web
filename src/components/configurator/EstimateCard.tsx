@@ -23,6 +23,7 @@ import {
 } from '@/lib/estimate';
 import { QUOTE_COPY } from '@/data/quoteCopy';
 import { formatHours, serviceHours, serviceHoursText } from '@/data/serviceHours';
+import { countExtraPicks } from '@/lib/extraPicks';
 import type { PersonalizationData } from '@/types';
 
 /** What the customer picked in the configurator that changes a bar's price. */
@@ -38,6 +39,7 @@ function serviceOptions(id: string, choices: EstimateChoices): ServiceOptions {
     : PRESENTATION_FIXED[id];
   const refill = COCKTAIL_BAR_IDS.includes(id) && sel[SERVICE_TYPE_GROUP_ID]?.[0] === REFILL_OPTION;
   const takeHome = sel[TAKE_HOME_GROUP_ID]?.[0] === TAKE_HOME_YES;
+  const extraPicks = PRICING.services[id]?.extraPickSurcharge ? countExtraPicks(SERVICE_MAP[id], sel) : 0;
   const label = [presentation, refill ? REFILL_OPTION : null, takeHome ? 'Cantaritos de regalo' : null]
     .filter(Boolean)
     .join(' · ');
@@ -52,6 +54,7 @@ function serviceOptions(id: string, choices: EstimateChoices): ServiceOptions {
     variant: presentation ? PRESENTATION_VARIANT[presentation] : undefined,
     refill,
     takeHome,
+    extraPicks,
     label: label || undefined,
     lines,
   };
@@ -83,7 +86,9 @@ export function useEstimate(
 export function estimateToQuoteLines(estimate: Estimate): string[] {
   const lines: string[] = [];
   for (const l of estimate.lines) {
-    lines.push(`*${l.name.toUpperCase()}*`, ...l.choices, `${l.personas} personas ${formatMXN(l.subtotal)}✨`);
+    lines.push(`*${l.name.toUpperCase()}*`, ...l.choices);
+    if (l.extraPicks > 0) lines.push(`Opciones extra: ${l.extraPicks}`);
+    lines.push(`${l.personas} personas ${formatMXN(l.subtotal)}✨`);
     const copy = QUOTE_COPY[l.serviceId];
     if (copy?.length) lines.push('', ...copy);
     // The duration depends on the guests of this bar and on whether it is sold with unlimited refill
@@ -172,7 +177,7 @@ export default function EstimateCard({ estimate }: EstimateCardProps) {
             <span>
               {l.name}
               <span className="block text-xs text-coffee-400">
-                {[`${l.personas} personas`, l.detail].filter(Boolean).join(' · ')}
+                {[`${l.personas} personas`, l.detail, l.extraPicks > 0 ? `${l.extraPicks} ${l.extraPicks === 1 ? 'opción extra' : 'opciones extra'}` : null].filter(Boolean).join(' · ')}
               </span>
               <span className="block text-xs text-coffee-400">
                 Servicio de {formatHours(serviceHours(l.personas, l.refillApplied))} o hasta que se acabe el producto
