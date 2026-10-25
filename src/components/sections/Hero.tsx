@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { useEffect, useRef } from 'react';
 import Button from '@/components/ui/Button';
 import Sticker from '@/components/ui/Sticker';
 
@@ -16,6 +16,19 @@ const FACTS = [
 ];
 
 export default function Hero({ onOpenConfigurator }: HeroProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Quien pide menos movimiento ve la foto fija (el póster) en lugar del video.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const apply = () => (reduce.matches ? video.pause() : video.play().catch(() => {}));
+    apply();
+    reduce.addEventListener('change', apply);
+    return () => reduce.removeEventListener('change', apply);
+  }, []);
+
   return (
     <section className="relative overflow-hidden bg-cream-100 px-5 md:px-10 lg:px-20 pt-28 md:pt-32">
       <div className="container-max relative pb-14 md:pb-20">
@@ -64,16 +77,21 @@ export default function Hero({ onOpenConfigurator }: HeroProps) {
 
           <div className="relative">
             <Sticker id="copa-rosa" size={78} style={{ top: '-26px', right: '-2px' }} rotate={8} duration={8} mobileOnly />
-            <div className="blob overflow-hidden aspect-[4/4.5] w-full max-w-[560px] mx-auto lg:ml-auto bg-cream-200 ring-8 ring-white shadow-[0_30px_60px_-30px_rgba(74,53,40,0.45)]">
-              <Image
-                src="/barras/coffee-bar.jpg"
-                alt="Barra de café blanca de Crunch & Munch montada en un evento, con cafetera, jarras y arreglos florales"
-                width={1123}
-                height={1111}
-                priority
-                sizes="(max-width: 1024px) 90vw, 520px"
+            <div className="blob overflow-hidden aspect-[4/5] w-full max-w-[520px] mx-auto lg:ml-auto bg-cream-200 ring-8 ring-white shadow-[0_30px_60px_-30px_rgba(74,53,40,0.45)]">
+              <video
+                ref={videoRef}
                 className="w-full h-full object-cover"
-              />
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                poster="/video/hero-poster.jpg"
+                aria-label="Barra blanca de Crunch & Munch con sombrilla de flecos, menú de bebidas y vasos en un evento"
+              >
+                <source src="/video/hero.webm" type="video/webm" />
+                <source src="/video/hero.mp4" type="video/mp4" />
+              </video>
             </div>
           </div>
         </div>
