@@ -4,15 +4,16 @@ import { useState } from 'react';
 import ServiceCard from '@/components/catalog/ServiceCard';
 import ServiceDetailModal from '@/components/catalog/ServiceDetailModal';
 import Button from '@/components/ui/Button';
+import Sticker from '@/components/ui/Sticker';
 import { SERVICES, SERVICE_MAP } from '@/data/services';
 import type { ServiceCategory } from '@/types';
 
-const FILTERS: { label: string; value: 'all' | ServiceCategory }[] = [
-  { label: 'Todos', value: 'all' },
-  { label: 'Bebidas', value: 'bebidas' },
-  { label: 'Dulce', value: 'dulce' },
-  { label: 'Salado', value: 'salado' },
-  { label: 'Brunch', value: 'brunch' },
+const FILTERS: { label: string; value: 'all' | ServiceCategory; tint: string }[] = [
+  { label: 'Todas', value: 'all', tint: 'bg-coffee-600 text-cream-50' },
+  { label: 'Bebidas', value: 'bebidas', tint: 'bg-rosa text-coffee-800' },
+  { label: 'Dulce', value: 'dulce', tint: 'bg-lila text-coffee-800' },
+  { label: 'Salado', value: 'salado', tint: 'bg-naranja text-coffee-800' },
+  { label: 'Brunch', value: 'brunch', tint: 'bg-amarillo text-coffee-800' },
 ];
 
 interface ServicesSectionProps {
@@ -35,26 +36,31 @@ export default function ServicesSection({ onOpenConfigurator, onSelectService, s
     : SERVICES.filter((s) => s.category === activeFilter);
 
   return (
-    <section id="servicios" className="bg-cream-50 section-padding py-14 md:py-16">
-      <div className="container-max">
-        {/* Header + filters, side by side on desktop so the section opens denser */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-8">
-          <div className="text-center lg:text-left">
-            <p className="text-xs uppercase tracking-widest text-gold-500 mb-3">Catálogo completo</p>
-            <h2 className="text-display text-4xl md:text-5xl text-coffee-800">
-              Nuestras <em className="gold-text">barras</em>
+    <section id="servicios" className="relative overflow-hidden bg-cream-200 section-padding py-16 md:py-24">
+      <Sticker id="menu-drinks" size={104} style={{ top: '4%', right: '5%' }} rotate={7} duration={8} desktopOnly />
+      <Sticker id="popotes" size={70} style={{ top: '9%', right: '16%' }} rotate={-9} duration={9} delay={1.4} desktopOnly />
+
+      <div className="container-max relative">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-10">
+          <div>
+            <h2 className="font-bodoni text-5xl md:text-6xl lg:text-7xl leading-[0.98] text-coffee-600">
+              Nuestras <em className="font-serif italic font-medium text-gold-500">barras</em>
             </h2>
+            <p className="font-sans text-base leading-relaxed text-coffee-600 mt-5 max-w-lg">
+              Veinticuatro conceptos para armar el evento a tu medida. Elige una para ver qué incluye y cómo se personaliza.
+            </p>
           </div>
 
-          <div className="flex flex-wrap justify-center lg:justify-end gap-2">
+          <div className="flex flex-wrap gap-2" role="group" aria-label="Filtrar barras por tipo">
             {FILTERS.map((f) => (
               <button
                 key={f.value}
                 onClick={() => setActiveFilter(f.value)}
-                className={`px-4 py-2 rounded-full text-xs tracking-wide transition-all duration-200 font-sans ${
+                aria-pressed={activeFilter === f.value}
+                className={`px-5 py-2.5 rounded-full font-sans text-[13px] uppercase tracking-[0.16em] transition-all duration-200 ${
                   activeFilter === f.value
-                    ? 'bg-coffee-800 text-cream-50 shadow-md'
-                    : 'bg-cream-100 text-coffee-600 hover:bg-cream-200 border border-cream-200'
+                    ? `${f.tint} shadow-md`
+                    : 'bg-white text-coffee-600 hover:bg-cream-50 border border-gold-400/40'
                 }`}
               >
                 {f.label}
@@ -63,12 +69,10 @@ export default function ServicesSection({ onOpenConfigurator, onSelectService, s
           </div>
         </div>
 
-        {/* Horizontal, scroll-snapping row — keeps the section a fixed height
-            regardless of how many of the 24 bars are in view, instead of
-            growing into several rows the visitor has to scroll past. */}
-        <div className="flex gap-5 overflow-x-auto pb-3 -mx-5 px-5 md:-mx-10 md:px-10 lg:-mx-20 lg:px-20 snap-x snap-mandatory scroll-smooth">
+        {/* Fila con desplazamiento horizontal: la sección mantiene su altura sin importar cuántas barras haya. */}
+        <div className="flex gap-6 overflow-x-auto pb-6 pt-1 -mx-5 px-5 md:-mx-10 md:px-10 lg:-mx-20 lg:px-20 snap-x snap-mandatory scroll-smooth">
           {filtered.map((service) => (
-            <div key={service.id} className="flex-none w-[240px] snap-start">
+            <div key={service.id} className="flex-none w-[260px] md:w-[280px] snap-start">
               <ServiceCard
                 service={service}
                 selected={selectedServices.includes(service.id)}
@@ -77,11 +81,10 @@ export default function ServicesSection({ onOpenConfigurator, onSelectService, s
             </div>
           ))}
         </div>
-        <p className="text-xs text-coffee-400 mt-3">
+        <p className="font-sans text-[13px] uppercase tracking-[0.16em] text-coffee-500 mt-2">
           Desliza para ver las {filtered.length} barras {activeFilter !== 'all' ? 'de esta categoría' : 'del catálogo'} →
         </p>
 
-        {/* Service detail modal */}
         <ServiceDetailModal
           service={detailService}
           isSelected={detailId ? selectedServices.includes(detailId) : false}
@@ -96,13 +99,10 @@ export default function ServicesSection({ onOpenConfigurator, onSelectService, s
           }}
         />
 
-        {/* CTA */}
-        <div className="mt-10 text-center">
-          <p className="text-coffee-500 mb-5 text-sm">
-            ¿Ya sabes qué barras quieres? Arma tu cotización personalizada.
-          </p>
-          <Button variant="gold" size="lg" onClick={onOpenConfigurator}>
-            Armar mi cotización ✦
+        <div className="mt-14 flex flex-col items-center text-center">
+          <p className="font-serif italic text-3xl md:text-4xl text-coffee-600 mb-6">¿Ya sabes qué barras quieres?</p>
+          <Button variant="dark" size="lg" onClick={onOpenConfigurator}>
+            Armar mi cotización
           </Button>
         </div>
       </div>

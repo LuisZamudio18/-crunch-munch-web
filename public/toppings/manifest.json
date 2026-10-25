@@ -1,0 +1,2413 @@
+{
+ "images": {
+  "aceitunas": {
+   "name": "Aceitunas",
+   "file": "aceitunas.webp",
+   "w": 627,
+   "h": 618
+  },
+  "affogato": {
+   "name": "Affogato",
+   "file": "affogato.webp",
+   "w": 447,
+   "h": 584
+  },
+  "agua-frutas": {
+   "name": "Agua de frutas",
+   "file": "agua-frutas.webp",
+   "w": 627,
+   "h": 579
+  },
+  "agua-pina-colada": {
+   "name": "Agua de piña colada",
+   "file": "agua-pina-colada.webp",
+   "w": 627,
+   "h": 587
+  },
+  "alfajores": {
+   "name": "Alfajores",
+   "file": "alfajores.webp",
+   "w": 621,
+   "h": 538
+  },
+  "almendras": {
+   "name": "Almendras",
+   "file": "almendras.webp",
+   "w": 627,
+   "h": 598
+  },
+  "americano": {
+   "name": "Americano",
+   "file": "americano.webp",
+   "w": 552,
+   "h": 519
+  },
+  "arandanos": {
+   "name": "Arándanos",
+   "file": "arandanos.webp",
+   "w": 627,
+   "h": 582
+  },
+  "aros-de-durazno": {
+   "name": "Aros de durazno",
+   "file": "aros-de-durazno.webp",
+   "w": 627,
+   "h": 583
+  },
+  "aros-de-manzana": {
+   "name": "Aros de manzana",
+   "file": "aros-de-manzana.webp",
+   "w": 627,
+   "h": 558
+  },
+  "avellanas": {
+   "name": "Avellanas",
+   "file": "avellanas.webp",
+   "w": 627,
+   "h": 607
+  },
+  "avena-y-granola": {
+   "name": "Avena y granola",
+   "file": "avena-y-granola.webp",
+   "w": 627,
+   "h": 563
+  },
+  "bagels": {
+   "name": "Bagels",
+   "file": "bagels.webp",
+   "w": 627,
+   "h": 570
+  },
+  "banana-bread-latte": {
+   "name": "Banana bread iced latte",
+   "file": "banana-bread-latte.webp",
+   "w": 627,
+   "h": 565
+  },
+  "banderillas-azules": {
+   "name": "Banderillas azules",
+   "file": "banderillas-azules.webp",
+   "w": 627,
+   "h": 602
+  },
+  "banderillas-dulces": {
+   "name": "Banderillas dulces",
+   "file": "banderillas-dulces.webp",
+   "w": 627,
+   "h": 602
+  },
+  "banderillas-picantes": {
+   "name": "Banderillas picantes",
+   "file": "banderillas-picantes.webp",
+   "w": 627,
+   "h": 600
+  },
+  "beso-de-nuez": {
+   "name": "Beso de nuez",
+   "file": "beso-de-nuez.webp",
+   "w": 612,
+   "h": 567
+  },
+  "bloody-mary": {
+   "name": "Bloody mary",
+   "file": "bloody-mary.webp",
+   "w": 405,
+   "h": 596
+  },
+  "bocadin": {
+   "name": "Bocadín",
+   "file": "bocadin.webp",
+   "w": 623,
+   "h": 587
+  },
+  "bomba-mix": {
+   "name": "Bomba mix",
+   "file": "bomba-mix.webp",
+   "w": 627,
+   "h": 595
+  },
+  "bombones": {
+   "name": "Bombones",
+   "file": "bombones.webp",
+   "w": 627,
+   "h": 596
+  },
+  "botellas-agua": {
+   "name": "Botellas de agua",
+   "file": "botellas-agua.webp",
+   "w": 508,
+   "h": 592
+  },
+  "bowls-frutales": {
+   "name": "Bowls frutales",
+   "file": "bowls-frutales.webp",
+   "w": 618,
+   "h": 549
+  },
+  "bresaola": {
+   "name": "Bresaola",
+   "file": "bresaola.webp",
+   "w": 620,
+   "h": 580
+  },
+  "brown-sugar-espresso": {
+   "name": "Brown sugar shaken espresso",
+   "file": "brown-sugar-espresso.webp",
+   "w": 449,
+   "h": 589
+  },
+  "brownie": {
+   "name": "Brownie",
+   "file": "brownie.webp",
+   "w": 621,
+   "h": 601
+  },
+  "bubble-chai": {
+   "name": "Chai (bubble tea)",
+   "file": "bubble-chai.webp",
+   "w": 412,
+   "h": 594
+  },
+  "bubble-dragon-fruit": {
+   "name": "Dragón fruit",
+   "file": "bubble-dragon-fruit.webp",
+   "w": 424,
+   "h": 591
+  },
+  "bubble-lichi": {
+   "name": "Lichi",
+   "file": "bubble-lichi.webp",
+   "w": 417,
+   "h": 593
+  },
+  "bubble-mango-tropical": {
+   "name": "Mango tropical",
+   "file": "bubble-mango-tropical.webp",
+   "w": 419,
+   "h": 597
+  },
+  "bubble-maracuya": {
+   "name": "Maracuyá",
+   "file": "bubble-maracuya.webp",
+   "w": 403,
+   "h": 596
+  },
+  "bubble-matcha": {
+   "name": "Matcha (bubble tea)",
+   "file": "bubble-matcha.webp",
+   "w": 407,
+   "h": 593
+  },
+  "bubble-taro": {
+   "name": "Taro (bubble tea)",
+   "file": "bubble-taro.webp",
+   "w": 405,
+   "h": 593
+  },
+  "bubble-te-negro": {
+   "name": "Té negro",
+   "file": "bubble-te-negro.webp",
+   "w": 402,
+   "h": 603
+  },
+  "bubble-te-verde": {
+   "name": "Té verde",
+   "file": "bubble-te-verde.webp",
+   "w": 409,
+   "h": 592
+  },
+  "butterfly-pea-tea": {
+   "name": "Butterfly pea tea",
+   "file": "butterfly-pea-tea.webp",
+   "w": 336,
+   "h": 597
+  },
+  "cacahuates-ajo": {
+   "name": "Cacahuates con ajo",
+   "file": "cacahuates-ajo.webp",
+   "w": 627,
+   "h": 601
+  },
+  "cacahuates-con-queso": {
+   "name": "Cacahuates con queso",
+   "file": "cacahuates-con-queso.webp",
+   "w": 627,
+   "h": 586
+  },
+  "cacahuates-enchilados": {
+   "name": "Cacahuates enchilados",
+   "file": "cacahuates-enchilados.webp",
+   "w": 627,
+   "h": 564
+  },
+  "cacahuates-habanero": {
+   "name": "Cacahuates habanero",
+   "file": "cacahuates-habanero.webp",
+   "w": 627,
+   "h": 571
+  },
+  "cacahuates-holandes": {
+   "name": "Cacahuates holandeses",
+   "file": "cacahuates-holandes.webp",
+   "w": 627,
+   "h": 592
+  },
+  "cacahuates-hot-nuts": {
+   "name": "Hot nuts",
+   "file": "cacahuates-hot-nuts.webp",
+   "w": 627,
+   "h": 565
+  },
+  "cacahuates-japones": {
+   "name": "Cacahuates japoneses",
+   "file": "cacahuates-japones.webp",
+   "w": 627,
+   "h": 607
+  },
+  "cacahuates-limon-sal": {
+   "name": "Cacahuates con limón y sal",
+   "file": "cacahuates-limon-sal.webp",
+   "w": 627,
+   "h": 600
+  },
+  "cacahuates-naturales": {
+   "name": "Cacahuates naturales",
+   "file": "cacahuates-naturales.webp",
+   "w": 627,
+   "h": 592
+  },
+  "cajeta": {
+   "name": "Cajeta",
+   "file": "cajeta.webp",
+   "w": 616,
+   "h": 627
+  },
+  "canapes-rellenos": {
+   "name": "Canapés rellenos",
+   "file": "canapes-rellenos.webp",
+   "w": 619,
+   "h": 514
+  },
+  "capuccino": {
+   "name": "Capuccino",
+   "file": "capuccino.webp",
+   "w": 542,
+   "h": 588
+  },
+  "caramel-latte": {
+   "name": "Caramel latte",
+   "file": "caramel-latte.webp",
+   "w": 380,
+   "h": 594
+  },
+  "carlos-v": {
+   "name": "Carlos V",
+   "file": "carlos-v.webp",
+   "w": 627,
+   "h": 601
+  },
+  "carlota": {
+   "name": "Carlota",
+   "file": "carlota.webp",
+   "w": 544,
+   "h": 589
+  },
+  "cereales": {
+   "name": "Cereales",
+   "file": "cereales.webp",
+   "w": 614,
+   "h": 537
+  },
+  "chabacanos-secos": {
+   "name": "Chabacanos secos",
+   "file": "chabacanos-secos.webp",
+   "w": 627,
+   "h": 609
+  },
+  "chai-frappe": {
+   "name": "Chaí frappe",
+   "file": "chai-frappe.webp",
+   "w": 401,
+   "h": 601
+  },
+  "chai-latte": {
+   "name": "Chaí latte",
+   "file": "chai-latte.webp",
+   "w": 619,
+   "h": 606
+  },
+  "cheerios-miel": {
+   "name": "Cheerios miel",
+   "file": "cheerios-miel.webp",
+   "w": 627,
+   "h": 597
+  },
+  "cheesecake-ferrero": {
+   "name": "Mini cheesecake ferrero",
+   "file": "cheesecake-ferrero.webp",
+   "w": 578,
+   "h": 577
+  },
+  "cheesecake-frutos-rojos": {
+   "name": "Mini cheesecake frutos rojos",
+   "file": "cheesecake-frutos-rojos.webp",
+   "w": 582,
+   "h": 571
+  },
+  "cheesecake-lotus": {
+   "name": "Mini cheesecake lotus",
+   "file": "cheesecake-lotus.webp",
+   "w": 587,
+   "h": 573
+  },
+  "cheesecake-maracuya": {
+   "name": "Mini cheesecake maracuyá",
+   "file": "cheesecake-maracuya.webp",
+   "w": 573,
+   "h": 557
+  },
+  "cheesecake-oreo": {
+   "name": "Mini cheesecake oreo",
+   "file": "cheesecake-oreo.webp",
+   "w": 576,
+   "h": 602
+  },
+  "cheesecake-tortuga": {
+   "name": "Mini cheesecake tortuga",
+   "file": "cheesecake-tortuga.webp",
+   "w": 584,
+   "h": 589
+  },
+  "cheetos": {
+   "name": "Cheetos",
+   "file": "cheetos.webp",
+   "w": 627,
+   "h": 599
+  },
+  "cheetos-flamin-hot": {
+   "name": "Cheetos flamin hot",
+   "file": "cheetos-flamin-hot.webp",
+   "w": 627,
+   "h": 619
+  },
+  "cheetos-poffs": {
+   "name": "Cheetos poffs",
+   "file": "cheetos-poffs.webp",
+   "w": 627,
+   "h": 613
+  },
+  "chicharrones-mix": {
+   "name": "Chicharrones mix",
+   "file": "chicharrones-mix.webp",
+   "w": 627,
+   "h": 614
+  },
+  "chilaquiles-rojos": {
+   "name": "Chilaquiles rojos",
+   "file": "chilaquiles-rojos.webp",
+   "w": 627,
+   "h": 542
+  },
+  "chilaquiles-verdes": {
+   "name": "Chilaquiles verdes",
+   "file": "chilaquiles-verdes.webp",
+   "w": 618,
+   "h": 535
+  },
+  "chispas-de-chocolate": {
+   "name": "Chispas de chocolate",
+   "file": "chispas-de-chocolate.webp",
+   "w": 627,
+   "h": 596
+  },
+  "chispas-de-chocolate-blanco": {
+   "name": "Chispas de chocolate blanco",
+   "file": "chispas-de-chocolate-blanco.webp",
+   "w": 627,
+   "h": 588
+  },
+  "chispas-turin": {
+   "name": "Chispas Turin",
+   "file": "chispas-turin.webp",
+   "w": 627,
+   "h": 592
+  },
+  "chococrispi": {
+   "name": "Chococrispi",
+   "file": "chococrispi.webp",
+   "w": 627,
+   "h": 613
+  },
+  "chocolate-liquido": {
+   "name": "Chocolate líquido",
+   "file": "chocolate-liquido.webp",
+   "w": 610,
+   "h": 611
+  },
+  "chocoretas": {
+   "name": "Chocoretas",
+   "file": "chocoretas.webp",
+   "w": 627,
+   "h": 602
+  },
+  "chocoroll-frappe": {
+   "name": "Chocoroll frappe",
+   "file": "chocoroll-frappe.webp",
+   "w": 427,
+   "h": 604
+  },
+  "chorizo-iberico": {
+   "name": "Chorizo ibérico",
+   "file": "chorizo-iberico.webp",
+   "w": 617,
+   "h": 529
+  },
+  "churrumais": {
+   "name": "Churrumais",
+   "file": "churrumais.webp",
+   "w": 627,
+   "h": 611
+  },
+  "ciruela-pasa": {
+   "name": "Ciruela pasa",
+   "file": "ciruela-pasa.webp",
+   "w": 627,
+   "h": 605
+  },
+  "coco-matcha": {
+   "name": "Coco matcha",
+   "file": "coco-matcha.webp",
+   "w": 513,
+   "h": 609
+  },
+  "coco-rallado": {
+   "name": "Coco rallado",
+   "file": "coco-rallado.webp",
+   "w": 627,
+   "h": 551
+  },
+  "cold-brew": {
+   "name": "Cold brew",
+   "file": "cold-brew.webp",
+   "w": 427,
+   "h": 571
+  },
+  "cookie-crisp": {
+   "name": "Cookie crisp",
+   "file": "cookie-crisp.webp",
+   "w": 627,
+   "h": 594
+  },
+  "corazones": {
+   "name": "Corazones",
+   "file": "corazones.webp",
+   "w": 627,
+   "h": 583
+  },
+  "cosmopolitan": {
+   "name": "Cosmopolitan",
+   "file": "cosmopolitan.webp",
+   "w": 483,
+   "h": 590
+  },
+  "cranberry-orange": {
+   "name": "Cranberry orange",
+   "file": "cranberry-orange.webp",
+   "w": 394,
+   "h": 589
+  },
+  "crema-batida": {
+   "name": "Crema batida",
+   "file": "crema-batida.webp",
+   "w": 608,
+   "h": 616
+  },
+  "cremax": {
+   "name": "Cremax",
+   "file": "cremax.webp",
+   "w": 627,
+   "h": 583
+  },
+  "croissant": {
+   "name": "Croissant",
+   "file": "croissant.webp",
+   "w": 627,
+   "h": 526
+  },
+  "crostini": {
+   "name": "Crostini",
+   "file": "crostini.webp",
+   "w": 627,
+   "h": 570
+  },
+  "cupcakes": {
+   "name": "Cupcakes",
+   "file": "cupcakes.webp",
+   "w": 627,
+   "h": 597
+  },
+  "cups-charcuteria": {
+   "name": "Cups de charcutería",
+   "file": "cups-charcuteria.webp",
+   "w": 610,
+   "h": 579
+  },
+  "daiquiri-fresa": {
+   "name": "Daiquiri fresa",
+   "file": "daiquiri-fresa.webp",
+   "w": 454,
+   "h": 574
+  },
+  "daiquiri-mango": {
+   "name": "Daiquiri mango",
+   "file": "daiquiri-mango.webp",
+   "w": 449,
+   "h": 574
+  },
+  "dalgona-caramel": {
+   "name": "Dalgona caramel",
+   "file": "dalgona-caramel.webp",
+   "w": 364,
+   "h": 627
+  },
+  "dalgona-latte": {
+   "name": "Dalgona latte",
+   "file": "dalgona-latte.webp",
+   "w": 367,
+   "h": 627
+  },
+  "datiles": {
+   "name": "Dátiles",
+   "file": "datiles.webp",
+   "w": 627,
+   "h": 598
+  },
+  "doritos-chile": {
+   "name": "Doritos chile",
+   "file": "doritos-chile.webp",
+   "w": 627,
+   "h": 599
+  },
+  "doritos-nacho": {
+   "name": "Doritos nacho",
+   "file": "doritos-nacho.webp",
+   "w": 627,
+   "h": 605
+  },
+  "dulci-gomas": {
+   "name": "Dulci gomas",
+   "file": "dulci-gomas.webp",
+   "w": 627,
+   "h": 598
+  },
+  "durazno": {
+   "name": "Durazno",
+   "file": "durazno.webp",
+   "w": 627,
+   "h": 608
+  },
+  "electric-blue": {
+   "name": "Electric blue",
+   "file": "electric-blue.webp",
+   "w": 327,
+   "h": 599
+  },
+  "empanaditas-dulces": {
+   "name": "Empanaditas dulces",
+   "file": "empanaditas-dulces.webp",
+   "w": 620,
+   "h": 539
+  },
+  "empanaditas-saladas": {
+   "name": "Empanaditas saladas",
+   "file": "empanaditas-saladas.webp",
+   "w": 627,
+   "h": 575
+  },
+  "emperador": {
+   "name": "Emperador",
+   "file": "emperador.webp",
+   "w": 627,
+   "h": 606
+  },
+  "ensalada": {
+   "name": "Ensalada",
+   "file": "ensalada.webp",
+   "w": 622,
+   "h": 557
+  },
+  "frambuesas": {
+   "name": "Frambuesas",
+   "file": "frambuesas.webp",
+   "w": 627,
+   "h": 600
+  },
+  "frappe-abuelita": {
+   "name": "Frappe abuelita",
+   "file": "frappe-abuelita.webp",
+   "w": 406,
+   "h": 594
+  },
+  "frappe-caramelo": {
+   "name": "Frappe caramelo",
+   "file": "frappe-caramelo.webp",
+   "w": 412,
+   "h": 596
+  },
+  "frappe-cheesecake": {
+   "name": "Frappe cheesecake",
+   "file": "frappe-cheesecake.webp",
+   "w": 397,
+   "h": 601
+  },
+  "frappe-clasico": {
+   "name": "Frappe clásico",
+   "file": "frappe-clasico.webp",
+   "w": 405,
+   "h": 597
+  },
+  "frappe-ferrero": {
+   "name": "Frappe ferrero",
+   "file": "frappe-ferrero.webp",
+   "w": 411,
+   "h": 597
+  },
+  "frappe-fresa": {
+   "name": "Frappe fresa",
+   "file": "frappe-fresa.webp",
+   "w": 417,
+   "h": 597
+  },
+  "frappe-galleta-chips": {
+   "name": "Frappe de galleta chips",
+   "file": "frappe-galleta-chips.webp",
+   "w": 432,
+   "h": 597
+  },
+  "frappe-gansito": {
+   "name": "Frappe gansito",
+   "file": "frappe-gansito.webp",
+   "w": 406,
+   "h": 607
+  },
+  "frappe-pinguino": {
+   "name": "Frappe pingüino",
+   "file": "frappe-pinguino.webp",
+   "w": 418,
+   "h": 606
+  },
+  "fresa-limon": {
+   "name": "Fresa limón",
+   "file": "fresa-limon.webp",
+   "w": 616,
+   "h": 590
+  },
+  "fresas": {
+   "name": "Fresas",
+   "file": "fresas.webp",
+   "w": 627,
+   "h": 587
+  },
+  "frijoles": {
+   "name": "Frijoles",
+   "file": "frijoles.webp",
+   "w": 602,
+   "h": 564
+  },
+  "fritos": {
+   "name": "Fritos",
+   "file": "fritos.webp",
+   "w": 627,
+   "h": 598
+  },
+  "froot-loops": {
+   "name": "Froot loops",
+   "file": "froot-loops.webp",
+   "w": 627,
+   "h": 606
+  },
+  "frutitas": {
+   "name": "Frutitas",
+   "file": "frutitas.webp",
+   "w": 627,
+   "h": 606
+  },
+  "galleta-de-chispas": {
+   "name": "Galleta de chispas",
+   "file": "galleta-de-chispas.webp",
+   "w": 627,
+   "h": 592
+  },
+  "galletas-avellana-nuez": {
+   "name": "Galletas de avellana y nuez",
+   "file": "galletas-avellana-nuez.webp",
+   "w": 613,
+   "h": 604
+  },
+  "galletas-personalizadas": {
+   "name": "Galletas personalizadas",
+   "file": "galletas-personalizadas.webp",
+   "w": 621,
+   "h": 579
+  },
+  "galletas-saladas": {
+   "name": "Galletas saladas",
+   "file": "galletas-saladas.webp",
+   "w": 615,
+   "h": 492
+  },
+  "garapinados": {
+   "name": "Garapiñados",
+   "file": "garapinados.webp",
+   "w": 627,
+   "h": 604
+  },
+  "gin-frutos-rojos": {
+   "name": "Gin frutos rojos",
+   "file": "gin-frutos-rojos.webp",
+   "w": 385,
+   "h": 627
+  },
+  "gin-tonic": {
+   "name": "Gin tonic",
+   "file": "gin-tonic.webp",
+   "w": 390,
+   "h": 587
+  },
+  "granola": {
+   "name": "Granola",
+   "file": "granola.webp",
+   "w": 627,
+   "h": 594
+  },
+  "gusanitos": {
+   "name": "Gusanitos",
+   "file": "gusanitos.webp",
+   "w": 627,
+   "h": 580
+  },
+  "gusanitos-enchilados": {
+   "name": "Gusanitos enchilados",
+   "file": "gusanitos-enchilados.webp",
+   "w": 640,
+   "h": 558
+  },
+  "helado-chocolate": {
+   "name": "Helado de chocolate",
+   "file": "helado-chocolate.webp",
+   "w": 627,
+   "h": 551
+  },
+  "helado-galleta": {
+   "name": "Helado de galleta",
+   "file": "helado-galleta.webp",
+   "w": 627,
+   "h": 577
+  },
+  "helado-limon": {
+   "name": "Helado de limón",
+   "file": "helado-limon.webp",
+   "w": 626,
+   "h": 576
+  },
+  "helado-pistache": {
+   "name": "Helado de pistache",
+   "file": "helado-pistache.webp",
+   "w": 627,
+   "h": 574
+  },
+  "helado-vainilla": {
+   "name": "Helado de vainilla",
+   "file": "helado-vainilla.webp",
+   "w": 582,
+   "h": 529
+  },
+  "higos": {
+   "name": "Higos",
+   "file": "higos.webp",
+   "w": 627,
+   "h": 614
+  },
+  "higos-secos": {
+   "name": "Higos secos",
+   "file": "higos-secos.webp",
+   "w": 627,
+   "h": 616
+  },
+  "horchata": {
+   "name": "Horchata",
+   "file": "horchata.webp",
+   "w": 613,
+   "h": 593
+  },
+  "horchata-coco": {
+   "name": "Horchata de coco",
+   "file": "horchata-coco.webp",
+   "w": 625,
+   "h": 589
+  },
+  "horchata-latte": {
+   "name": "Horchata latte",
+   "file": "horchata-latte.webp",
+   "w": 499,
+   "h": 596
+  },
+  "huevos-estrellados": {
+   "name": "Huevos estrellados",
+   "file": "huevos-estrellados.webp",
+   "w": 620,
+   "h": 570
+  },
+  "huevos-jamon": {
+   "name": "Huevos con jamón",
+   "file": "huevos-jamon.webp",
+   "w": 627,
+   "h": 528
+  },
+  "huevos-salchicha": {
+   "name": "Huevos con salchicha",
+   "file": "huevos-salchicha.webp",
+   "w": 627,
+   "h": 526
+  },
+  "ice-latte": {
+   "name": "Ice latte",
+   "file": "ice-latte.webp",
+   "w": 389,
+   "h": 593
+  },
+  "ice-lotus-latte": {
+   "name": "Ice lotus latte",
+   "file": "ice-lotus-latte.webp",
+   "w": 535,
+   "h": 611
+  },
+  "ice-moka": {
+   "name": "Ice moka",
+   "file": "ice-moka.webp",
+   "w": 407,
+   "h": 585
+  },
+  "jamaica": {
+   "name": "Jamaica",
+   "file": "jamaica.webp",
+   "w": 622,
+   "h": 583
+  },
+  "jamaica-frutos-rojos": {
+   "name": "Jamaica con frutos rojos",
+   "file": "jamaica-frutos-rojos.webp",
+   "w": 627,
+   "h": 604
+  },
+  "jamon-serrano": {
+   "name": "Jamón serrano",
+   "file": "jamon-serrano.webp",
+   "w": 624,
+   "h": 592
+  },
+  "jicama": {
+   "name": "Jícama",
+   "file": "jicama.webp",
+   "w": 627,
+   "h": 572
+  },
+  "jugo-naranja": {
+   "name": "Jugo de naranja",
+   "file": "jugo-naranja.webp",
+   "w": 611,
+   "h": 565
+  },
+  "jugo-pina": {
+   "name": "Jugo de piña",
+   "file": "jugo-pina.webp",
+   "w": 568,
+   "h": 586
+  },
+  "jugo-toronja": {
+   "name": "Jugo de toronja",
+   "file": "jugo-toronja.webp",
+   "w": 599,
+   "h": 577
+  },
+  "jugo-verde": {
+   "name": "Jugo verde",
+   "file": "jugo-verde.webp",
+   "w": 617,
+   "h": 582
+  },
+  "kinder-bueno": {
+   "name": "Kinder bueno",
+   "file": "kinder-bueno.webp",
+   "w": 627,
+   "h": 594
+  },
+  "kinder-delice": {
+   "name": "Kinder delice",
+   "file": "kinder-delice.webp",
+   "w": 627,
+   "h": 597
+  },
+  "kisses": {
+   "name": "Kisses",
+   "file": "kisses.webp",
+   "w": 627,
+   "h": 606
+  },
+  "krankys": {
+   "name": "Krankys",
+   "file": "krankys.webp",
+   "w": 627,
+   "h": 595
+  },
+  "laguna-azul": {
+   "name": "Laguna azul",
+   "file": "laguna-azul.webp",
+   "w": 363,
+   "h": 596
+  },
+  "latte-caramelo": {
+   "name": "Latte caramelo",
+   "file": "latte-caramelo.webp",
+   "w": 452,
+   "h": 622
+  },
+  "latte-clasico": {
+   "name": "Latte clásico",
+   "file": "latte-clasico.webp",
+   "w": 588,
+   "h": 571
+  },
+  "latte-vainilla": {
+   "name": "Latte vainilla",
+   "file": "latte-vainilla.webp",
+   "w": 588,
+   "h": 574
+  },
+  "lechera": {
+   "name": "Lechera",
+   "file": "lechera.webp",
+   "w": 594,
+   "h": 605
+  },
+  "limonada": {
+   "name": "Limonada",
+   "file": "limonada.webp",
+   "w": 599,
+   "h": 581
+  },
+  "lotus-frappe": {
+   "name": "Lotus frappe",
+   "file": "lotus-frappe.webp",
+   "w": 438,
+   "h": 593
+  },
+  "lunetas": {
+   "name": "Lunetas",
+   "file": "lunetas.webp",
+   "w": 627,
+   "h": 605
+  },
+  "mamut": {
+   "name": "Mamut",
+   "file": "mamut.webp",
+   "w": 627,
+   "h": 621
+  },
+  "mango": {
+   "name": "Mango",
+   "file": "mango.webp",
+   "w": 627,
+   "h": 615
+  },
+  "mango-gusano": {
+   "name": "Mango gusano",
+   "file": "mango-gusano.webp",
+   "w": 627,
+   "h": 590
+  },
+  "mango-mule": {
+   "name": "Mango mule",
+   "file": "mango-mule.webp",
+   "w": 490,
+   "h": 552
+  },
+  "mango-pina": {
+   "name": "Mango piña",
+   "file": "mango-pina.webp",
+   "w": 627,
+   "h": 593
+  },
+  "mango-tajin": {
+   "name": "Mango tajín",
+   "file": "mango-tajin.webp",
+   "w": 619,
+   "h": 574
+  },
+  "manguitos": {
+   "name": "Manguitos",
+   "file": "manguitos.webp",
+   "w": 620,
+   "h": 539
+  },
+  "manhattan": {
+   "name": "Manhattan",
+   "file": "manhattan.webp",
+   "w": 388,
+   "h": 557
+  },
+  "manzana": {
+   "name": "Manzana",
+   "file": "manzana.webp",
+   "w": 627,
+   "h": 618
+  },
+  "margarita-azul": {
+   "name": "Margarita azul",
+   "file": "margarita-azul.webp",
+   "w": 518,
+   "h": 579
+  },
+  "margarita-clasica": {
+   "name": "Margarita clásica",
+   "file": "margarita-clasica.webp",
+   "w": 490,
+   "h": 581
+  },
+  "margarita-fresa": {
+   "name": "Margarita fresa",
+   "file": "margarita-fresa.webp",
+   "w": 507,
+   "h": 590
+  },
+  "margarita-mango": {
+   "name": "Margarita mango",
+   "file": "margarita-mango.webp",
+   "w": 518,
+   "h": 577
+  },
+  "matcha-frappe": {
+   "name": "Matcha frappe",
+   "file": "matcha-frappe.webp",
+   "w": 407,
+   "h": 594
+  },
+  "matcha-latte": {
+   "name": "Matcha latte",
+   "file": "matcha-latte.webp",
+   "w": 598,
+   "h": 574
+  },
+  "mazapan": {
+   "name": "Mazapán",
+   "file": "mazapan.webp",
+   "w": 627,
+   "h": 606
+  },
+  "mermelada-de-fresa": {
+   "name": "Mermelada de fresa",
+   "file": "mermelada-de-fresa.webp",
+   "w": 627,
+   "h": 575
+  },
+  "mermelada-de-frutos-rojos": {
+   "name": "Mermelada de frutos rojos",
+   "file": "mermelada-de-frutos-rojos.webp",
+   "w": 627,
+   "h": 580
+  },
+  "mermelada-de-pina": {
+   "name": "Mermelada de piña",
+   "file": "mermelada-de-pina.webp",
+   "w": 627,
+   "h": 590
+  },
+  "mezcalita-fresa": {
+   "name": "Mezcalita fresa",
+   "file": "mezcalita-fresa.webp",
+   "w": 504,
+   "h": 549
+  },
+  "mezcalita-jamaica": {
+   "name": "Mezcalita jamaica",
+   "file": "mezcalita-jamaica.webp",
+   "w": 474,
+   "h": 564
+  },
+  "mezcalita-maracuya": {
+   "name": "Mezcalita maracuyá",
+   "file": "mezcalita-maracuya.webp",
+   "w": 478,
+   "h": 549
+  },
+  "mezcalita-pina": {
+   "name": "Mezcalita piña",
+   "file": "mezcalita-pina.webp",
+   "w": 523,
+   "h": 580
+  },
+  "miel-de-maple": {
+   "name": "Miel de maple",
+   "file": "miel-de-maple.webp",
+   "w": 590,
+   "h": 609
+  },
+  "miel-natural": {
+   "name": "Miel natural",
+   "file": "miel-natural.webp",
+   "w": 584,
+   "h": 622
+  },
+  "miki-pay-queso": {
+   "name": "Miki pay de queso",
+   "file": "miki-pay-queso.webp",
+   "w": 562,
+   "h": 586
+  },
+  "mimosa": {
+   "name": "Mimosa clásica",
+   "file": "mimosa.webp",
+   "w": 255,
+   "h": 609
+  },
+  "mini-chapatas": {
+   "name": "Mini chapatas",
+   "file": "mini-chapatas.webp",
+   "w": 626,
+   "h": 624
+  },
+  "mini-donas-dulces": {
+   "name": "Mini donas dulces",
+   "file": "mini-donas-dulces.webp",
+   "w": 627,
+   "h": 589
+  },
+  "mini-flan": {
+   "name": "Mini flan",
+   "file": "mini-flan.webp",
+   "w": 615,
+   "h": 556
+  },
+  "mini-hamburguesas": {
+   "name": "Mini hamburguesas",
+   "file": "mini-hamburguesas.webp",
+   "w": 613,
+   "h": 625
+  },
+  "mini-hot-cakes": {
+   "name": "Mini hot cakes",
+   "file": "mini-hot-cakes.webp",
+   "w": 552,
+   "h": 577
+  },
+  "mini-muffins": {
+   "name": "Mini muffins",
+   "file": "mini-muffins.webp",
+   "w": 622,
+   "h": 583
+  },
+  "mini-pan-queso-bola": {
+   "name": "Mini pan de queso de bola",
+   "file": "mini-pan-queso-bola.webp",
+   "w": 627,
+   "h": 579
+  },
+  "mini-pizzas": {
+   "name": "Mini pizzas",
+   "file": "mini-pizzas.webp",
+   "w": 618,
+   "h": 565
+  },
+  "mini-queso-napolitano": {
+   "name": "Mini queso napolitano",
+   "file": "mini-queso-napolitano.webp",
+   "w": 622,
+   "h": 544
+  },
+  "mini-sandwich": {
+   "name": "Mini sándwich",
+   "file": "mini-sandwich.webp",
+   "w": 594,
+   "h": 569
+  },
+  "mini-waffles": {
+   "name": "Mini waffles",
+   "file": "mini-waffles.webp",
+   "w": 603,
+   "h": 557
+  },
+  "mix-de-nueces": {
+   "name": "Mix de nueces",
+   "file": "mix-de-nueces.webp",
+   "w": 627,
+   "h": 596
+  },
+  "mix-galletas": {
+   "name": "Mix de galletas",
+   "file": "mix-galletas.webp",
+   "w": 627,
+   "h": 554
+  },
+  "mix-pan-dulce": {
+   "name": "Mix de pan dulce",
+   "file": "mix-pan-dulce.webp",
+   "w": 627,
+   "h": 592
+  },
+  "mojaditos": {
+   "name": "Mojaditos",
+   "file": "mojaditos.webp",
+   "w": 627,
+   "h": 576
+  },
+  "mojito-clasico": {
+   "name": "Mojito clásico",
+   "file": "mojito-clasico.webp",
+   "w": 302,
+   "h": 585
+  },
+  "mojito-fresa": {
+   "name": "Mojito fresa",
+   "file": "mojito-fresa.webp",
+   "w": 338,
+   "h": 619
+  },
+  "mojito-frutos-rojos": {
+   "name": "Mojito frutos rojos",
+   "file": "mojito-frutos-rojos.webp",
+   "w": 333,
+   "h": 582
+  },
+  "moka-frappe": {
+   "name": "Moka frappe",
+   "file": "moka-frappe.webp",
+   "w": 407,
+   "h": 594
+  },
+  "moka-latte": {
+   "name": "Moka latte",
+   "file": "moka-latte.webp",
+   "w": 472,
+   "h": 604
+  },
+  "molletes": {
+   "name": "Molletes",
+   "file": "molletes.webp",
+   "w": 627,
+   "h": 581
+  },
+  "moras-y-zarzamora": {
+   "name": "Moras y zarzamora",
+   "file": "moras-y-zarzamora.webp",
+   "w": 627,
+   "h": 598
+  },
+  "mym": {
+   "name": "M&M",
+   "file": "mym.webp",
+   "w": 627,
+   "h": 589
+  },
+  "naranjada": {
+   "name": "Naranjada",
+   "file": "naranjada.webp",
+   "w": 600,
+   "h": 572
+  },
+  "nesquik": {
+   "name": "Nesquik",
+   "file": "nesquik.webp",
+   "w": 627,
+   "h": 611
+  },
+  "nueces": {
+   "name": "Nueces",
+   "file": "nueces.webp",
+   "w": 627,
+   "h": 589
+  },
+  "nuez-castilla": {
+   "name": "Nuez de castilla",
+   "file": "nuez-castilla.webp",
+   "w": 627,
+   "h": 615
+  },
+  "nuez-de-la-india": {
+   "name": "Nuez de la india",
+   "file": "nuez-de-la-india.webp",
+   "w": 627,
+   "h": 621
+  },
+  "nutella": {
+   "name": "Nutella",
+   "file": "nutella.webp",
+   "w": 627,
+   "h": 599
+  },
+  "nutella-frappe": {
+   "name": "Nutella frappe",
+   "file": "nutella-frappe.webp",
+   "w": 401,
+   "h": 603
+  },
+  "orejitas": {
+   "name": "Orejitas",
+   "file": "orejitas.webp",
+   "w": 616,
+   "h": 574
+  },
+  "oreo": {
+   "name": "Oreo",
+   "file": "oreo.webp",
+   "w": 627,
+   "h": 580
+  },
+  "oreo-frappe": {
+   "name": "Oreo frappe",
+   "file": "oreo-frappe.webp",
+   "w": 439,
+   "h": 598
+  },
+  "paleta-chicle": {
+   "name": "Paleta de chicle",
+   "file": "paleta-chicle.webp",
+   "w": 627,
+   "h": 619
+  },
+  "paleta-mango-chamoy": {
+   "name": "Paleta mango chamoy",
+   "file": "paleta-mango-chamoy.webp",
+   "w": 627,
+   "h": 621
+  },
+  "paleta-pina-chamoy": {
+   "name": "Paleta piña chamoy",
+   "file": "paleta-pina-chamoy.webp",
+   "w": 622,
+   "h": 579
+  },
+  "paleta-uva": {
+   "name": "Paleta de uva",
+   "file": "paleta-uva.webp",
+   "w": 623,
+   "h": 582
+  },
+  "paleta-variado": {
+   "name": "Paleta variado",
+   "file": "paleta-variado.webp",
+   "w": 627,
+   "h": 536
+  },
+  "paletas-de-corazon": {
+   "name": "Paletas de corazón",
+   "file": "paletas-de-corazon.webp",
+   "w": 627,
+   "h": 595
+  },
+  "paletas-de-elote": {
+   "name": "Paletas de elote",
+   "file": "paletas-de-elote.webp",
+   "w": 627,
+   "h": 607
+  },
+  "paletas-de-mango": {
+   "name": "Paletas de mango",
+   "file": "paletas-de-mango.webp",
+   "w": 627,
+   "h": 607
+  },
+  "paletas-de-pina": {
+   "name": "Paletas de piña",
+   "file": "paletas-de-pina.webp",
+   "w": 627,
+   "h": 622
+  },
+  "paletas-mix": {
+   "name": "Paletas mix",
+   "file": "paletas-mix.webp",
+   "w": 627,
+   "h": 627
+  },
+  "paloma": {
+   "name": "Paloma",
+   "file": "paloma.webp",
+   "w": 438,
+   "h": 562
+  },
+  "paloma-sandia": {
+   "name": "Paloma sandía",
+   "file": "paloma-sandia.webp",
+   "w": 509,
+   "h": 571
+  },
+  "palomitas": {
+   "name": "Palomitas",
+   "file": "palomitas.webp",
+   "w": 627,
+   "h": 594
+  },
+  "pan-baguette": {
+   "name": "Pan baguette",
+   "file": "pan-baguette.webp",
+   "w": 624,
+   "h": 596
+  },
+  "pan-de-campo": {
+   "name": "Pan de campo",
+   "file": "pan-de-campo.webp",
+   "w": 626,
+   "h": 592
+  },
+  "pan-integral": {
+   "name": "Pan integral",
+   "file": "pan-integral.webp",
+   "w": 623,
+   "h": 601
+  },
+  "panditas": {
+   "name": "Panditas",
+   "file": "panditas.webp",
+   "w": 627,
+   "h": 568
+  },
+  "panditas-enchilados": {
+   "name": "Panditas enchilados",
+   "file": "panditas-enchilados.webp",
+   "w": 627,
+   "h": 550
+  },
+  "papas-flamin-hot": {
+   "name": "Papas flamin hot",
+   "file": "papas-flamin-hot.webp",
+   "w": 627,
+   "h": 606
+  },
+  "papas-jalapeno": {
+   "name": "Papas jalapeño",
+   "file": "papas-jalapeno.webp",
+   "w": 627,
+   "h": 615
+  },
+  "papas-limon": {
+   "name": "Papas limón",
+   "file": "papas-limon.webp",
+   "w": 627,
+   "h": 610
+  },
+  "papas-originales": {
+   "name": "Papas originales",
+   "file": "papas-originales.webp",
+   "w": 627,
+   "h": 602
+  },
+  "papas-rancho": {
+   "name": "Papas rancho",
+   "file": "papas-rancho.webp",
+   "w": 627,
+   "h": 609
+  },
+  "paraiso-tropical": {
+   "name": "Paraíso tropical",
+   "file": "paraiso-tropical.webp",
+   "w": 414,
+   "h": 592
+  },
+  "pasas": {
+   "name": "Pasas",
+   "file": "pasas.webp",
+   "w": 627,
+   "h": 595
+  },
+  "pastel-3-leches": {
+   "name": "Pastel 3 leches",
+   "file": "pastel-3-leches.webp",
+   "w": 610,
+   "h": 605
+  },
+  "pastel-mokka": {
+   "name": "Mokka",
+   "file": "pastel-mokka.webp",
+   "w": 581,
+   "h": 600
+  },
+  "pastel-red-velvet": {
+   "name": "Red Velvet",
+   "file": "pastel-red-velvet.webp",
+   "w": 571,
+   "h": 604
+  },
+  "pavo-ahumado": {
+   "name": "Pavo ahumado",
+   "file": "pavo-ahumado.webp",
+   "w": 627,
+   "h": 587
+  },
+  "pay-de-limon": {
+   "name": "Pay de limón",
+   "file": "pay-de-limon.webp",
+   "w": 627,
+   "h": 582
+  },
+  "pelon-pelo-rico-mini": {
+   "name": "Pelón pelo rico mini",
+   "file": "pelon-pelo-rico-mini.webp",
+   "w": 627,
+   "h": 596
+  },
+  "pepino": {
+   "name": "Pepino",
+   "file": "pepino.webp",
+   "w": 627,
+   "h": 587
+  },
+  "pepino-limon": {
+   "name": "Pepino limón",
+   "file": "pepino-limon.webp",
+   "w": 587,
+   "h": 574
+  },
+  "pepperoni": {
+   "name": "Pepperoni",
+   "file": "pepperoni.webp",
+   "w": 619,
+   "h": 538
+  },
+  "pera": {
+   "name": "Pera",
+   "file": "pera.webp",
+   "w": 627,
+   "h": 612
+  },
+  "picafresas": {
+   "name": "Picafresas",
+   "file": "picafresas.webp",
+   "w": 627,
+   "h": 602
+  },
+  "pina": {
+   "name": "Piña",
+   "file": "pina.webp",
+   "w": 627,
+   "h": 607
+  },
+  "pina-colada": {
+   "name": "Piña colada (cóctel)",
+   "file": "pina-colada.webp",
+   "w": 326,
+   "h": 607
+  },
+  "pinada": {
+   "name": "Piñada",
+   "file": "pinada.webp",
+   "w": 615,
+   "h": 574
+  },
+  "pinas-enchiladas": {
+   "name": "Piñas enchiladas",
+   "file": "pinas-enchiladas.webp",
+   "w": 627,
+   "h": 607
+  },
+  "pinguinos": {
+   "name": "Pingüinos",
+   "file": "pinguinos.webp",
+   "w": 627,
+   "h": 613
+  },
+  "pistaches": {
+   "name": "Pistaches",
+   "file": "pistaches.webp",
+   "w": 627,
+   "h": 596
+  },
+  "platano": {
+   "name": "Plátano",
+   "file": "platano.webp",
+   "w": 627,
+   "h": 611
+  },
+  "polvorones": {
+   "name": "Polvorones",
+   "file": "polvorones.webp",
+   "w": 605,
+   "h": 596
+  },
+  "prosciutto": {
+   "name": "Prosciutto",
+   "file": "prosciutto.webp",
+   "w": 615,
+   "h": 565
+  },
+  "queso-brie": {
+   "name": "Brie",
+   "file": "queso-brie.webp",
+   "w": 587,
+   "h": 512
+  },
+  "queso-cabra": {
+   "name": "Queso de cabra",
+   "file": "queso-cabra.webp",
+   "w": 617,
+   "h": 602
+  },
+  "queso-camembert": {
+   "name": "Camembert",
+   "file": "queso-camembert.webp",
+   "w": 584,
+   "h": 498
+  },
+  "queso-cheddar": {
+   "name": "Cheddar",
+   "file": "queso-cheddar.webp",
+   "w": 609,
+   "h": 540
+  },
+  "queso-cotija": {
+   "name": "Cotija",
+   "file": "queso-cotija.webp",
+   "w": 586,
+   "h": 547
+  },
+  "queso-crema": {
+   "name": "Queso crema",
+   "file": "queso-crema.webp",
+   "w": 608,
+   "h": 583
+  },
+  "queso-edam": {
+   "name": "Edam",
+   "file": "queso-edam.webp",
+   "w": 575,
+   "h": 570
+  },
+  "queso-gouda": {
+   "name": "Gouda",
+   "file": "queso-gouda.webp",
+   "w": 615,
+   "h": 583
+  },
+  "queso-gruyere": {
+   "name": "Gruyere",
+   "file": "queso-gruyere.webp",
+   "w": 578,
+   "h": 586
+  },
+  "queso-manchego": {
+   "name": "Queso manchego",
+   "file": "queso-manchego.webp",
+   "w": 627,
+   "h": 608
+  },
+  "queso-mozzarella": {
+   "name": "Mozzarella",
+   "file": "queso-mozzarella.webp",
+   "w": 616,
+   "h": 578
+  },
+  "queso-parmesano": {
+   "name": "Parmesano",
+   "file": "queso-parmesano.webp",
+   "w": 621,
+   "h": 609
+  },
+  "queso-provolone": {
+   "name": "Provolone",
+   "file": "queso-provolone.webp",
+   "w": 620,
+   "h": 600
+  },
+  "rancheritos": {
+   "name": "Rancheritos",
+   "file": "rancheritos.webp",
+   "w": 627,
+   "h": 585
+  },
+  "ruffles": {
+   "name": "Ruffles",
+   "file": "ruffles.webp",
+   "w": 627,
+   "h": 610
+  },
+  "salami": {
+   "name": "Salami",
+   "file": "salami.webp",
+   "w": 618,
+   "h": 551
+  },
+  "salbutes": {
+   "name": "Salbutes",
+   "file": "salbutes.webp",
+   "w": 614,
+   "h": 595
+  },
+  "san-francisco": {
+   "name": "San francisco",
+   "file": "san-francisco.webp",
+   "w": 306,
+   "h": 602
+  },
+  "sandia": {
+   "name": "Sandía",
+   "file": "sandia.webp",
+   "w": 627,
+   "h": 614
+  },
+  "sandia-limon": {
+   "name": "Sandía limón",
+   "file": "sandia-limon.webp",
+   "w": 610,
+   "h": 620
+  },
+  "sandias": {
+   "name": "Sandías",
+   "file": "sandias.webp",
+   "w": 627,
+   "h": 588
+  },
+  "sex-on-the-beach": {
+   "name": "Sex on the beach",
+   "file": "sex-on-the-beach.webp",
+   "w": 305,
+   "h": 605
+  },
+  "shirley-temple": {
+   "name": "Shirley temple",
+   "file": "shirley-temple.webp",
+   "w": 308,
+   "h": 607
+  },
+  "sincronizadas": {
+   "name": "Sincronizadas",
+   "file": "sincronizadas.webp",
+   "w": 627,
+   "h": 537
+  },
+  "skwinkles": {
+   "name": "Skwinkles",
+   "file": "skwinkles.webp",
+   "w": 627,
+   "h": 592
+  },
+  "smoothie-chocolate": {
+   "name": "Smoothie chocolate",
+   "file": "smoothie-chocolate.webp",
+   "w": 604,
+   "h": 583
+  },
+  "smoothie-frutos-rojos": {
+   "name": "Smoothie de frutos rojos",
+   "file": "smoothie-frutos-rojos.webp",
+   "w": 573,
+   "h": 597
+  },
+  "soda-candy": {
+   "name": "Soda Candy",
+   "file": "soda-candy.webp",
+   "w": 415,
+   "h": 600
+  },
+  "soda-cereza": {
+   "name": "Soda italiana cereza",
+   "file": "soda-cereza.webp",
+   "w": 434,
+   "h": 602
+  },
+  "soda-fresa": {
+   "name": "Soda italiana fresa",
+   "file": "soda-fresa.webp",
+   "w": 445,
+   "h": 593
+  },
+  "soda-frutos-rojos": {
+   "name": "Soda italiana frutos rojos",
+   "file": "soda-frutos-rojos.webp",
+   "w": 408,
+   "h": 596
+  },
+  "soda-manzana-verde": {
+   "name": "Soda italiana manzana verde",
+   "file": "soda-manzana-verde.webp",
+   "w": 414,
+   "h": 602
+  },
+  "soda-mora-azul": {
+   "name": "Soda italiana mora azul",
+   "file": "soda-mora-azul.webp",
+   "w": 419,
+   "h": 592
+  },
+  "spritz-kiwi-fresa": {
+   "name": "Spritz de kiwi y fresa",
+   "file": "spritz-kiwi-fresa.webp",
+   "w": 380,
+   "h": 627
+  },
+  "strawberry-matcha": {
+   "name": "Strawberry matcha",
+   "file": "strawberry-matcha.webp",
+   "w": 557,
+   "h": 583
+  },
+  "tacos-dorados": {
+   "name": "Tacos dorados",
+   "file": "tacos-dorados.webp",
+   "w": 625,
+   "h": 565
+  },
+  "takis-azules": {
+   "name": "Takis azules",
+   "file": "takis-azules.webp",
+   "w": 627,
+   "h": 601
+  },
+  "takis-fuego": {
+   "name": "Takis fuego",
+   "file": "takis-fuego.webp",
+   "w": 627,
+   "h": 610
+  },
+  "tamarindo": {
+   "name": "Tamarindo",
+   "file": "tamarindo.webp",
+   "w": 624,
+   "h": 578
+  },
+  "tamborines": {
+   "name": "Tamborines",
+   "file": "tamborines.webp",
+   "w": 627,
+   "h": 592
+  },
+  "tapas": {
+   "name": "Tapas",
+   "file": "tapas.webp",
+   "w": 619,
+   "h": 542
+  },
+  "taro-frappe": {
+   "name": "Taro frappe",
+   "file": "taro-frappe.webp",
+   "w": 402,
+   "h": 598
+  },
+  "taro-latte": {
+   "name": "Taro latte",
+   "file": "taro-latte.webp",
+   "w": 401,
+   "h": 597
+  },
+  "tartaletas-frutales": {
+   "name": "Tartaletas frutales",
+   "file": "tartaletas-frutales.webp",
+   "w": 627,
+   "h": 577
+  },
+  "tequila-sunrise": {
+   "name": "Tequila sunrise",
+   "file": "tequila-sunrise.webp",
+   "w": 360,
+   "h": 621
+  },
+  "tiburones": {
+   "name": "Tiburones",
+   "file": "tiburones.webp",
+   "w": 614,
+   "h": 580
+  },
+  "tiramisu-latte": {
+   "name": "Tiramisú latte",
+   "file": "tiramisu-latte.webp",
+   "w": 462,
+   "h": 612
+  },
+  "tocino": {
+   "name": "Tocino",
+   "file": "tocino.webp",
+   "w": 621,
+   "h": 565
+  },
+  "tomate-cherry": {
+   "name": "Tomate cherry",
+   "file": "tomate-cherry.webp",
+   "w": 627,
+   "h": 613
+  },
+  "toreadas": {
+   "name": "Toreadas",
+   "file": "toreadas.webp",
+   "w": 627,
+   "h": 593
+  },
+  "tortuga": {
+   "name": "Tortuga",
+   "file": "tortuga.webp",
+   "w": 610,
+   "h": 577
+  },
+  "tostadas-melba": {
+   "name": "Tostadas melba",
+   "file": "tostadas-melba.webp",
+   "w": 617,
+   "h": 544
+  },
+  "tostitos": {
+   "name": "Tostitos",
+   "file": "tostitos.webp",
+   "w": 627,
+   "h": 614
+  },
+  "uvas-moradas": {
+   "name": "Uvas moradas",
+   "file": "uvas-moradas.webp",
+   "w": 627,
+   "h": 624
+  },
+  "uvas-verdes": {
+   "name": "Uvas verdes",
+   "file": "uvas-verdes.webp",
+   "w": 627,
+   "h": 620
+  },
+  "vainilla-latte": {
+   "name": "Vainilla latte",
+   "file": "vainilla-latte.webp",
+   "w": 511,
+   "h": 611
+  },
+  "vitrolero-agua-fresca": {
+   "name": "Vitrolero de agua fresca",
+   "file": "vitrolero-agua-fresca.webp",
+   "w": 574,
+   "h": 627
+  },
+  "yogurt": {
+   "name": "Yogurt",
+   "file": "yogurt.webp",
+   "w": 623,
+   "h": 579
+  },
+  "zanahoria": {
+   "name": "Zanahoria",
+   "file": "zanahoria.webp",
+   "w": 627,
+   "h": 602
+  }
+ },
+ "names": {
+  "panditas": "panditas",
+  "panditas enchilados": "panditas-enchilados",
+  "ositos enchilados": "panditas-enchilados",
+  "gusanitos": "gusanitos",
+  "gomita de gusano": "gusanitos",
+  "gusanitos enchilados": "gusanitos-enchilados",
+  "mango gusano": "mango-gusano",
+  "mangusano": "mango-gusano",
+  "manguitos": "manguitos",
+  "gomita de manguito enchilado": "manguitos",
+  "mango tajin": "mango-tajin",
+  "tiburones": "tiburones",
+  "gomitas de tiburon": "tiburones",
+  "aros de manzana": "aros-de-manzana",
+  "aros de durazno": "aros-de-durazno",
+  "frutitas": "frutitas",
+  "gomitas de frutas": "frutitas",
+  "corazones": "corazones",
+  "gomitas de corazon": "corazones",
+  "gomitas sandias": "sandias",
+  "sandias": "sandias",
+  "pinas enchiladas": "pinas-enchiladas",
+  "dulci gomas": "dulci-gomas",
+  "pinguinos": "pinguinos",
+  "cacahuates japoneses": "cacahuates-japones",
+  "japones": "cacahuates-japones",
+  "cacahuates enchilados": "cacahuates-enchilados",
+  "enchilado": "cacahuates-enchilados",
+  "cacahuates estilo hot nuts": "cacahuates-hot-nuts",
+  "hot nuts": "cacahuates-hot-nuts",
+  "cacahuates con queso": "cacahuates-con-queso",
+  "con queso": "cacahuates-con-queso",
+  "con limon y sal": "cacahuates-limon-sal",
+  "cacahuates con limon y sal": "cacahuates-limon-sal",
+  "holandes": "cacahuates-holandes",
+  "cacahuates holandeses": "cacahuates-holandes",
+  "garapinado": "garapinados",
+  "garapinados": "garapinados",
+  "habanero": "cacahuates-habanero",
+  "cacahuates habanero": "cacahuates-habanero",
+  "cacahuates con ajo": "cacahuates-ajo",
+  "cacahuates naturales": "cacahuates-naturales",
+  "pica fresas": "picafresas",
+  "picafresas": "picafresas",
+  "tamborines": "tamborines",
+  "banderillas dulces": "banderillas-dulces",
+  "banderillas dulce": "banderillas-dulces",
+  "banderillas picantes": "banderillas-picantes",
+  "banderillas azules": "banderillas-azules",
+  "paletas de elote": "paletas-de-elote",
+  "paletas mango": "paletas-de-mango",
+  "paletas de mango": "paletas-de-mango",
+  "paletas de pina": "paletas-de-pina",
+  "skwinkles": "skwinkles",
+  "paletas bomba mix": "bomba-mix",
+  "bomba mix": "bomba-mix",
+  "pelon pelo rico mini": "pelon-pelo-rico-mini",
+  "paletas de corazon": "paletas-de-corazon",
+  "paletas mix": "paletas-mix",
+  "sabritas original": "papas-originales",
+  "papas originales": "papas-originales",
+  "sabritas limon": "papas-limon",
+  "papas limon": "papas-limon",
+  "rancheritos": "rancheritos",
+  "toreadas": "toreadas",
+  "papas habanero": "toreadas",
+  "takis fuego": "takis-fuego",
+  "takis flamin hot": "takis-fuego",
+  "takis azules": "takis-azules",
+  "fritos": "fritos",
+  "timmy": "fritos",
+  "doritos nacho": "doritos-nacho",
+  "doritos": "doritos-nacho",
+  "doritos chile": "doritos-chile",
+  "cheetos": "cheetos",
+  "cheetos flamin hot": "cheetos-flamin-hot",
+  "flaming hot": "cheetos-flamin-hot",
+  "cheetos poffs": "cheetos-poffs",
+  "bolitas de queso": "cheetos-poffs",
+  "rufles": "ruffles",
+  "ruffles": "ruffles",
+  "papas queso": "ruffles",
+  "papas flamin hot": "papas-flamin-hot",
+  "papas jalapeno": "papas-jalapeno",
+  "papas rancho": "papas-rancho",
+  "churrumaiz": "churrumais",
+  "churrumais": "churrumais",
+  "chicharrones mix": "chicharrones-mix",
+  "tostitos": "tostitos",
+  "pepino": "pepino",
+  "zanahoria": "zanahoria",
+  "pina": "pina",
+  "manzana": "manzana",
+  "sandia": "sandia",
+  "sabores de smoothie sandia": "sandia",
+  "mango": "mango",
+  "fresas": "fresas",
+  "fresa": "fresas",
+  "platano": "platano",
+  "uvas verdes": "uvas-verdes",
+  "uva": "uvas-verdes",
+  "uvas": "uvas-verdes",
+  "uvas moradas": "uvas-moradas",
+  "moras y zarzamora": "moras-y-zarzamora",
+  "mora azul": "moras-y-zarzamora",
+  "frutos rojos": "moras-y-zarzamora",
+  "frambuesas": "frambuesas",
+  "durazno": "durazno",
+  "pera": "pera",
+  "tomate cherry": "tomate-cherry",
+  "aceitunas": "aceitunas",
+  "arandanos": "arandanos",
+  "almendras": "almendras",
+  "almendra": "almendras",
+  "nueces": "nueces",
+  "granola": "granola",
+  "ciruela pasa": "ciruela-pasa",
+  "pasas": "pasas",
+  "datiles": "datiles",
+  "higos": "higos",
+  "higos secos": "higos-secos",
+  "chabacanos secos": "chabacanos-secos",
+  "pistaches": "pistaches",
+  "pistache": "pistaches",
+  "avellanas": "avellanas",
+  "nuez de la india": "nuez-de-la-india",
+  "nuez castilla": "nuez-castilla",
+  "nuez de castilla": "nuez-castilla",
+  "mix de nueces": "mix-de-nueces",
+  "oreo": "oreo",
+  "galleta de chispas": "galleta-de-chispas",
+  "galletas de chispas": "galleta-de-chispas",
+  "cremax": "cremax",
+  "emperador": "emperador",
+  "mamut": "mamut",
+  "chococrispi": "chococrispi",
+  "froot loops": "froot-loops",
+  "cheerios miel": "cheerios-miel",
+  "cookie crisp": "cookie-crisp",
+  "nesquik": "nesquik",
+  "chispas turin": "chispas-turin",
+  "chispas de chocolate": "chispas-de-chocolate",
+  "lunetas": "lunetas",
+  "m&m": "mym",
+  "chocoretas": "chocoretas",
+  "krankys": "krankys",
+  "chispas de chocolate blanco": "chispas-de-chocolate-blanco",
+  "kinder delice": "kinder-delice",
+  "bocadin": "bocadin",
+  "carlos v": "carlos-v",
+  "kinder bueno": "kinder-bueno",
+  "kisses": "kisses",
+  "chocolate liquido": "chocolate-liquido",
+  "miel de maple": "miel-de-maple",
+  "miel natural": "miel-natural",
+  "nutella": "nutella",
+  "cajeta": "cajeta",
+  "mermelada de fresa": "mermelada-de-fresa",
+  "mermelada de frutos rojos": "mermelada-de-frutos-rojos",
+  "yogurt": "yogurt",
+  "avena y granola": "avena-y-granola",
+  "mermelada de pina": "mermelada-de-pina",
+  "bombones": "bombones",
+  "mazapan": "mazapan",
+  "palomitas": "palomitas",
+  "jicama": "jicama",
+  "lechera": "lechera",
+  "queso crema": "queso-crema",
+  "crema batida": "crema-batida",
+  "queso manchego": "queso-manchego",
+  "manchego": "queso-manchego",
+  "coco rallado": "coco-rallado",
+  "margarita fresa": "margarita-fresa",
+  "margarita clasica": "margarita-clasica",
+  "margarita mango": "margarita-mango",
+  "margarita azul": "margarita-azul",
+  "mezcalita jamaica": "mezcalita-jamaica",
+  "mezcalita pina": "mezcalita-pina",
+  "mezcalita maracuya": "mezcalita-maracuya",
+  "mezcalita fresa": "mezcalita-fresa",
+  "mojito clasico": "mojito-clasico",
+  "mojito fresa": "mojito-fresa",
+  "mojito frutos rojos": "mojito-frutos-rojos",
+  "gin tonic": "gin-tonic",
+  "gin frutos rojos": "gin-frutos-rojos",
+  "tequila sunrise": "tequila-sunrise",
+  "paloma": "paloma",
+  "paloma sandia": "paloma-sandia",
+  "daiquiri fresa": "daiquiri-fresa",
+  "daiquiri mango": "daiquiri-mango",
+  "cocteles con alcohol pina colada": "pina-colada",
+  "pina colada coctel": "pina-colada",
+  "laguna azul": "laguna-azul",
+  "sex on the beach": "sex-on-the-beach",
+  "manhattan": "manhattan",
+  "bloody mary": "bloody-mary",
+  "cosmopolitan": "cosmopolitan",
+  "mimosa clasica": "mimosa",
+  "shirley temple": "shirley-temple",
+  "mango mule": "mango-mule",
+  "electric blue": "electric-blue",
+  "san francisco": "san-francisco",
+  "butterfly pea tea": "butterfly-pea-tea",
+  "cranberry orange": "cranberry-orange",
+  "paraiso tropical": "paraiso-tropical",
+  "spritz de kiwi y fresa": "spritz-kiwi-fresa",
+  "americano": "americano",
+  "cafe americano": "americano",
+  "capuccino": "capuccino",
+  "latte clasico": "latte-clasico",
+  "latte caramelo": "latte-caramelo",
+  "latte vainilla": "latte-vainilla",
+  "moka latte": "moka-latte",
+  "matcha latte": "matcha-latte",
+  "chai latte": "chai-latte",
+  "tiramisu latte": "tiramisu-latte",
+  "horchata latte": "horchata-latte",
+  "brown sugar shaken espresso": "brown-sugar-espresso",
+  "coco matcha": "coco-matcha",
+  "ice lotus latte": "ice-lotus-latte",
+  "strawberry matcha": "strawberry-matcha",
+  "banana bread iced latte": "banana-bread-latte",
+  "dalgona latte": "dalgona-latte",
+  "dalgona caramel": "dalgona-caramel",
+  "ice latte": "ice-latte",
+  "caramel latte": "caramel-latte",
+  "vainilla latte": "vainilla-latte",
+  "affogato": "affogato",
+  "cold brew": "cold-brew",
+  "ice moka": "ice-moka",
+  "taro latte": "taro-latte",
+  "taro": "taro-latte",
+  "frappe clasico": "frappe-clasico",
+  "frappe caramelo": "frappe-caramelo",
+  "moka frappe": "moka-frappe",
+  "chai frappe": "chai-frappe",
+  "taro frappe": "taro-frappe",
+  "matcha frappe": "matcha-frappe",
+  "frappe ferrero": "frappe-ferrero",
+  "frappe pinguino": "frappe-pinguino",
+  "frappe gansito": "frappe-gansito",
+  "frappe de galleta chips": "frappe-galleta-chips",
+  "oreo frappe": "oreo-frappe",
+  "chocoroll frappe": "chocoroll-frappe",
+  "nutella frappe": "nutella-frappe",
+  "lotus frappes": "lotus-frappe",
+  "lotus frappe": "lotus-frappe",
+  "frappe abuelita": "frappe-abuelita",
+  "frappe chessecake": "frappe-cheesecake",
+  "frappe cheesecake": "frappe-cheesecake",
+  "frappe fresa": "frappe-fresa",
+  "sabores de bebida taro": "bubble-taro",
+  "taro bubble tea": "bubble-taro",
+  "sabores de bebida matcha": "bubble-matcha",
+  "matcha bubble tea": "bubble-matcha",
+  "te negro": "bubble-te-negro",
+  "sabores de bebida maracuya": "bubble-maracuya",
+  "maracuya": "bubble-maracuya",
+  "te verde": "bubble-te-verde",
+  "sabores de bebida chai": "bubble-chai",
+  "chai bubble tea": "bubble-chai",
+  "soda candy": "soda-candy",
+  "lichi": "bubble-lichi",
+  "dragon fruit": "bubble-dragon-fruit",
+  "mango tropical": "bubble-mango-tropical",
+  "soda italiana manzana verde": "soda-manzana-verde",
+  "soda italiana cereza": "soda-cereza",
+  "soda italiana mora azul": "soda-mora-azul",
+  "soda italiana fresa": "soda-fresa",
+  "soda italiana frutos rojos": "soda-frutos-rojos",
+  "sabores de helado vainilla": "helado-vainilla",
+  "helado de vainilla": "helado-vainilla",
+  "sabores de helado chocolate": "helado-chocolate",
+  "helado de chocolate": "helado-chocolate",
+  "sabores de helado limon": "helado-limon",
+  "helado de limon": "helado-limon",
+  "sabores de helado pistache": "helado-pistache",
+  "helado de pistache": "helado-pistache",
+  "sabores de helado galleta": "helado-galleta",
+  "helado de galleta": "helado-galleta",
+  "3 leches": "pastel-3-leches",
+  "pastel 3 leches": "pastel-3-leches",
+  "red velvet": "pastel-red-velvet",
+  "mokka": "pastel-mokka",
+  "carlota limon o durazno": "carlota",
+  "carlota": "carlota",
+  "pay de limon": "pay-de-limon",
+  "tartaletas frutales": "tartaletas-frutales",
+  "mini pan de queso de bola": "mini-pan-queso-bola",
+  "mojaditos": "mojaditos",
+  "beso de nuez": "beso-de-nuez",
+  "alfajores": "alfajores",
+  "mini queso napolitano": "mini-queso-napolitano",
+  "mini flan": "mini-flan",
+  "tortuga": "tortuga",
+  "miki pay de queso": "miki-pay-queso",
+  "mini cheesecake frutos rojos": "cheesecake-frutos-rojos",
+  "mini cheesecake de lotus": "cheesecake-lotus",
+  "mini cheesecake lotus": "cheesecake-lotus",
+  "mini cheesecake oreo": "cheesecake-oreo",
+  "mini cheesecake de tortuga": "cheesecake-tortuga",
+  "mini cheesecake tortuga": "cheesecake-tortuga",
+  "mini cheesecake ferrero": "cheesecake-ferrero",
+  "mini cheesecake maracuya": "cheesecake-maracuya",
+  "brownie": "brownie",
+  "brownies": "brownie",
+  "cupcakes": "cupcakes",
+  "galletas personalizadas": "galletas-personalizadas",
+  "polvorones": "polvorones",
+  "galletas de avellana y nuez": "galletas-avellana-nuez",
+  "mini muffins": "mini-muffins",
+  "muffins": "mini-muffins",
+  "empanaditas queso y jamon queso carne": "empanaditas-saladas",
+  "empanaditas saladas": "empanaditas-saladas",
+  "empanaditas": "empanaditas-saladas",
+  "canapes rellenos": "canapes-rellenos",
+  "canapes": "canapes-rellenos",
+  "mix de pan dulce": "mix-pan-dulce",
+  "mix de galletas": "mix-galletas",
+  "mini donas dulces": "mini-donas-dulces",
+  "mini donas": "mini-donas-dulces",
+  "empanaditas dulces": "empanaditas-dulces",
+  "orejitas": "orejitas",
+  "brie": "queso-brie",
+  "gouda": "queso-gouda",
+  "cheddar": "queso-cheddar",
+  "parmesano": "queso-parmesano",
+  "mozzarella": "queso-mozzarella",
+  "provolone": "queso-provolone",
+  "queso de cabra": "queso-cabra",
+  "camembert": "queso-camembert",
+  "gruyere": "queso-gruyere",
+  "edam": "queso-edam",
+  "cotija": "queso-cotija",
+  "jamon serrano": "jamon-serrano",
+  "prosciutto": "prosciutto",
+  "salami": "salami",
+  "pepperoni": "pepperoni",
+  "pavo ahumado": "pavo-ahumado",
+  "jamon": "pavo-ahumado",
+  "chorizo iberico": "chorizo-iberico",
+  "bresaola": "bresaola",
+  "pan baguette": "pan-baguette",
+  "pan de campo": "pan-de-campo",
+  "galletas saladas": "galletas-saladas",
+  "crackers": "galletas-saladas",
+  "tostadas melba": "tostadas-melba",
+  "crostini": "crostini",
+  "pan integral": "pan-integral",
+  "variado": "paleta-variado",
+  "paleta variado": "paleta-variado",
+  "sabor de paleta uva": "paleta-uva",
+  "paleta de uva": "paleta-uva",
+  "pina chamoy": "paleta-pina-chamoy",
+  "paleta pina chamoy": "paleta-pina-chamoy",
+  "chicle": "paleta-chicle",
+  "paleta de chicle": "paleta-chicle",
+  "mango chamoy": "paleta-mango-chamoy",
+  "paleta mango chamoy": "paleta-mango-chamoy",
+  "croissant": "croissant",
+  "bowls de frutas": "bowls-frutales",
+  "bowls frutales": "bowls-frutales",
+  "fruta": "bowls-frutales",
+  "tapas": "tapas",
+  "mini hot cakes": "mini-hot-cakes",
+  "hot cakes": "mini-hot-cakes",
+  "mini waffles": "mini-waffles",
+  "waffles": "mini-waffles",
+  "mini sandwich": "mini-sandwich",
+  "cups de charcuteria": "cups-charcuteria",
+  "tabla de queso y carnes frias": "cups-charcuteria",
+  "mini chapatas": "mini-chapatas",
+  "chapatas": "mini-chapatas",
+  "mini hamburguesas": "mini-hamburguesas",
+  "mini pizzas": "mini-pizzas",
+  "chilaquiles rojos": "chilaquiles-rojos",
+  "chilaquiles verde": "chilaquiles-verdes",
+  "chilaquiles verdes": "chilaquiles-verdes",
+  "bagels": "bagels",
+  "tacos dorados": "tacos-dorados",
+  "salbutes": "salbutes",
+  "molletes": "molletes",
+  "sincronizadas": "sincronizadas",
+  "huevos con salchicha": "huevos-salchicha",
+  "huevos con jamon": "huevos-jamon",
+  "huevos estrellados": "huevos-estrellados",
+  "frijoles": "frijoles",
+  "ensalada": "ensalada",
+  "tocino": "tocino",
+  "cereales 2 opciones": "cereales",
+  "cereales": "cereales",
+  "jugo de naranja": "jugo-naranja",
+  "jugo verde": "jugo-verde",
+  "jugo de toronja": "jugo-toronja",
+  "jugo de pina": "jugo-pina",
+  "smoothie de frutos rojos": "smoothie-frutos-rojos",
+  "smoothie frutal": "smoothie-frutos-rojos",
+  "smoothie chocolate": "smoothie-chocolate",
+  "naranjada": "naranjada",
+  "limonada": "limonada",
+  "fresa limon": "fresa-limon",
+  "tamarindo": "tamarindo",
+  "pepino limon": "pepino-limon",
+  "jamaica": "jamaica",
+  "horchata": "horchata",
+  "horchata de coco": "horchata-coco",
+  "pinada": "pinada",
+  "sandia limon": "sandia-limon",
+  "mango pina": "mango-pina",
+  "agua de pina colada": "agua-pina-colada",
+  "pina colada": "agua-pina-colada",
+  "agua de frutas": "agua-frutas",
+  "jamaica con frutos rojos": "jamaica-frutos-rojos",
+  "vitrolero de agua fresca": "vitrolero-agua-fresca",
+  "botellas de agua": "botellas-agua"
+ }
+}

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { clsx } from 'clsx';
 import Button from '@/components/ui/Button';
 import Chip from '@/components/ui/Chip';
+import { toppingImage } from '@/lib/toppingImage';
 import ExtraPicksNote from '@/components/ui/ExtraPicksNote';
 import PresentationPhoto from './PresentationPhoto';
 import PresentationPicker from './PresentationPicker';
@@ -109,13 +110,13 @@ function InteractiveGroup({
           </span>
         </div>
         <p className="text-xs text-coffee-400 mb-2">{group.instruction}</p>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-x-2.5 gap-y-9 pt-6">
           {group.options.map((item) => {
             const count = selections.filter((s) => s === item).length;
             return (
               <Chip
                 key={item}
-                label={item}
+                label={item} image={toppingImage(item, group.label)}
                 count={count}
                 disabled={totalReached && count === 0}
                 maxReached={totalReached}
@@ -163,14 +164,14 @@ function InteractiveGroup({
                   </span>
                 )}
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-x-2.5 gap-y-9 pt-6">
                 {cat.options.map((item) => {
                   const count = selections.filter((s) => s === item).length;
                   const addBlocked = totalReached || catReached;
                   return (
                     <Chip
                       key={item}
-                      label={item}
+                      label={item} image={toppingImage(item, cat.name)}
                       count={count}
                       disabled={addBlocked && count === 0}
                       maxReached={addBlocked}

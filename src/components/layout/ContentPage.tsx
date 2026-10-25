@@ -8,7 +8,7 @@ export default function ContentPage({ content }: { content: PageContent }) {
       <StaticHeader />
       <main className="bg-cream-gradient min-h-[60vh]">
         <div className="container-max section-padding max-w-3xl">
-          <p className="text-xs uppercase tracking-widest text-gold-500 mb-4">Crunch &amp; Munch</p>
+          <p className="text-[13px] uppercase tracking-widest text-gold-500 mb-4">Crunch &amp; Munch</p>
           <h1 className="text-display text-4xl md:text-5xl text-coffee-800 leading-tight mb-6">
             {content.title}
           </h1>

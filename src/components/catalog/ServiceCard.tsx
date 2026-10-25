@@ -4,18 +4,12 @@ import Image from 'next/image';
 import { clsx } from 'clsx';
 import type { Service, ServiceCategory } from '@/types';
 
-const CATEGORY_GRADIENT: Record<ServiceCategory, string> = {
-  bebidas: 'from-coffee-700 to-coffee-900',
-  dulce: 'from-coffee-600 to-coffee-800',
-  salado: 'from-coffee-800 to-coffee-900',
-  brunch: 'from-coffee-500 to-coffee-700',
-};
-
-const CATEGORY_BADGE: Record<ServiceCategory, string> = {
-  bebidas: 'bg-blue-900/60 text-blue-200',
-  dulce: 'bg-pink-900/60 text-pink-200',
-  salado: 'bg-orange-900/60 text-orange-200',
-  brunch: 'bg-green-900/60 text-green-200',
+/** Un color de acento de la guía de marca por tipo de servicio. */
+const CATEGORY_TINT: Record<ServiceCategory, string> = {
+  bebidas: 'bg-rosa',
+  dulce: 'bg-lila',
+  salado: 'bg-naranja',
+  brunch: 'bg-amarillo',
 };
 
 const CATEGORY_LABELS: Record<ServiceCategory, string> = {
@@ -33,80 +27,57 @@ interface ServiceCardProps {
 
 export default function ServiceCard({ service, selected = false, onSelect }: ServiceCardProps) {
   return (
-    <div
+    <button
+      type="button"
       onClick={onSelect}
+      aria-label={`${service.name}: ver detalle`}
       className={clsx(
-        'relative group rounded-2xl overflow-hidden cursor-pointer transition-all duration-300',
-        'hover:scale-[1.02] hover:shadow-2xl',
-        selected
-          ? 'ring-2 ring-gold-400 ring-offset-2 ring-offset-cream-50 shadow-xl scale-[1.01]'
-          : 'shadow-md hover:shadow-xl'
+        'group relative block w-full text-left rounded-[1.75rem] bg-white p-3 transition-all duration-300',
+        'hover:-translate-y-1 hover:shadow-[0_24px_40px_-24px_rgba(74,53,40,0.45)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400',
+        selected ? 'ring-2 ring-gold-400 shadow-lg' : 'shadow-[0_10px_30px_-22px_rgba(74,53,40,0.5)]'
       )}
     >
-      {/* Photo or gradient background */}
-      <div className="relative min-h-[180px] flex flex-col justify-between">
-
+      <div className="relative aspect-[4/4.4] overflow-hidden rounded-[1.25rem] bg-cream-200">
         {service.image ? (
           <Image
             src={service.image}
-            alt={service.name}
+            alt={`${service.name}: barra móvil de Crunch & Munch`}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            sizes="(max-width: 640px) 70vw, 280px"
           />
         ) : (
-          <div className={`absolute inset-0 bg-gradient-to-br ${CATEGORY_GRADIENT[service.category]}`} />
+          <div className="absolute inset-0 flex items-center justify-center text-6xl">{service.emoji}</div>
         )}
 
-        {/* Text legibility scrim — only behind the bottom text block, rest of the photo stays fully clear */}
-        <div className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-coffee-900/95 via-coffee-900/55 to-transparent" />
-
-        {/* Top row: category badge + checkmark */}
-        <div className="relative z-10 p-5 flex items-start justify-between">
-          <span className={clsx(
-            'text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full font-medium',
-            CATEGORY_BADGE[service.category]
-          )}>
-            {CATEGORY_LABELS[service.category]}
-          </span>
-
-          {selected && (
-            <div className="w-6 h-6 rounded-full bg-gold-400 flex items-center justify-center shrink-0 shadow-md">
-              <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
-                <path d="M1 5l3.5 3.5L11 1" stroke="#2C1A0A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
+        <span
+          className={clsx(
+            'absolute left-3 top-3 rounded-full px-3 py-1 font-sans text-[13px] font-semibold uppercase tracking-[0.16em] text-coffee-800',
+            CATEGORY_TINT[service.category]
           )}
-        </div>
-
-        {/* Bottom: emoji (only when no photo) + name + description */}
-        <div className="relative z-10 p-5">
-          {!service.image && (
-            <div className="text-4xl mb-2 group-hover:scale-110 transition-transform duration-300">
-              {service.emoji}
-            </div>
-          )}
-          <h3 className="text-display text-xl text-cream-50 leading-tight mb-1">
-            {service.name}
-          </h3>
-          <p className="text-coffee-300 text-xs leading-relaxed line-clamp-2">
-            {service.description}
-          </p>
-        </div>
-      </div>
-
-      {/* Footer bar */}
-      <div className="bg-coffee-900/95 px-5 py-3 flex items-center justify-between gap-2">
-        <p className="text-[10px] text-coffee-400 shrink-0">
-          Mín. {service.minPersonas} personas
-        </p>
-        <span className={clsx(
-          'text-[10px] font-semibold tracking-wider uppercase transition-colors shrink-0',
-          selected ? 'text-gold-400' : 'text-cream-400 group-hover:text-gold-400'
-        )}>
-          {selected ? 'Seleccionado ✓' : 'Ver más →'}
+        >
+          {CATEGORY_LABELS[service.category]}
         </span>
+
+        {selected && (
+          <span className="absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-gold-400 shadow-md" aria-hidden="true">
+            <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
+              <path d="M1 5l3.5 3.5L11 1" stroke="#26231F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+        )}
       </div>
-    </div>
+
+      <div className="px-2 pb-2 pt-4">
+        <h3 className="font-serif italic text-[1.7rem] leading-[1.05] text-coffee-700 mb-2">{service.name}</h3>
+        <p className="font-sans text-[13px] leading-relaxed text-coffee-500 line-clamp-2 mb-4">{service.description}</p>
+        <div className="flex items-center justify-between gap-2 border-t border-gold-400/40 pt-3">
+          <span className="font-sans text-[13px] uppercase tracking-[0.06em] text-coffee-500">Desde {service.minPersonas} personas</span>
+          <span className="font-sans text-[13px] font-semibold uppercase tracking-[0.1em] text-gold-600 whitespace-nowrap group-hover:text-coffee-700 transition-colors">
+            {selected ? 'Seleccionada' : 'Ver más'}
+          </span>
+        </div>
+      </div>
+    </button>
   );
 }

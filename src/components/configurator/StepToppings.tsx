@@ -1,6 +1,7 @@
 'use client';
 
 import Chip from '@/components/ui/Chip';
+import { toppingImage } from '@/lib/toppingImage';
 import ExtraPicksNote from '@/components/ui/ExtraPicksNote';
 import { SERVICE_MAP, SERVICE_STEP_GROUP_IDS } from '@/data/services';
 import type { SelectionGroup } from '@/types';
@@ -98,13 +99,13 @@ function GroupPanel({
           </span>
         </div>
         <p className="text-xs text-coffee-400 mb-3">{group.instruction}</p>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-x-2.5 gap-y-9 pt-6">
           {group.options.map((item) => {
             const count = countFor(item);
             return (
               <Chip
                 key={item}
-                label={item}
+                label={item} image={toppingImage(item, group.label)}
                 count={count}
                 disabled={totalReached && count === 0}
                 maxReached={totalReached}
@@ -148,14 +149,14 @@ function GroupPanel({
                 </span>
               )}
             </p>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-x-2.5 gap-y-9 pt-6">
               {cat.options.map((item) => {
                 const count = countFor(item);
                 const addBlocked = totalReached || catReached;
                 return (
                   <Chip
                     key={item}
-                    label={item}
+                    label={item} image={toppingImage(item, cat.name)}
                     count={count}
                     disabled={addBlocked && count === 0}
                     maxReached={addBlocked}

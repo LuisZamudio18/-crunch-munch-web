@@ -7,6 +7,7 @@ import About from '@/components/sections/About';
 import ServicesSection from '@/components/sections/ServicesSection';
 import Instagram from '@/components/sections/Instagram';
 import Testimonials from '@/components/sections/Testimonials';
+import Faq from '@/components/sections/Faq';
 import ConfiguratorModal from '@/components/configurator/ConfiguratorModal';
 import { useConfigurator } from '@/hooks/useConfigurator';
 
@@ -43,6 +44,7 @@ export default function Home() {
         />
         <Instagram />
         <Testimonials />
+        <Faq />
       </main>
 
       <Footer />

@@ -7,45 +7,45 @@ interface NavbarProps {
   onOpenConfigurator: () => void;
 }
 
+const LINKS = [
+  { href: '#servicios', label: 'Barras' },
+  { href: '#nosotros', label: 'Nosotros' },
+  { href: '#instagram', label: 'Instagram' },
+  { href: '#preguntas', label: 'Preguntas' },
+];
+
 export default function Navbar({ onOpenConfigurator }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 40);
+    const handler = () => setScrolled(window.scrollY > 24);
+    handler();
     window.addEventListener('scroll', handler, { passive: true });
     return () => window.removeEventListener('scroll', handler);
   }, []);
 
-  const links = [
-    { href: '#servicios', label: 'Servicios' },
-    { href: '#instagram', label: 'Instagram' },
-    { href: '#nosotros', label: 'Nosotros' },
-    { href: '#testimonios', label: 'Testimonios' },
-  ];
-
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? 'bg-cream-50/95 backdrop-blur-md shadow-sm border-b border-cream-200'
-          : 'bg-transparent'
+      aria-label="Principal"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled || menuOpen ? 'bg-cream-100/95 backdrop-blur-md border-b border-gold-400/30' : 'bg-transparent'
       }`}
     >
-      <div className="container-max px-5 md:px-10 lg:px-20 py-4 flex items-center justify-between">
-        <a href="#" className={`text-display text-2xl font-semibold transition-colors ${scrolled ? 'text-coffee-700' : 'text-cream-50'}`}>
-          Crunch <span className="gold-text">&amp;</span> Munch
+      <div className="mx-5 md:mx-10 lg:mx-20"><div className="container-max py-4 flex items-center justify-between gap-6">
+        <a href="#" className="group flex flex-col items-start leading-none" aria-label="Crunch & Munch, inicio">
+          <span className="font-bodoni text-[19px] sm:text-[22px] md:text-2xl tracking-[0.02em] whitespace-nowrap text-coffee-900 uppercase">
+            Crunch <span className="text-gold-500">&amp;</span> Munch
+          </span>
+          <span className="hidden sm:block font-sans text-[13px] tracking-[0.3em] text-gold-500 uppercase mt-1">Luxury mobile bars</span>
         </a>
 
-        {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-8">
-          {links.map((l) => (
+        <div className="hidden md:flex items-center gap-9">
+          {LINKS.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className={`text-sm tracking-widest uppercase transition-colors hover:text-gold-400 ${
-                scrolled ? 'text-coffee-600' : 'text-cream-200'
-              }`}
+              className="font-sans text-[13px] uppercase tracking-[0.22em] text-coffee-600 hover:text-gold-500 transition-colors"
             >
               {l.label}
             </a>
@@ -53,20 +53,15 @@ export default function Navbar({ onOpenConfigurator }: NavbarProps) {
         </div>
 
         <div className="flex items-center gap-3">
-          <Button
-            variant={scrolled ? 'gold' : 'outline'}
-            size="sm"
-            onClick={onOpenConfigurator}
-            className={!scrolled ? 'border-cream-200 text-cream-50 hover:bg-cream-50/10' : ''}
-          >
+          <Button variant="dark" size="sm" onClick={onOpenConfigurator}>
             Cotizar
           </Button>
 
-          {/* Mobile menu button */}
           <button
-            className={`md:hidden p-2 ${scrolled ? 'text-coffee-700' : 'text-cream-50'}`}
+            className="md:hidden p-2 text-coffee-700"
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Menú"
+            aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+            aria-expanded={menuOpen}
           >
             <div className="w-5 space-y-1">
               <span className={`block h-0.5 bg-current transition-transform ${menuOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
@@ -75,16 +70,15 @@ export default function Navbar({ onOpenConfigurator }: NavbarProps) {
             </div>
           </button>
         </div>
-      </div>
+      </div></div>
 
-      {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden bg-cream-50 border-t border-cream-200 px-5 py-4 flex flex-col gap-4">
-          {links.map((l) => (
+        <div className="md:hidden bg-cream-100 border-t border-gold-400/30 px-5 py-5 flex flex-col gap-5">
+          {LINKS.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className="text-coffee-600 text-sm tracking-widest uppercase"
+              className="font-sans text-[13px] uppercase tracking-[0.22em] text-coffee-600"
               onClick={() => setMenuOpen(false)}
             >
               {l.label}

@@ -17,7 +17,7 @@ export default function ExtraPicksNote({ serviceId, categories, selections }: Ex
   const extra = picks.reduce((sum, c) => sum + c.extra, 0);
 
   return (
-    <div className="mb-4 rounded-xl border border-gold-200 bg-gold-50 px-3.5 py-3 text-xs leading-relaxed text-coffee-600">
+    <div className="mb-4 rounded-xl border border-gold-200 bg-gold-50 px-3.5 py-3 text-[13px] leading-relaxed text-coffee-600">
       <p>
         <strong className="text-coffee-700">Tu precio incluye:</strong>{' '}
         {picks.map((c) => `${c.included} ${c.name.toLowerCase()}`).join(' · ')}.
