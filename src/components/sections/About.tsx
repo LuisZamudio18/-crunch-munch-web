@@ -21,9 +21,9 @@ const PILLARS = [
 export default function About() {
   return (
     <section id="nosotros" className="relative overflow-x-clip bg-white section-padding py-16 md:py-24">
-      <Sticker id="galleta-chispas" size={72} mdSize={86} pos={{ top: '-30px', right: '18px' }} mdPos={{ top: '-34px', right: '14%' }} rotate={12} motion="bounce" duration={6} speed={0.035} />
-      <Sticker id="flores" size={96} mdSize={150} pos={{ bottom: '-34px', right: '8px' }} mdPos={{ top: '3%', right: '9%', bottom: 'auto' }} rotate={6} motion="sway" duration={9} delay={0.6} speed={0.035} />
-      <Sticker id="coctelera" size={56} mdSize={72} pos={{ bottom: '-20px', left: '12px' }} mdPos={{ bottom: '8%', left: '2%' }} rotate={-10} motion="wiggle" duration={5} delay={1} speed={0.035} />
+      <Sticker id="galleta-chispas" size={72} mdSize={86} pos={{ top: '-30px', left: '18px' }} mdPos={{ top: '-34px', left: '14%' }} rotate={12} motion="bounce" duration={6} speed={0.035} />
+      <Sticker id="flores" size={96} mdSize={150} pos={{ bottom: '-34px', right: '8px' }} mdPos={{ top: '3%', right: '6%', bottom: 'auto' }} rotate={6} motion="sway" duration={9} delay={0.6} speed={0.035} />
+      <Sticker id="coctelera" size={56} mdSize={72} hideOnMobile pos={{ bottom: '-20px', left: '12px' }} mdPos={{ bottom: '8%', left: '2%' }} rotate={-10} motion="wiggle" duration={5} delay={1} speed={0.035} />
 
       <div className="container-max relative">
         <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-20 items-start">

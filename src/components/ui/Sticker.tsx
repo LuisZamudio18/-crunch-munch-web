@@ -28,6 +28,8 @@ interface StickerProps {
   speed?: number;
   hideOnMobile?: boolean;
   mobileOnly?: boolean;
+  /** Hide below the large breakpoint (1024px), where the two-column layouts start. */
+  lgOnly?: boolean;
   priority?: boolean;
 }
 
@@ -74,6 +76,7 @@ export default function Sticker({
   speed = 0.08,
   hideOnMobile = false,
   mobileOnly = false,
+  lgOnly = false,
   priority = false,
 }: StickerProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -117,7 +120,7 @@ export default function Sticker({
   });
 
   return (
-    <div ref={ref} aria-hidden="true" className={clsx('sticker', hideOnMobile && 'hidden md:block', mobileOnly && 'md:hidden')} style={vars as React.CSSProperties}>
+    <div ref={ref} aria-hidden="true" className={clsx('sticker', hideOnMobile && 'hidden md:block', lgOnly && 'hidden lg:block', mobileOnly && 'md:hidden')} style={vars as React.CSSProperties}>
       <Image src={s.src} alt="" width={s.w} height={s.h} sizes={`${mdSize ?? size}px`} priority={priority} className="w-full h-auto" />
     </div>
   );

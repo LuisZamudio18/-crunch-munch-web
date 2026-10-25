@@ -814,7 +814,7 @@ export const SERVICES: Service[] = [
     name: 'Ice Bar',
     shortName: 'Ice Bar',
     description: 'Barra de paletas artesanales heladas con toppings estilo antojito. Fresco, divertido y delicioso.',
-    category: 'salado',
+    category: 'dulce',
     emoji: '🍡',
     image: '/barras/ice-bar.jpg',
     minPersonas: 30,

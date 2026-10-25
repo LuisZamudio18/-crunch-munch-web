@@ -35,9 +35,9 @@ export default function Hero({ onOpenConfigurator }: HeroProps) {
         {/* Stickers sueltos alrededor de la foto, como en la hoja de la marca */}
         <Sticker id="copa-rosa" size={104} pos={{ top: '0%', right: '0%' }} rotate={8} motion="sway" duration={8} priority hideOnMobile />
         <Sticker id="taza-latte" size={150} pos={{ top: '50%', right: '-2%' }} rotate={-7} motion="float" duration={9} delay={1.2} speed={0.05} hideOnMobile />
-        <Sticker id="barra" size={150} mdSize={250} pos={{ bottom: '-14px', left: '-6px' }} mdPos={{ bottom: '-3%', left: '45%' }} rotate={-3} motion="float" duration={9} delay={0.3} speed={0.05} hideOnMobile />
+        <Sticker id="barra" size={150} mdSize={250} pos={{ bottom: '-14px', left: '-6px' }} mdPos={{ bottom: '-3%', left: '45%' }} rotate={-3} motion="float" duration={9} delay={0.3} speed={0.05} lgOnly />
         <Sticker id="cafe-helado" size={92} pos={{ top: '46%', left: '49%' }} rotate={-6} motion="bounce" duration={6.5} delay={0.6} speed={0.1} hideOnMobile />
-        <Sticker id="croissant" size={84} mdSize={132} pos={{ bottom: '6px', right: '8px' }} mdPos={{ bottom: '0%', right: '14%' }} rotate={-10} motion="sway" duration={8.5} delay={2} speed={0.06} />
+        <Sticker id="croissant" size={84} mdSize={132} pos={{ bottom: '6px', right: '8px' }} mdPos={{ bottom: '4%', right: '16%' }} rotate={-10} motion="sway" duration={8.5} delay={2} speed={0.06} />
 
         <div className="relative grid grid-cols-1 lg:grid-cols-[1.12fr_0.88fr] gap-10 lg:gap-8 items-center">
           <div className="relative z-10">
