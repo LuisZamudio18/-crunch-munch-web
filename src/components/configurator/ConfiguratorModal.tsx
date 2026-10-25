@@ -9,7 +9,7 @@ import StepServiceType from './StepServiceType';
 import StepPersonalization from './StepPersonalization';
 import StepEventForm from './StepEventForm';
 import StepSummary from './StepSummary';
-import { guestsFor } from '@/lib/guests';
+import { comboValid, guestsFor, isCombo } from '@/lib/guests';
 import {
   COCKTAIL_BAR_IDS,
   PRESENTATION_CHOICE_BAR_IDS,
@@ -134,6 +134,7 @@ export default function ConfiguratorModal({
     if (currentKey === 'event') {
       const baseValid = !!(eventForm.nombre && eventForm.telefono && eventForm.fecha && eventForm.horario && eventForm.lugar && eventForm.personas && eventForm.tipoEvento);
       if (!baseValid) return false;
+      if (isCombo(eventForm, selectedServices)) return comboValid(eventForm, selectedServices);
       const meetsMinimum = selectedServices.every((id) => {
         const svc = SERVICE_MAP[id];
         return !svc || guestsFor(eventForm, id) >= svc.minPersonas;

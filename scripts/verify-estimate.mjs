@@ -289,6 +289,27 @@ check('below the first tier -> not priced', est(['snack'], 20) === null);
   check('extras never touch other bars', computeEstimate({ selectedServices: ['coffee-bar'], personas: 50, serviceNames: {}, options: { 'coffee-bar': { extraPicks: 4 } } }, PRICING).lines[0].extraPercent === 0);
 }
 
+
+// Opción combinada: 2 barras, 15 invitados cada una
+{
+  const two = (combo, guests = { 'hot-cakes-bar': 15, 'coffee-bar': 15 }) =>
+    computeEstimate({ selectedServices: Object.keys(guests), personas: 30, personasByService: guests, serviceNames: {}, combo }, PRICING);
+  const normal30 = computeEstimate({ selectedServices: ['hot-cakes-bar', 'coffee-bar'], personas: 30, serviceNames: {} }, PRICING);
+  const c = two(true);
+  const hot = c.lines.find((l) => l.serviceId === 'hot-cakes-bar');
+  const cof = c.lines.find((l) => l.serviceId === 'coffee-bar');
+  check('combo: each bar uses the 30-guest price plus $5 per person', hot.pricePerPerson === 65 + 5 && cof.pricePerPerson === 75 + 5, `${hot.pricePerPerson} ${cof.pricePerPerson}`);
+  check('combo: charged for 15 guests per bar, no minimum charge', hot.subtotal === 15 * 70 && cof.subtotal === 15 * 80 && !hot.floorApplied, `${hot.subtotal} ${cof.subtotal}`);
+  check('combo: lines are flagged and there is no multi-bar discount', c.lines.every((l) => l.combo) && c.discounts.length === 0);
+  check('combo: cheaper than paying two full 30-guest bars', c.total < normal30.total, `${c.total} vs ${normal30.total}`);
+  check('without the combo option 15 guests per bar are below the minimum and are not priced', two(false) === null);
+  check('combo needs exactly two bars (three bars price normally)', computeEstimate({ selectedServices: ['hot-cakes-bar', 'coffee-bar', 'donas-bar'], personas: 30, serviceNames: {}, combo: true }, PRICING).lines.every((l) => !l.combo));
+  check('combo with a refill bar keeps the refill surcharge', (() => {
+    const e = computeEstimate({ selectedServices: ['drinks-bar', 'coffee-bar'], personas: 30, personasByService: { 'drinks-bar': 15, 'coffee-bar': 15 }, serviceNames: {}, combo: true, options: { 'drinks-bar': { variant: 'desechable', refill: true } } }, PRICING);
+    return e.lines.find((l) => l.serviceId === 'drinks-bar').pricePerPerson === 95 * 1.3 + 5;
+  })());
+}
+
 console.log(`\n${passCount} passed, ${failures.length} failed.`);
 if (failures.length) {
   console.log('\nFailed checks:');

@@ -26,6 +26,10 @@ export const FAQ: FaqItem[] = [
     a: 'Para agendar tu fecha se pide un anticipo del 40 %; el resto se liquida a más tardar un día antes del evento.',
   },
   {
+    q: '¿Y si mi grupo es pequeño, de 10 a 15 personas?',
+    a: 'Puedes elegir la opción combinada: juntas dos barras (por ejemplo 15 invitados de coffee bar y 15 de mini hot cakes) y basta que sumen 30 invitados en total, con mínimo 10 en cada una. Cada barra cuesta 5 pesos más por persona sobre su precio normal. Es ideal para estudios de pilates, fitness y celebraciones chicas.',
+  },
+  {
     q: '¿Puedo combinar varias barras?',
     a: 'Sí. Con 2 barras tienes 5 % de descuento, con 3 barras 10 % y con 4 o más 15 %, siempre que cada barra sea para al menos 50 personas.',
   },

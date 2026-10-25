@@ -162,3 +162,56 @@ body {
   .sticker.is-in { animation: none; }
   html { scroll-behavior: auto; }
 }
+
+/* Mascota que camina por la página (ver ScrollBuddy) */
+.scroll-buddy {
+  position: fixed;
+  left: 0;
+  bottom: 10px;
+  z-index: 60;
+  width: 62px;
+  pointer-events: none;
+  will-change: transform;
+  transform-origin: 50% 100%;
+}
+.scroll-buddy__sprite {
+  width: 100%;
+  background-image: url('/stickers/mascota-sprite.webp');
+  background-size: 400% 100%;
+  background-position: 0% 0;
+  filter: drop-shadow(0 6px 8px rgba(74, 53, 40, 0.28));
+}
+.scroll-buddy.is-walking .scroll-buddy__sprite {
+  animation: buddy-walk 0.52s steps(4) infinite, buddy-bob 0.26s ease-in-out infinite;
+}
+@keyframes buddy-walk {
+  from { background-position: 0% 0; }
+  to { background-position: 133.3333% 0; }
+}
+@keyframes buddy-bob {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -3px; }
+}
+@media (min-width: 768px) {
+  .scroll-buddy { width: 92px; bottom: 14px; }
+}
+
+/* Estrellita de cuatro puntas dentro de las U del logotipo (Crunch & Munch) */
+.brand-u {
+  position: relative;
+  display: inline-block;
+}
+.brand-u__star {
+  position: absolute;
+  left: 50%;
+  top: 34%;
+  width: 0.42em;
+  height: 0.42em;
+  transform: translate(-50%, -50%);
+  background: #96773a;
+  clip-path: polygon(50% 0%, 59% 41%, 100% 50%, 59% 59%, 50% 100%, 41% 59%, 0% 50%, 41% 41%);
+}
+.bg-coffee-900 .brand-u__star,
+.brand-name--light .brand-u__star {
+  background: #c7a86a;
+}

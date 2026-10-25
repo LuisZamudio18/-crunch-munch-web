@@ -8,6 +8,7 @@ import ServicesSection from '@/components/sections/ServicesSection';
 import Instagram from '@/components/sections/Instagram';
 import Testimonials from '@/components/sections/Testimonials';
 import Faq from '@/components/sections/Faq';
+import ScrollBuddy from '@/components/ui/ScrollBuddy';
 import ConfiguratorModal from '@/components/configurator/ConfiguratorModal';
 import { useConfigurator } from '@/hooks/useConfigurator';
 
@@ -48,6 +49,7 @@ export default function Home() {
       </main>
 
       <Footer />
+      <ScrollBuddy />
 
       {/* Floating WhatsApp help button — hidden when any modal is open */}
       <a

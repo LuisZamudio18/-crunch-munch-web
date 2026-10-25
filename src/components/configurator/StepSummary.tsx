@@ -5,7 +5,7 @@ import Button from '@/components/ui/Button';
 import { SERVICE_MAP } from '@/data/services';
 import type { EventFormData, PersonalizationData } from '@/types';
 import { buildWhatsAppMessage } from '@/lib/whatsapp';
-import { guestsByBar, guestsFor } from '@/lib/guests';
+import { comboValid, guestsByBar, guestsFor, isCombo } from '@/lib/guests';
 import EstimateCard, { DiscountNudge, estimateToQuoteLines, useEstimate } from './EstimateCard';
 
 interface StepSummaryProps {
@@ -26,7 +26,8 @@ export default function StepSummary({
   const personas = parseInt(eventForm.personas) || 0;
   const choices = useMemo(() => ({ serviceSelections, personalization }), [serviceSelections, personalization]);
   const guests = useMemo(() => guestsByBar(eventForm, selectedServices), [eventForm, selectedServices]);
-  const { estimate, progress } = useEstimate(selectedServices, personas, choices, guests);
+  const combo = isCombo(eventForm, selectedServices);
+  const { estimate, progress } = useEstimate(selectedServices, personas, choices, guests, combo);
 
   const waUrl = buildWhatsAppMessage({
     selectedServices,
@@ -42,7 +43,7 @@ export default function StepSummary({
     return `${day}/${m}/${y}`;
   };
 
-  const barrasBajoMinimo = selectedServices
+  const barrasBajoMinimo = (combo ? [] : selectedServices)
     .map((id) => SERVICE_MAP[id])
     .filter((svc): svc is NonNullable<typeof svc> => !!svc && guestsFor(eventForm, svc.id) > 0 && guestsFor(eventForm, svc.id) < svc.minPersonas);
 
@@ -54,6 +55,13 @@ export default function StepSummary({
           Revisa tu selección y envíanos la información para recibir tu cotización personalizada.
         </p>
       </div>
+
+      {combo && !comboValid(eventForm, selectedServices) && (
+        <div className="mb-4 flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5 text-xs text-amber-700">
+          <span className="shrink-0 mt-0.5">⚠️</span>
+          <span>La opción combinada pide mínimo 30 invitados entre las dos barras y al menos 10 en cada una.</span>
+        </div>
+      )}
 
       {barrasBajoMinimo.length > 0 && (
         <div className="mb-4 flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5 text-xs text-amber-700">

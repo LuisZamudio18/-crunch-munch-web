@@ -68,7 +68,10 @@ export function buildWhatsAppMessage(params: {
     `  · Horario: ${eventForm.horario}`,
     `  · Lugar: ${eventForm.lugar}`,
     `  · No. de personas: ${eventForm.personas}`,
-    ...(selectedServices.length > 1 && selectedServices.some((id) => guestsFor(eventForm, id) !== (parseInt(eventForm.personas) || 0))
+    ...(eventForm.combinada && selectedServices.length === 2
+      ? [`  · Opción combinada: ${selectedServices.map((id) => `${SERVICE_MAP[id]?.name ?? id} ${guestsFor(eventForm, id)}`).join(' + ')} (mínimo 30 entre las dos barras)`]
+      : []),
+    ...(selectedServices.length > 1 && !eventForm.combinada && selectedServices.some((id) => guestsFor(eventForm, id) !== (parseInt(eventForm.personas) || 0))
       ? [`  · Personas por barra: ${selectedServices.map((id) => `${SERVICE_MAP[id]?.name ?? id} ${guestsFor(eventForm, id)}`).join(', ')}`]
       : []),
     `  · Tipo de evento: ${eventForm.tipoEvento}`,

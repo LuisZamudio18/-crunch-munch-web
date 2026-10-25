@@ -906,7 +906,7 @@ export const SERVICES: Service[] = [
             name: 'Alimentos',
             included: 2,
             options: [
-              'Chilaquiles rojos', 'Chilaquiles verde', 'Croissant', 'Chapatas', 'Bagels',
+              'Chilaquiles rojos', 'Chilaquiles verdes', 'Croissant', 'Chapatas', 'Bagels',
               'Tacos dorados', 'Salbutes', 'Molletes', 'Sincronizadas',
               'Huevos con salchicha', 'Huevos con jamón', 'Huevos estrellados',
             ],

@@ -58,6 +58,8 @@ export interface EventFormData {
   comentarios: string;
   /** Guests per bar when a bar differs from `personas` (keyed by service id). */
   personasPorBarra?: Record<string, string>;
+  /** Opción combinada: dos barras que juntan el mínimo de invitados (grupos chicos). */
+  combinada?: boolean;
 }
 
 export interface ConfiguratorState {

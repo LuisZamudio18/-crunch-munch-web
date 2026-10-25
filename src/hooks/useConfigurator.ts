@@ -48,6 +48,9 @@ export function useConfigurator() {
   }
 
   function toggleService(id: string) {
+    const nextCount = selectedServices.includes(id) ? selectedServices.length - 1 : selectedServices.length + 1;
+    // La opción combinada solo existe con exactamente 2 barras
+    if (nextCount !== 2) setEventForm((f) => (f.combinada ? { ...f, combinada: false } : f));
     setSelectedServices((prev) =>
       prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
     );

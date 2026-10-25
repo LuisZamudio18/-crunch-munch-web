@@ -63,6 +63,11 @@ export interface PricingConfig {
   refillSurchargePercent?: number;
   /** Whether the refill surcharge also raises the bar's minimum charge. */
   refillAffectsMinimum?: boolean;
+  /**
+   * Combined option for small groups: two bars together reach the minimum. Each bar is priced at the tier for
+   * `tierGuests`, plus `extraPerPerson`, with no minimum charge and no multi-bar discount.
+   */
+  combo?: { tierGuests: number; extraPerPerson: number };
 }
 
 /** What the customer chose for one bar, as far as price is concerned. */
@@ -91,6 +96,8 @@ export interface EstimateInput {
   serviceNames: Record<string, string>;
   /** Price-relevant choices keyed by service id. */
   options?: Record<string, ServiceOptions>;
+  /** Combined option (exactly two bars) — see PricingConfig.combo. */
+  combo?: boolean;
 }
 
 export interface EstimateLine {
@@ -104,6 +111,8 @@ export interface EstimateLine {
   /** True when the minimumTotal floor raised this subtotal. */
   floorApplied: boolean;
   refillApplied: boolean;
+  /** True when this line was priced as part of the combined two-bar option. */
+  combo: boolean;
   /** Picks beyond the included ones (0 when none or when the bar has no such rule). */
   extraPicks: number;
   /** Total percent the extra picks added to the per-person price (0 when none). */
@@ -192,13 +201,14 @@ export function computeEstimate(input: EstimateInput, config: PricingConfig): Es
   const lines: EstimateLine[] = [];
   const unpricedServiceIds: string[] = [];
   const refillFactor = 1 + (config.refillSurchargePercent ?? 0) / 100;
+  const comboOn = !!input.combo && !!config.combo && selectedServices.length === 2;
 
   for (let index = 0; index < selectedServices.length; index++) {
     const id = selectedServices[index];
     const barGuests = guests[index];
     const pricing = config.services[id];
     const opts = options[id] ?? {};
-    const tier = pricing ? tierFor(tiersFor(pricing, opts), barGuests) : null;
+    const tier = pricing ? tierFor(tiersFor(pricing, opts), comboOn ? config.combo!.tierGuests : barGuests) : null;
     if (!pricing || !tier) {
       unpricedServiceIds.push(id);
       continue;
@@ -208,10 +218,10 @@ export function computeEstimate(input: EstimateInput, config: PricingConfig): Es
     const extraRule = pricing.extraPickSurcharge;
     const extraPicks = extraRule ? Math.max(0, Math.floor(opts.extraPicks ?? 0)) : 0;
     const extraFactor = extraRule ? Math.pow(1 + extraRule.percent / 100, Math.floor(extraPicks / extraRule.every)) : 1;
-    const pricePerPerson = tier.pricePerPerson * (refillApplied ? refillFactor : 1) * extraFactor;
+    const pricePerPerson = tier.pricePerPerson * (refillApplied ? refillFactor : 1) * extraFactor + (comboOn ? config.combo!.extraPerPerson : 0);
     const raw = pricePerPerson * barGuests;
     const floor =
-      pricing.minimumTotal === undefined
+      comboOn || pricing.minimumTotal === undefined
         ? undefined
         : pricing.minimumTotal * (refillApplied && config.refillAffectsMinimum ? refillFactor : 1);
     const base = floor !== undefined ? Math.max(raw, floor) : raw;
@@ -225,6 +235,7 @@ export function computeEstimate(input: EstimateInput, config: PricingConfig): Es
       subtotal: Math.round(base + takeHomeExtra),
       floorApplied: floor !== undefined && base > raw,
       refillApplied,
+      combo: comboOn,
       extraPicks,
       extraPercent: Math.round(((extraFactor - 1) * 100 + 1e-9) * 10) / 10,
       takeHomeExtra,
@@ -237,7 +248,7 @@ export function computeEstimate(input: EstimateInput, config: PricingConfig): Es
 
   const subtotal = lines.reduce((sum, l) => sum + l.subtotal, 0);
 
-  const eligible = config.discounts.filter((r) => isUnlocked(r, personas, guests));
+  const eligible = comboOn ? [] : config.discounts.filter((r) => isUnlocked(r, personas, guests));
   const chosen =
     config.stacking === 'best'
       ? eligible.length

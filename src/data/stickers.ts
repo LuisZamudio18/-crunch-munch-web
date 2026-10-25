@@ -42,6 +42,6 @@ export const STICKERS: Record<StickerId, { src: string; w: number; h: number }> 
   'jigger': { src: '/stickers/17-jigger.webp', w: 272, h: 432 },
   'cuchara': { src: '/stickers/18-cuchara.webp', w: 356, h: 560 },
   'popotes': { src: '/stickers/19-popotes.webp', w: 304, h: 550 },
-  'barra': { src: '/stickers/20-barra.webp', w: 980, h: 736 },
+  'barra': { src: '/stickers/20-barra.webp', w: 1385, h: 1010 },
   'flores': { src: '/stickers/21-flores.webp', w: 622, h: 604 },
 };

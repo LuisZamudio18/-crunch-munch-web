@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Sticker from '@/components/ui/Sticker';
+import BrandName from '@/components/ui/BrandName';
 import { CONTACT } from '@/lib/siteConfig';
 
 const SERVICE_LINKS = [
@@ -15,9 +16,7 @@ export default function Footer() {
       <div className="container-max px-5 md:px-10 lg:px-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1.2fr_1fr] gap-10 md:gap-12">
           <div>
-            <p className="font-bodoni text-3xl uppercase leading-none text-cream-50">
-              Crunch <span className="text-gold-400">&amp;</span> Munch
-            </p>
+            <p className="font-bodoni text-3xl uppercase leading-none text-cream-50"><BrandName ampClassName="text-gold-400" /></p>
             <p className="font-sans text-[13px] uppercase tracking-[0.3em] text-gold-400 mt-2 mb-5">Luxury mobile bars</p>
             <p className="font-sans text-base leading-relaxed text-cream-300 max-w-xs">
               Barras móviles de lujo para eventos únicos e inolvidables en todo Tabasco.

@@ -18,11 +18,29 @@
    "w": 627,
    "h": 579
   },
+  "agua-mango": {
+   "name": "Agua de mango",
+   "file": "agua-mango.webp",
+   "w": 578,
+   "h": 585
+  },
+  "agua-maracuya": {
+   "name": "Agua de maracuyá",
+   "file": "agua-maracuya.webp",
+   "w": 614,
+   "h": 570
+  },
   "agua-pina-colada": {
    "name": "Agua de piña colada",
    "file": "agua-pina-colada.webp",
    "w": 627,
    "h": 587
+  },
+  "agua-sandia": {
+   "name": "Agua de sandía",
+   "file": "agua-sandia.webp",
+   "w": 588,
+   "h": 589
   },
   "alfajores": {
    "name": "Alfajores",
@@ -624,11 +642,11 @@
    "w": 627,
    "h": 575
   },
-  "emperador": {
+  "emperador-galleta": {
    "name": "Emperador",
-   "file": "emperador.webp",
-   "w": 627,
-   "h": 606
+   "file": "emperador-galleta.webp",
+   "w": 609,
+   "h": 571
   },
   "ensalada": {
    "name": "Ensalada",
@@ -792,11 +810,23 @@
    "w": 640,
    "h": 558
   },
+  "helado-cajeta": {
+   "name": "Helado de cajeta",
+   "file": "helado-cajeta.webp",
+   "w": 620,
+   "h": 571
+  },
   "helado-chocolate": {
    "name": "Helado de chocolate",
    "file": "helado-chocolate.webp",
    "w": 627,
    "h": 551
+  },
+  "helado-fresa": {
+   "name": "Helado de fresa",
+   "file": "helado-fresa.webp",
+   "w": 627,
+   "h": 549
   },
   "helado-galleta": {
    "name": "Helado de galleta",
@@ -809,6 +839,12 @@
    "file": "helado-limon.webp",
    "w": 626,
    "h": 576
+  },
+  "helado-mango": {
+   "name": "Helado de mango",
+   "file": "helado-mango.webp",
+   "w": 622,
+   "h": 547
   },
   "helado-pistache": {
    "name": "Helado de pistache",
@@ -1002,11 +1038,11 @@
    "w": 438,
    "h": 593
   },
-  "lunetas": {
+  "lunetas-v2": {
    "name": "Lunetas",
-   "file": "lunetas.webp",
-   "w": 627,
-   "h": 605
+   "file": "lunetas-v2.webp",
+   "w": 622,
+   "h": 599
   },
   "mamut": {
    "name": "Mamut",
@@ -1374,11 +1410,35 @@
    "w": 627,
    "h": 619
   },
+  "paleta-fresa": {
+   "name": "Paleta de fresa",
+   "file": "paleta-fresa.webp",
+   "w": 627,
+   "h": 613
+  },
+  "paleta-limon": {
+   "name": "Paleta de limón",
+   "file": "paleta-limon.webp",
+   "w": 622,
+   "h": 612
+  },
+  "paleta-mango": {
+   "name": "Paleta de mango",
+   "file": "paleta-mango.webp",
+   "w": 614,
+   "h": 610
+  },
   "paleta-mango-chamoy": {
    "name": "Paleta mango chamoy",
    "file": "paleta-mango-chamoy.webp",
    "w": 627,
    "h": 621
+  },
+  "paleta-pina": {
+   "name": "Paleta de piña",
+   "file": "paleta-pina.webp",
+   "w": 627,
+   "h": 624
   },
   "paleta-pina-chamoy": {
    "name": "Paleta piña chamoy",
@@ -1524,6 +1584,12 @@
    "w": 610,
    "h": 605
   },
+  "pastel-chocolate": {
+   "name": "Pastel de chocolate",
+   "file": "pastel-chocolate.webp",
+   "w": 607,
+   "h": 611
+  },
   "pastel-mokka": {
    "name": "Mokka",
    "file": "pastel-mokka.webp",
@@ -1535,6 +1601,12 @@
    "file": "pastel-red-velvet.webp",
    "w": 571,
    "h": 604
+  },
+  "pastel-vainilla": {
+   "name": "Pastel de vainilla",
+   "file": "pastel-vainilla.webp",
+   "w": 587,
+   "h": 588
   },
   "pavo-ahumado": {
    "name": "Pavo ahumado",
@@ -1577,6 +1649,30 @@
    "file": "pera.webp",
    "w": 627,
    "h": 612
+  },
+  "perla-fresa": {
+   "name": "Perlas explosivas de fresa",
+   "file": "perla-fresa.webp",
+   "w": 627,
+   "h": 522
+  },
+  "perla-mango": {
+   "name": "Perlas explosivas de mango",
+   "file": "perla-mango.webp",
+   "w": 627,
+   "h": 541
+  },
+  "perla-manzana-verde": {
+   "name": "Perlas explosivas de manzana verde",
+   "file": "perla-manzana-verde.webp",
+   "w": 627,
+   "h": 595
+  },
+  "perla-mora-azul": {
+   "name": "Perlas explosivas de mora azul",
+   "file": "perla-mora-azul.webp",
+   "w": 618,
+   "h": 534
   },
   "picafresas": {
    "name": "Picafresas",
@@ -1794,11 +1890,41 @@
    "w": 604,
    "h": 583
   },
+  "smoothie-fresa": {
+   "name": "Smoothie de fresa",
+   "file": "smoothie-fresa.webp",
+   "w": 587,
+   "h": 597
+  },
   "smoothie-frutos-rojos": {
    "name": "Smoothie de frutos rojos",
    "file": "smoothie-frutos-rojos.webp",
    "w": 573,
    "h": 597
+  },
+  "smoothie-mango": {
+   "name": "Smoothie de mango",
+   "file": "smoothie-mango.webp",
+   "w": 601,
+   "h": 609
+  },
+  "smoothie-pepino": {
+   "name": "Smoothie de pepino",
+   "file": "smoothie-pepino.webp",
+   "w": 567,
+   "h": 608
+  },
+  "smoothie-pina": {
+   "name": "Smoothie de piña",
+   "file": "smoothie-pina.webp",
+   "w": 605,
+   "h": 610
+  },
+  "smoothie-sandia": {
+   "name": "Smoothie de sandía",
+   "file": "smoothie-sandia.webp",
+   "w": 621,
+   "h": 609
   },
   "soda-candy": {
    "name": "Soda Candy",
@@ -1883,6 +2009,18 @@
    "file": "tapas.webp",
    "w": 619,
    "h": 542
+  },
+  "tapioca-brown-sugar": {
+   "name": "Tapioca brown sugar",
+   "file": "tapioca-brown-sugar.webp",
+   "w": 583,
+   "h": 539
+  },
+  "tapioca-clasica": {
+   "name": "Tapioca clásica",
+   "file": "tapioca-clasica.webp",
+   "w": 568,
+   "h": 530
   },
   "taro-frappe": {
    "name": "Taro frappe",
@@ -2088,7 +2226,6 @@
   "pina": "pina",
   "manzana": "manzana",
   "sandia": "sandia",
-  "sabores de smoothie sandia": "sandia",
   "mango": "mango",
   "fresas": "fresas",
   "fresa": "fresas",
@@ -2127,7 +2264,6 @@
   "galleta de chispas": "galleta-de-chispas",
   "galletas de chispas": "galleta-de-chispas",
   "cremax": "cremax",
-  "emperador": "emperador",
   "mamut": "mamut",
   "chococrispi": "chococrispi",
   "froot loops": "froot-loops",
@@ -2136,7 +2272,6 @@
   "nesquik": "nesquik",
   "chispas turin": "chispas-turin",
   "chispas de chocolate": "chispas-de-chocolate",
-  "lunetas": "lunetas",
   "m&m": "mym",
   "chocoretas": "chocoretas",
   "krankys": "krankys",
@@ -2391,6 +2526,7 @@
   "jugo de pina": "jugo-pina",
   "smoothie de frutos rojos": "smoothie-frutos-rojos",
   "smoothie frutal": "smoothie-frutos-rojos",
+  "sabores de smoothie frutos rojos": "smoothie-frutos-rojos",
   "smoothie chocolate": "smoothie-chocolate",
   "naranjada": "naranjada",
   "limonada": "limonada",
@@ -2408,6 +2544,54 @@
   "agua de frutas": "agua-frutas",
   "jamaica con frutos rojos": "jamaica-frutos-rojos",
   "vitrolero de agua fresca": "vitrolero-agua-fresca",
-  "botellas de agua": "botellas-agua"
+  "botellas de agua": "botellas-agua",
+  "sabores de smoothie pepino": "smoothie-pepino",
+  "smoothie de pepino": "smoothie-pepino",
+  "sabores de smoothie mango": "smoothie-mango",
+  "smoothie de mango": "smoothie-mango",
+  "sabores de smoothie fresa": "smoothie-fresa",
+  "smoothie de fresa": "smoothie-fresa",
+  "sabores de smoothie sandia": "smoothie-sandia",
+  "smoothie de sandia": "smoothie-sandia",
+  "sabores de smoothie pina": "smoothie-pina",
+  "smoothie de pina": "smoothie-pina",
+  "bebidas mango": "agua-mango",
+  "agua de mango": "agua-mango",
+  "bebidas sandia": "agua-sandia",
+  "agua de sandia": "agua-sandia",
+  "bebidas maracuya": "agua-maracuya",
+  "agua de maracuya": "agua-maracuya",
+  "sabores de helado mango": "helado-mango",
+  "helado de mango": "helado-mango",
+  "sabores de helado fresa": "helado-fresa",
+  "helado de fresa": "helado-fresa",
+  "sabores de helado cajeta": "helado-cajeta",
+  "helado de cajeta": "helado-cajeta",
+  "sabor de paleta mango": "paleta-mango",
+  "paleta de mango": "paleta-mango",
+  "sabor de paleta fresa": "paleta-fresa",
+  "paleta de fresa": "paleta-fresa",
+  "sabor de paleta pina": "paleta-pina",
+  "paleta de pina": "paleta-pina",
+  "sabor de paleta limon": "paleta-limon",
+  "paleta de limon": "paleta-limon",
+  "sabor de pastel vainilla": "pastel-vainilla",
+  "pastel de vainilla": "pastel-vainilla",
+  "sabor de pastel chocolate": "pastel-chocolate",
+  "pastel de chocolate": "pastel-chocolate",
+  "perlas explosivas mango": "perla-mango",
+  "perlas explosivas de mango": "perla-mango",
+  "perlas explosivas fresa": "perla-fresa",
+  "perlas explosivas de fresa": "perla-fresa",
+  "perlas explosivas mora azul": "perla-mora-azul",
+  "perlas explosivas de mora azul": "perla-mora-azul",
+  "perlas explosivas manzana verde": "perla-manzana-verde",
+  "perlas explosivas de manzana verde": "perla-manzana-verde",
+  "tipo de tapioca clasica": "tapioca-clasica",
+  "tapioca clasica": "tapioca-clasica",
+  "tipo de tapioca brown sugar": "tapioca-brown-sugar",
+  "tapioca brown sugar": "tapioca-brown-sugar",
+  "emperador": "emperador-galleta",
+  "lunetas": "lunetas-v2"
  }
 }

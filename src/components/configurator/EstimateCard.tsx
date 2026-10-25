@@ -64,7 +64,8 @@ export function useEstimate(
   selectedServices: string[],
   personas: number,
   choices?: EstimateChoices,
-  personasByService?: Record<string, number>
+  personasByService?: Record<string, number>,
+  combo?: boolean
 ) {
   return useMemo(() => {
     if (!ESTIMATE_ENABLED) return { estimate: null as Estimate | null, progress: [] as DiscountProgress[] };
@@ -73,10 +74,10 @@ export function useEstimate(
       ? Object.fromEntries(selectedServices.map((id) => [id, serviceOptions(id, choices)]))
       : undefined;
     return {
-      estimate: computeEstimate({ selectedServices, personas, personasByService, serviceNames, options }, PRICING),
+      estimate: computeEstimate({ selectedServices, personas, personasByService, serviceNames, options, combo }, PRICING),
       progress: computeDiscountProgress({ selectedServices, personas, personasByService }, PRICING),
     };
-  }, [selectedServices, personas, choices, personasByService]);
+  }, [selectedServices, personas, choices, personasByService, combo]);
 }
 
 /**
@@ -87,6 +88,7 @@ export function estimateToQuoteLines(estimate: Estimate): string[] {
   const lines: string[] = [];
   for (const l of estimate.lines) {
     lines.push(`*${l.name.toUpperCase()}*`, ...l.choices);
+    if (l.combo) lines.push('Opción combinada (2 barras en un mismo evento)');
     if (l.extraPicks > 0) lines.push(`Opciones extra: ${l.extraPicks}`);
     lines.push(`${l.personas} personas ${formatMXN(l.subtotal)}✨`);
     const copy = QUOTE_COPY[l.serviceId];
@@ -177,7 +179,7 @@ export default function EstimateCard({ estimate }: EstimateCardProps) {
             <span>
               {l.name}
               <span className="block text-xs text-coffee-400">
-                {[`${l.personas} personas`, l.detail, l.extraPicks > 0 ? `${l.extraPicks} ${l.extraPicks === 1 ? 'opción extra' : 'opciones extra'}` : null].filter(Boolean).join(' · ')}
+                {[`${l.personas} personas`, l.detail, l.extraPicks > 0 ? `${l.extraPicks} ${l.extraPicks === 1 ? 'opción extra' : 'opciones extra'}` : null, l.combo ? 'opción combinada' : null].filter(Boolean).join(' · ')}
               </span>
               <span className="block text-xs text-coffee-400">
                 Servicio de {formatHours(serviceHours(l.personas, l.refillApplied))} o hasta que se acabe el producto

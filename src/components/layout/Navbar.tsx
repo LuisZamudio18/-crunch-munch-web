@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Button from '@/components/ui/Button';
+import BrandName from '@/components/ui/BrandName';
 
 interface NavbarProps {
   onOpenConfigurator: () => void;
@@ -34,9 +35,7 @@ export default function Navbar({ onOpenConfigurator }: NavbarProps) {
     >
       <div className="mx-5 md:mx-10 lg:mx-20"><div className="container-max py-4 flex items-center justify-between gap-6">
         <a href="#" className="group flex flex-col items-start leading-none" aria-label="Crunch & Munch, inicio">
-          <span className="font-bodoni text-[19px] sm:text-[22px] md:text-2xl tracking-[0.02em] whitespace-nowrap text-coffee-900 uppercase">
-            Crunch <span className="text-gold-500">&amp;</span> Munch
-          </span>
+          <BrandName className="font-bodoni text-[19px] sm:text-[22px] md:text-2xl tracking-[0.02em] whitespace-nowrap text-coffee-900 uppercase" />
           <span className="hidden sm:block font-sans text-[13px] tracking-[0.3em] text-gold-500 uppercase mt-1">Luxury mobile bars</span>
         </a>
 

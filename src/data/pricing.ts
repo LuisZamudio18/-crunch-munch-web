@@ -112,6 +112,10 @@ export const PRICING: PricingConfig = {
   // Refill ilimitado: +30 % sobre el precio por persona. Pendiente de confirmar si también sube el cobro mínimo.
   refillSurchargePercent: 30,
   refillAffectsMinimum: false,
+
+  // Opción combinada (grupos de 10 a 15 personas, p. ej. estudios de pilates): dos barras que juntan mínimo 30 invitados.
+  // Cada barra cobra su precio del rango de 30 personas más $5 por persona, sin cobro mínimo y sin descuento por varias barras.
+  combo: { tierGuests: 30, extraPerPerson: 5 },
 };
 
 /** Lo que el estimado le dice al cliente sobre pagos, inclusiones y traslado. */
