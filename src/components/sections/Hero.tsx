@@ -35,7 +35,7 @@ export default function Hero({ onOpenConfigurator }: HeroProps) {
         {/* Stickers sueltos alrededor de la foto, como en la hoja de la marca */}
         <Sticker id="copa-rosa" size={104} pos={{ top: '0%', right: '0%' }} rotate={8} motion="sway" duration={8} priority hideOnMobile />
         <Sticker id="taza-latte" size={150} pos={{ top: '50%', right: '-2%' }} rotate={-7} motion="float" duration={9} delay={1.2} speed={0.05} hideOnMobile />
-        <Sticker id="barra" size={150} mdSize={250} pos={{ bottom: '-14px', left: '-6px' }} mdPos={{ bottom: '-3%', left: '45%' }} rotate={-3} motion="float" duration={9} delay={0.3} speed={0.05} />
+        <Sticker id="barra" size={150} mdSize={250} pos={{ bottom: '-14px', left: '-6px' }} mdPos={{ bottom: '-3%', left: '45%' }} rotate={-3} motion="float" duration={9} delay={0.3} speed={0.05} hideOnMobile />
         <Sticker id="cafe-helado" size={92} pos={{ top: '46%', left: '49%' }} rotate={-6} motion="bounce" duration={6.5} delay={0.6} speed={0.1} hideOnMobile />
         <Sticker id="croissant" size={84} mdSize={132} pos={{ bottom: '6px', right: '8px' }} mdPos={{ bottom: '0%', right: '14%' }} rotate={-10} motion="sway" duration={8.5} delay={2} speed={0.06} />
 
@@ -47,6 +47,11 @@ export default function Hero({ onOpenConfigurator }: HeroProps) {
               <br />
               <em className="font-serif italic font-medium text-gold-500">para celebrar.</em>
             </h1>
+
+            {/* Celular: el sticker de la barra, grande, justo debajo del título */}
+            <div className="relative md:hidden h-[176px] -mt-1 mb-5" aria-hidden="true">
+              <Sticker id="barra" size={248} pos={{ top: '0px', left: 'calc(50% - 124px)' }} rotate={-2} motion="float" duration={8} speed={0} />
+            </div>
 
             <p className="font-sans text-base leading-relaxed text-coffee-600 max-w-lg mb-9">
               Coffee bar, drinks, mimosas, postres, charcutería y brunch para bodas, XV años, baby showers y eventos

@@ -31,7 +31,9 @@ export default function ScrollBuddy() {
       const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
       const progress = Math.min(1, Math.max(0, y / max));
       const w = el.offsetWidth;
-      const x = progress * (window.innerWidth - w);
+      // En celular se frena antes del botón de WhatsApp para no taparlo
+      const reserve = window.innerWidth < 768 ? 78 : 0;
+      const x = progress * (window.innerWidth - w - reserve);
       if (y !== lastY) dir = y > lastY ? 1 : -1;
       lastY = y;
       el.style.transform = `translateX(${x.toFixed(1)}px) scaleX(${dir})`;

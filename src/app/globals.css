@@ -167,9 +167,9 @@ body {
 .scroll-buddy {
   position: fixed;
   left: 0;
-  bottom: 10px;
+  bottom: 6px;
   z-index: 60;
-  width: 62px;
+  width: 50px;
   pointer-events: none;
   will-change: transform;
   transform-origin: 50% 100%;
