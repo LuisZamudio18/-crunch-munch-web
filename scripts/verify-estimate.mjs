@@ -18,6 +18,7 @@ import { PRESENTATION_CHOICE_BAR_IDS, PRESENTATION_FIXED, PRESENTATION_OPTIONS }
 import { PRESENTATION_PHOTOS, PRESENTATION_PHOTO_BY_BAR, PRESENTATION_PHOTO_BY_OPTION } from '../src/data/presentations.ts';
 import { existsSync } from 'node:fs';
 import { QUOTE_COPY } from '../src/data/quoteCopy.ts';
+import { serviceHours, formatHours, serviceHoursText } from '../src/data/serviceHours.ts';
 import { SERVICES } from '../src/data/services.ts';
 
 const failures = [];
@@ -221,7 +222,7 @@ check('below the first tier -> not priced', est(['snack'], 20) === null);
   check('every bar has a minimum charge', Object.values(PRICING.services).every((p) => p.minimumTotal > 0));
   check('every bar has quote text for the WhatsApp message', ids.every((id) => (QUOTE_COPY[id]?.length ?? 0) > 0), ids.filter((id) => !QUOTE_COPY[id]).join());
   check('quote text only for bars that exist', Object.keys(QUOTE_COPY).every((id) => ids.includes(id)));
-  check('"3 horas" is only claimed for Drinks Bar (the only duration we know)', Object.entries(QUOTE_COPY).every(([id, lines]) => id === 'drinks-bar' || !lines.some((l) => /horas/i.test(l))));
+  check('quote text never hard-codes a duration (it depends on guests and refill)', Object.values(QUOTE_COPY).every((lines) => !lines.some((l) => /hora/i.test(l))));
   check('only Drinks and Mocktails need a presentation choice', Object.entries(PRICING.services).filter(([, p]) => p.variants).map(([id]) => id).sort().join() === 'drinks-bar,mocktails-bar');
 }
 
@@ -235,6 +236,24 @@ check('below the first tier -> not priced', est(['snack'], 20) === null);
   check('choice bars and fixed bars do not overlap', PRESENTATION_CHOICE_BAR_IDS.every((id) => !(id in PRESENTATION_FIXED)));
   const missingFiles = Object.values(PRESENTATION_PHOTOS).filter((p) => !existsSync(new URL('../public' + p.src, import.meta.url)));
   check('every presentation photo file exists in /public', missingFiles.length === 0, missingFiles.map((p) => p.src).join());
+}
+
+
+// Service hours (the owner's rules)
+{
+  const reg = (g) => serviceHours(g, false);
+  const ref = (g) => serviceHours(g, true);
+  check('regular service: 30, 49, 50, 69 guests -> 2 h', [30, 49, 50, 69].every((g) => reg(g) === 2), [30, 49, 50, 69].map(reg));
+  check('regular service: 70, 90, 99 guests -> 3 h', [70, 90, 99].every((g) => reg(g) === 3), [70, 90, 99].map(reg));
+  check('regular service: 100 and more -> 4 h', [100, 150].every((g) => reg(g) === 4));
+  check('refill: 30-49 guests -> 2.5 h', [30, 49].every((g) => ref(g) === 2.5), [30, 49].map(ref));
+  check('refill: 50-69 guests -> 3 h', [50, 69].every((g) => ref(g) === 3), [50, 69].map(ref));
+  check('refill: 70-89 guests -> 3.5 h', [70, 89].every((g) => ref(g) === 3.5), [70, 89].map(ref));
+  check('refill: 90 and more -> 4 h', [90, 100, 150].every((g) => ref(g) === 4));
+  check('refill is never shorter than the regular service for the same guests', [30, 49, 50, 69, 70, 89, 90, 99, 100, 150].every((g) => ref(g) >= reg(g)));
+  check('brunch bars (20-29 guests) get the shortest service', reg(20) === 2 && ref(25) === 2.5);
+  check('hours are written the way she says them', formatHours(2) === '2 horas' && formatHours(2.5) === '2 horas y media' && formatHours(3.5) === '3 horas y media' && formatHours(4) === '4 horas');
+  check('the sentence adds "o hasta que se acabe el producto"', serviceHoursText(60, false) === 'El servicio es durante 2 horas o hasta que se acabe el producto.', serviceHoursText(60, false));
 }
 
 console.log(`\n${passCount} passed, ${failures.length} failed.`);

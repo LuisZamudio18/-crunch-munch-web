@@ -6,8 +6,8 @@
  * here are the ones the customer actually picked on the page (e.g. "Elige 12 toppings").
  *
  * The personalization lines are in the catalog for every service ("espejo selfie, flores o globos que
- * tu servicio ya incluye"). The service duration is NOT included: the catalog does not state one, and
- * "3 horas" is only known for Drinks Bar.
+ * tu servicio ya incluye"). The service duration is NOT written here: it depends on the guests of the
+ * bar and on refill, so it is added when the quote is built (see serviceHours.ts).
  */
 
 const PERSONALIZATION: string[] = [
@@ -78,7 +78,7 @@ const SPECIFIC: Record<string, string[]> = {
   'desayuno-buffet': ['-Desayuno buffet con alimentos, acompañamientos, bebidas, pan, galletas y postres según su paquete.'],
 };
 
-/** Drinks Bar: the owner's own text, unchanged (it already has its personalization lines and the 3 hours). */
+/** Drinks Bar: the owner's own text (it already has its personalization lines; the duration is added after it). */
 const DRINKS_BAR: string[] = [
   '-Incluye 3 bebidas de su elección de nuestro menú que se le brindarán a sus invitados.',
   'Bebidas como: mojitos, mezcalita, ginger tonic, tequila sunrise, piñas coladas, margaritas etc.',
@@ -86,8 +86,6 @@ const DRINKS_BAR: string[] = [
   '-La barra incluye personalización de decoración como globos, flores o imágenes.',
   '-Espejo selfie personalizado.',
   '-Etiquetas o imagen personalizable en vaso.',
-  '',
-  '-El servicio es durante 3 horas.',
 ];
 
 export const QUOTE_COPY: Record<string, string[]> = {

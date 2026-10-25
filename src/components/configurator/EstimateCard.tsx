@@ -22,6 +22,7 @@ import {
   type ServiceOptions,
 } from '@/lib/estimate';
 import { QUOTE_COPY } from '@/data/quoteCopy';
+import { formatHours, serviceHours, serviceHoursText } from '@/data/serviceHours';
 import type { PersonalizationData } from '@/types';
 
 /** What the customer picked in the configurator that changes a bar's price. */
@@ -85,6 +86,8 @@ export function estimateToQuoteLines(estimate: Estimate): string[] {
     lines.push(`*${l.name.toUpperCase()}*`, ...l.choices, `${l.personas} personas ${formatMXN(l.subtotal)}✨`);
     const copy = QUOTE_COPY[l.serviceId];
     if (copy?.length) lines.push('', ...copy);
+    // The duration depends on the guests of this bar and on whether it is sold with unlimited refill
+    lines.push('', `-${serviceHoursText(l.personas, l.refillApplied)}`);
     lines.push('');
   }
   if (estimate.unpricedServiceIds.length) lines.push(`Barras por confirmar: ${estimate.unpricedServiceIds.length}`);
@@ -170,6 +173,9 @@ export default function EstimateCard({ estimate }: EstimateCardProps) {
               {l.name}
               <span className="block text-xs text-coffee-400">
                 {[`${l.personas} personas`, l.detail].filter(Boolean).join(' · ')}
+              </span>
+              <span className="block text-xs text-coffee-400">
+                Servicio de {formatHours(serviceHours(l.personas, l.refillApplied))} o hasta que se acabe el producto
               </span>
             </span>
             <span className="tabular-nums text-coffee-700 shrink-0">{formatMXN(l.subtotal)}</span>
