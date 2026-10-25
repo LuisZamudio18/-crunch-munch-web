@@ -36,9 +36,11 @@ export default function ServicesSection({ onOpenConfigurator, onSelectService, s
     : SERVICES.filter((s) => s.category === activeFilter);
 
   return (
-    <section id="servicios" className="relative overflow-hidden bg-cream-200 section-padding py-16 md:py-24">
-      <Sticker id="menu-drinks" size={104} style={{ top: '4%', right: '5%' }} rotate={7} duration={8} desktopOnly />
-      <Sticker id="popotes" size={70} style={{ top: '9%', right: '16%' }} rotate={-9} duration={9} delay={1.4} desktopOnly />
+    <section id="servicios" className="relative overflow-x-clip bg-cream-200 section-padding py-16 md:py-24">
+      <Sticker id="menu-drinks" size={68} mdSize={104} pos={{ top: '-44px', left: '10px' }} mdPos={{ top: '4%', right: '5%', left: 'auto' }} rotate={-7} motion="sway" duration={8} speed={0.035} />
+      <Sticker id="popotes" size={50} mdSize={70} hideOnMobile pos={{ top: '12px', right: '14px' }} mdPos={{ top: '9%', right: '16%' }} rotate={-9} motion="float" duration={9} delay={1.4} speed={0.035} />
+      <Sticker id="taza-latte" size={92} mdSize={120} pos={{ bottom: '-32px', right: '10px' }} mdPos={{ bottom: '-40px', right: '8%' }} rotate={-8} motion="bounce" duration={7} delay={0.4} speed={0.035} />
+      <Sticker id="cheesecake" size={68} mdSize={90} pos={{ bottom: '-22px', left: '8px' }} mdPos={{ bottom: '-30px', left: '9%' }} rotate={7} motion="float" duration={8} delay={1.1} speed={0.035} />
 
       <div className="container-max relative">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-10">

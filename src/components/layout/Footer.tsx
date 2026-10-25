@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Sticker from '@/components/ui/Sticker';
 import { CONTACT } from '@/lib/siteConfig';
 
 const SERVICE_LINKS = [
@@ -9,7 +10,8 @@ const SERVICE_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="bg-coffee-900 text-cream-200 pt-16 pb-10">
+    <footer className="relative overflow-x-clip bg-coffee-900 text-cream-200 pt-20 pb-10">
+      <Sticker id="barra" size={140} mdSize={230} pos={{ top: '-58px', left: 'calc(50% - 70px)' }} mdPos={{ top: '-100px', left: 'calc(50% - 115px)' }} rotate={-2} motion="float" duration={9} speed={0.04} />
       <div className="container-max px-5 md:px-10 lg:px-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1.2fr_1fr] gap-10 md:gap-12">
           <div>

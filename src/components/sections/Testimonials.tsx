@@ -1,3 +1,4 @@
+import Sticker from '@/components/ui/Sticker';
 const TESTIMONIALS = [
   {
     name: 'Adriana M.',
@@ -31,7 +32,9 @@ const TESTIMONIALS = [
 
 export default function Testimonials() {
   return (
-    <section id="testimonios" className="bg-cream-200 section-padding py-16 md:py-24">
+    <section id="testimonios" className="overflow-x-clip relative bg-cream-200 section-padding py-16 md:py-24">
+      <Sticker id="cafe-llevar" size={70} mdSize={90} pos={{ top: '-36px', right: '20px' }} mdPos={{ top: '-44px', right: '12%' }} rotate={8} motion="wiggle" duration={5.5} speed={0.035} />
+      <Sticker id="cuchara" size={56} mdSize={70} pos={{ bottom: '-26px', left: '20px' }} mdPos={{ bottom: '-30px', left: '10%' }} rotate={-35} motion="sway" duration={6} delay={0.5} speed={0.035} />
       <div className="container-max">
         <div className="mb-12 max-w-2xl">
           <h2 className="font-serif italic text-5xl md:text-6xl leading-[1.02] text-coffee-600">

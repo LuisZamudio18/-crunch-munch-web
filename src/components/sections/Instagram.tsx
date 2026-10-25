@@ -2,11 +2,15 @@ import InstagramEmbedCard from './InstagramEmbedCard';
 import { INSTAGRAM_POSTS } from '@/data/instagramPosts';
 import { CONTACT } from '@/lib/siteConfig';
 
+import Sticker from '@/components/ui/Sticker';
+
 export default function Instagram() {
   const hasPosts = INSTAGRAM_POSTS.length > 0;
 
   return (
-    <section id="instagram" className="bg-white section-padding py-16 md:py-24">
+    <section id="instagram" className="overflow-x-clip relative bg-white section-padding py-16 md:py-24">
+      <Sticker id="pastel-frutos-rojos" size={80} mdSize={110} pos={{ top: '-34px', left: '12px' }} mdPos={{ top: '-40px', left: '8%' }} rotate={-8} motion="sway" duration={8} speed={0.035} />
+      <Sticker id="frascos-matcha" size={84} mdSize={110} pos={{ bottom: '-30px', right: '14px' }} mdPos={{ bottom: '-40px', right: '7%' }} rotate={6} motion="bounce" duration={7} delay={0.8} speed={0.035} />
       <div className="container-max">
         <div className="text-center mb-10 max-w-2xl mx-auto">
           <h2 className="font-serif italic text-5xl md:text-6xl leading-[1.02] text-coffee-600 mb-5">
@@ -18,9 +22,9 @@ export default function Instagram() {
         </div>
 
         {hasPosts ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
+          <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 -mx-5 px-5 sm:mx-auto sm:px-0 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:gap-5 sm:overflow-visible max-w-6xl">
             {INSTAGRAM_POSTS.map((permalink) => (
-              <InstagramEmbedCard key={permalink} permalink={permalink} />
+              <div key={permalink} className="flex-none w-[82%] snap-center sm:w-auto"><InstagramEmbedCard permalink={permalink} /></div>
             ))}
           </div>
         ) : (

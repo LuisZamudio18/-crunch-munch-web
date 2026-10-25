@@ -4,9 +4,9 @@ import Sticker from '@/components/ui/Sticker';
 /** Preguntas frecuentes en <details>: se leen sin JavaScript y los buscadores y asistentes de IA las ven completas. */
 export default function Faq() {
   return (
-    <section id="preguntas" className="relative overflow-hidden bg-white section-padding py-16 md:py-24">
-      <Sticker id="jarabe-vainilla" size={76} style={{ top: '8%', right: '6%' }} rotate={8} duration={8.5} desktopOnly />
-      <Sticker id="costal-cafe" size={120} style={{ bottom: '6%', right: '2%' }} rotate={-6} duration={9} delay={1.2} desktopOnly />
+    <section id="preguntas" className="relative overflow-x-clip bg-white section-padding py-16 md:py-24">
+      <Sticker id="jarabe-vainilla" size={56} mdSize={76} pos={{ top: '-30px', right: '16px' }} mdPos={{ top: '8%', right: '6%' }} rotate={8} motion="float" duration={8.5} speed={0.035} />
+      <Sticker id="costal-cafe" size={90} mdSize={120} pos={{ bottom: '-34px', right: '10px' }} mdPos={{ bottom: '6%', right: '2%' }} rotate={-6} motion="sway" duration={9} delay={1.2} speed={0.035} />
 
       <div className="container-max relative grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-20">
         <div>

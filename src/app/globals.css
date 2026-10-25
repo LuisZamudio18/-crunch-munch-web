@@ -101,16 +101,38 @@ body {
     border-radius: 44% 56% 40% 60% / 56% 44% 56% 44%;
   }
 
-  /* Sticker: como en las hojas de la marca, con borde blanco y flotando */
+  /* Sticker: como en las hojas de la marca, con borde blanco. Cada propiedad de movimiento es independiente:
+     `translate` = desplazamiento con el scroll, `scale` = aparición con rebote, `transform` = flotar/balancear. */
   .sticker {
     position: absolute;
     z-index: 5;
     pointer-events: none;
     user-select: none;
+    width: var(--w, 80px);
+    top: var(--top, auto);
+    right: var(--right, auto);
+    bottom: var(--bottom, auto);
+    left: var(--left, auto);
     filter: drop-shadow(0 10px 14px rgba(74, 53, 40, 0.18));
-    animation: sticker-float var(--dur, 7s) ease-in-out var(--delay, 0s) infinite;
     transform: rotate(var(--rot, 0deg));
-    will-change: transform;
+    scale: 0.35;
+    opacity: 0;
+    transition: scale 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) var(--pop-delay, 0s), opacity 0.4s ease var(--pop-delay, 0s);
+    will-change: transform, translate;
+  }
+  .sticker.is-in {
+    scale: 1;
+    opacity: 1;
+    animation: var(--motion, sticker-float) var(--dur, 7s) ease-in-out var(--delay, 0s) infinite;
+  }
+  @media (min-width: 768px) {
+    .sticker {
+      width: var(--md-w, var(--w, 80px));
+      top: var(--md-top, var(--top, auto));
+      right: var(--md-right, var(--right, auto));
+      bottom: var(--md-bottom, var(--bottom, auto));
+      left: var(--md-left, var(--left, auto));
+    }
   }
 }
 
@@ -118,8 +140,25 @@ body {
   0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
   50% { transform: translateY(-14px) rotate(calc(var(--rot, 0deg) + 2.5deg)); }
 }
+@keyframes sticker-sway {
+  0%, 100% { transform: rotate(calc(var(--rot, 0deg) - 7deg)); }
+  50% { transform: rotate(calc(var(--rot, 0deg) + 7deg)); }
+}
+@keyframes sticker-bounce {
+  0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)) scale(1, 1); }
+  45% { transform: translateY(-18px) rotate(calc(var(--rot, 0deg) + 4deg)) scale(0.98, 1.03); }
+  55% { transform: translateY(-18px) rotate(calc(var(--rot, 0deg) + 4deg)) scale(0.98, 1.03); }
+  80% { transform: translateY(0) rotate(var(--rot, 0deg)) scale(1.06, 0.94); }
+}
+@keyframes sticker-wiggle {
+  0%, 70%, 100% { transform: rotate(var(--rot, 0deg)); }
+  76% { transform: rotate(calc(var(--rot, 0deg) - 10deg)); }
+  84% { transform: rotate(calc(var(--rot, 0deg) + 9deg)); }
+  92% { transform: rotate(calc(var(--rot, 0deg) - 5deg)); }
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .sticker { animation: none; }
+  .sticker { scale: 1; opacity: 1; transition: none; }
+  .sticker.is-in { animation: none; }
   html { scroll-behavior: auto; }
 }

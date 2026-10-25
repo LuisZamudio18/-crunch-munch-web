@@ -30,13 +30,13 @@ export default function Hero({ onOpenConfigurator }: HeroProps) {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-cream-100 px-5 md:px-10 lg:px-20 pt-28 md:pt-32">
+    <section className="relative overflow-x-clip bg-cream-100 px-5 md:px-10 lg:px-20 pt-28 md:pt-32">
       <div className="container-max relative pb-14 md:pb-20">
         {/* Stickers sueltos alrededor de la foto, como en la hoja de la marca */}
-        <Sticker id="copa-rosa" size={104} style={{ top: '0%', right: '0%' }} rotate={8} duration={8} priority desktopOnly />
-        <Sticker id="taza-latte" size={150} style={{ top: '50%', right: '-2%' }} rotate={-7} duration={9} delay={1.2} desktopOnly />
-        <Sticker id="cafe-helado" size={92} style={{ bottom: '3%', left: '53%' }} rotate={-6} duration={7.5} delay={0.6} desktopOnly />
-        <Sticker id="croissant" size={132} style={{ bottom: '0%', right: '14%' }} rotate={-10} duration={8.5} delay={2} desktopOnly />
+        <Sticker id="copa-rosa" size={104} pos={{ top: '0%', right: '0%' }} rotate={8} motion="sway" duration={8} priority hideOnMobile />
+        <Sticker id="taza-latte" size={150} pos={{ top: '50%', right: '-2%' }} rotate={-7} motion="float" duration={9} delay={1.2} speed={0.05} hideOnMobile />
+        <Sticker id="cafe-helado" size={66} mdSize={92} pos={{ bottom: '-4px', left: '6px' }} mdPos={{ bottom: '3%', left: '53%' }} rotate={-6} motion="bounce" duration={6.5} delay={0.6} speed={0.1} />
+        <Sticker id="croissant" size={84} mdSize={132} pos={{ bottom: '6px', right: '8px' }} mdPos={{ bottom: '0%', right: '14%' }} rotate={-10} motion="sway" duration={8.5} delay={2} speed={0.06} />
 
         <div className="relative grid grid-cols-1 lg:grid-cols-[1.12fr_0.88fr] gap-10 lg:gap-8 items-center">
           <div className="relative z-10">
@@ -76,7 +76,7 @@ export default function Hero({ onOpenConfigurator }: HeroProps) {
           </div>
 
           <div className="relative">
-            <Sticker id="copa-rosa" size={78} style={{ top: '-26px', right: '-2px' }} rotate={8} duration={8} mobileOnly />
+            <Sticker id="copa-rosa" size={78} pos={{ top: '-26px', right: '-2px' }} rotate={8} motion="sway" duration={8} speed={0.05} mobileOnly />
             <div className="blob overflow-hidden aspect-[4/5] w-full max-w-[520px] mx-auto lg:ml-auto bg-cream-200 ring-8 ring-white shadow-[0_30px_60px_-30px_rgba(74,53,40,0.45)]">
               <video
                 ref={videoRef}
