@@ -20,14 +20,19 @@ export interface MenuSection {
   multi: boolean;
   items: MenuItem[];
 }
-export type FontKey = 'elegante' | 'clasico' | 'moderno' | 'divertido';
+export type FontKey = 'elegante' | 'clasico' | 'moderno' | 'divertido' | 'infantil' | 'script';
 export interface OrderTheme {
   bg: string;
   ink: string;
   accent: string;
   accentInk: string;
   card: string;
+  accent2?: string;
+  bg2?: string;
   font: FontKey;
+  cover?: 'franja' | 'completa' | 'difuminada';
+  deco?: 'ninguna' | 'confeti' | 'estrellas' | 'corazones';
+  shape?: 'suave' | 'redondeada' | 'recta';
   banner?: string;
   bannerY?: number;
   welcome?: string;
