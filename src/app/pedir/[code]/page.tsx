@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState, type CSSProperties } from 'r
 import { useParams } from 'next/navigation';
 import BrandName from '@/components/ui/BrandName';
 import { toppingImage } from '@/lib/toppingImage';
-import { errorText, fetchOrder, fetchSession, ordersConfigured, pingOwner, placeOrder, type FontKey, type OrderState, type OrderTheme, type PublicBar, type PublicSession } from '@/lib/orderApi';
+import { errorText, fetchBarStates, fetchOrder, fetchSession, ordersConfigured, pingOwner, placeOrder, type FontKey, type OrderState, type OrderTheme, type PublicBar, type PublicSession } from '@/lib/orderApi';
 
 /**
  * The page behind the QR at the bar and the tables: the event's menu with pictures, a short form, and the live state
@@ -83,14 +83,34 @@ export default function OrderPage() {
     }
   }, [code]);
 
+  // Between full loads only the bars' states are asked for (light); the whole menu is reloaded when the bars change
+  const refreshStates = useCallback(async () => {
+    try {
+      const states = await fetchBarStates(code);
+      if (!states) return;
+      setSession((cur) => {
+        if (typeof cur !== 'object') return cur;
+        const same = states.length === cur.bars.length && states.every((s) => cur.bars.some((b) => b.id === s.id));
+        if (!same) {
+          void loadSession();
+          return cur;
+        }
+        const changed = cur.bars.some((b) => states.find((s) => s.id === b.id)?.status !== b.status);
+        return changed ? { ...cur, bars: cur.bars.map((b) => ({ ...b, status: states.find((s) => s.id === b.id)?.status ?? b.status })) } : cur;
+      });
+    } catch {
+      /* keeps what is on screen */
+    }
+  }, [code, loadSession]);
+
   useEffect(() => {
     if (!ordersConfigured) {
       setSession('error');
       return;
     }
     void loadSession();
-    const timer = setInterval(() => void loadSession(), 8000);
-    const visible = () => document.visibilityState === 'visible' && void loadSession();
+    const timer = setInterval(() => void refreshStates(), 6000);
+    const visible = () => document.visibilityState === 'visible' && void refreshStates();
     document.addEventListener('visibilitychange', visible);
     const s = readSaved(code);
     setSaved(s);
@@ -100,7 +120,7 @@ export default function OrderPage() {
       clearInterval(timer);
       document.removeEventListener('visibilitychange', visible);
     };
-  }, [code, loadSession]);
+  }, [code, loadSession, refreshStates]);
 
   // Follow this guest's orders until they are delivered
   const trackedKey = saved.orders.map((o) => o.id).join(',');

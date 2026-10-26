@@ -82,6 +82,9 @@ async function rpc<T>(fn: string, args: Record<string, unknown>): Promise<T> {
 
 export const fetchSession = (code: string) => rpc<PublicSession | null>('get_order_session', { p_code: code });
 
+/** Only the state of each bar (a few bytes), so the page can follow it without downloading the cover picture again. */
+export const fetchBarStates = (code: string) => rpc<{ id: string; status: BarStatus }[] | null>('get_order_bars', { p_code: code });
+
 export const placeOrder = (code: string, bar: string, name: string, phone: string, items: { section: string; name: string }[], note: string) =>
   rpc<PlacedOrder>('place_order', { p_code: code, p_bar: bar, p_name: name, p_phone: phone, p_items: items, p_note: note || null });
 
