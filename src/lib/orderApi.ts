@@ -33,14 +33,20 @@ export interface OrderTheme {
   welcome?: string;
   stickers?: boolean;
 }
+export type BarStatus = 'espera' | 'abierta' | 'cerrada';
+export interface PublicBar {
+  id: string;
+  name: string;
+  refill: boolean;
+  status: BarStatus;
+  menu: MenuSection[];
+}
 export interface PublicSession {
   title: string;
   subtitle: string | null;
-  bar_name: string | null;
-  menu: MenuSection[];
+  bars: PublicBar[];
   theme: Partial<OrderTheme>;
-  refill: boolean;
-  open: boolean;
+  instagram: string | null;
 }
 export type OrderStatus = 'nuevo' | 'preparando' | 'listo' | 'entregado' | 'cancelado';
 export interface PlacedOrder {
@@ -51,6 +57,7 @@ export interface PlacedOrder {
 }
 export interface OrderState {
   number: number;
+  bar_id: string;
   status: OrderStatus;
   is_refill: boolean;
   name: string;
@@ -75,8 +82,8 @@ async function rpc<T>(fn: string, args: Record<string, unknown>): Promise<T> {
 
 export const fetchSession = (code: string) => rpc<PublicSession | null>('get_order_session', { p_code: code });
 
-export const placeOrder = (code: string, name: string, phone: string, items: { section: string; name: string }[], note: string) =>
-  rpc<PlacedOrder>('place_order', { p_code: code, p_name: name, p_phone: phone, p_items: items, p_note: note || null });
+export const placeOrder = (code: string, bar: string, name: string, phone: string, items: { section: string; name: string }[], note: string) =>
+  rpc<PlacedOrder>('place_order', { p_code: code, p_bar: bar, p_name: name, p_phone: phone, p_items: items, p_note: note || null });
 
 export const fetchOrder = (id: string) => rpc<OrderState | null>('get_order', { p_id: id });
 
@@ -93,6 +100,8 @@ export const ORDER_ERRORS: Record<string, string> = {
   espera_un_momento: 'Espera unos segundos antes de pedir otra vez.',
   demasiados_pedidos: 'Ya tienes 3 pedidos pendientes. Cuando recojas uno, puedes pedir otro.',
   pedidos_cerrados: 'Los pedidos están cerrados por ahora.',
+  servicio_no_iniciado: 'Todavía no empieza el servicio de esta barra. En un momento más abrimos.',
+  servicio_cerrado: 'El servicio de esta barra ya terminó. ¡Gracias por celebrar con nosotros!',
   telefono_invalido: 'Revisa tu teléfono: debe tener 10 dígitos.',
   nombre_invalido: 'Escribe tu nombre.',
   pedido_invalido: 'Elige algo del menú para pedir.',
