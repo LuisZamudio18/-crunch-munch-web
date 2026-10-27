@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState, type CSSProperties } from 'r
 import { useParams } from 'next/navigation';
 import BrandName from '@/components/ui/BrandName';
 import { toppingImage } from '@/lib/toppingImage';
+import { SITE_URL } from '@/lib/siteConfig';
 import { errorText, fetchBarStates, fetchOrder, fetchSession, ordersConfigured, pingOwner, placeOrder, type FontKey, type OrderState, type OrderTheme, type PublicBar, type PublicSession } from '@/lib/orderApi';
 
 /**
@@ -303,6 +304,13 @@ export default function OrderPage() {
           <span className="absolute left-4 top-4 z-10 rounded-full bg-black/45 px-3 py-1.5 text-[13px] text-white backdrop-blur-sm">
             <BrandName className="brand-name--light" ampClassName="text-[#c7a86a]" />
           </span>
+          <a href={instagramUrl(session.instagram || '@crunchandmunch_snackbar')} target="_blank" rel="noopener noreferrer" aria-label="Instagram de Crunch & Munch" className="absolute right-4 top-4 z-10 grid h-9 w-9 place-items-center rounded-full bg-black/45 text-white backdrop-blur-sm">
+            <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+              <circle cx="12" cy="12" r="4" />
+              <circle cx="17.2" cy="6.8" r="0.8" fill="currentColor" stroke="none" />
+            </svg>
+          </a>
           {!theme.banner ? (
             <div className="h-28" style={{ background: `linear-gradient(135deg, ${theme.accent}40, ${theme.card})` }} />
           ) : cover === 'completa' ? (
@@ -348,7 +356,7 @@ export default function OrderPage() {
                   {isReady ? (
                     <>
                       <p className="mt-2 text-4xl leading-tight" style={headingStyle}>¡Tu pedido está listo!</p>
-                      <p className="mt-2 text-xl">Pasa por él a la barra{orderBar ? ` (${orderBar.name})` : ''}. 🙌</p>
+                      <p className="mt-2 text-xl">Pasa por él a la barra{orderBar ? ` (${orderBar.name})` : ''}. 🙌🏻</p>
                     </>
                   ) : (
                     <>
@@ -441,7 +449,7 @@ export default function OrderPage() {
 
             {error && <p role="alert" className="rounded-[calc(var(--r)*0.7)] px-5 py-4 text-lg font-medium" style={{ background: theme.card }}>{error}</p>}
 
-            <div className="fixed inset-x-0 bottom-0 z-10 px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4" style={{ background: `linear-gradient(to top, ${theme.bg} 72%, transparent)` }}>
+            <div className="fixed inset-x-0 bottom-0 z-10 px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4" style={{ transform: 'translate3d(0,0,0)', willChange: 'transform', background: `linear-gradient(to top, ${theme.bg} 72%, transparent)` }}>
               <div className="mx-auto max-w-md">
                 <button type="submit" disabled={!ready || busy} className="min-h-[64px] w-full rounded-[var(--rb)] px-6 py-2 text-lg font-semibold shadow-lg transition-opacity disabled:opacity-45" style={{ background: theme.accent, color: theme.accentInk }}>
                   {busy ? 'Enviando…' : lines.length === 0 ? 'Elige algo del menú' : !name.trim() || digits.length < 10 ? 'Falta tu nombre y teléfono' : `Pedir ${lines.length > 1 ? `(${lines.length})` : ''}`}
@@ -466,6 +474,14 @@ export default function OrderPage() {
             </a>
           </section>
         )}
+
+        <section className="mx-5 mt-5 rounded-[var(--r)] border-2 p-6 text-center" style={{ borderColor: `${theme.accent}55` }}>
+          <p className="text-xl leading-snug">¿Quieres un servicio así para tu evento?</p>
+          <p className="mt-1 text-lg opacity-80">Visita nuestra página web y cotiza.</p>
+          <a href={SITE_URL} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex min-h-[52px] max-w-full items-center justify-center rounded-[var(--rb)] border-2 px-6 text-base font-semibold" style={{ borderColor: theme.accent, color: theme.accent }}>
+            Cotiza tu evento ✨
+          </a>
+        </section>
 
         <footer className="mt-10 px-5 text-center text-lg opacity-80">
           <BrandName className={dark ? 'brand-name--light' : ''} ampClassName="text-[#96773a]" />

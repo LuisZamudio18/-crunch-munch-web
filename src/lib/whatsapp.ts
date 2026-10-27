@@ -58,7 +58,7 @@ export function buildWhatsAppMessage(params: {
 
   // Order: the quote first (what the owner has to confirm or correct), then the event data, then the details.
   const message = [
-    '¡Hola! Me interesa cotizar un evento con Crunch & Munch 🌿',
+    '¡Hola! Me interesa cotizar un evento con Crunch & Munch ✨',
     '',
     ...(hasQuote ? ['💰 *COTIZACIÓN QUE VIO EL CLIENTE EN LA PÁGINA (sujeta a confirmación):*', '', ...quoteLines!, ''] : []),
     '📝 *DATOS DEL EVENTO:*',

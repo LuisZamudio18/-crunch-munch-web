@@ -61,7 +61,7 @@ export function buildQuoteLink(serviceIds: string[], eventDetails?: EventDetails
   const unknownServiceIds = serviceIds.filter((id) => !SERVICE_MAP[id]);
 
   const lines = [
-    `¡Hola! Me interesa cotizar un evento con ${SITE_NAME} 🌿`,
+    `¡Hola! Me interesa cotizar un evento con ${SITE_NAME} ✨`,
     '',
     '⭐ *SERVICIOS SELECCIONADOS:*',
     ...names.map((n) => `• ${n}`),
