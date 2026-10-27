@@ -115,7 +115,8 @@ export default function OrderPage() {
         return changed ? { ...cur, bars: cur.bars.map((b) => ({ ...b, status: states.find((s) => s.id === b.id)?.status ?? b.status })) } : cur;
       });
     } catch {
-      /* keeps what is on screen */
+      // The light call is not available (older database): ask for the whole menu instead, so the page still opens by itself
+      void loadSession();
     }
   }, [code, loadSession]);
 
