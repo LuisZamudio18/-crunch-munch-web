@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import BrandName from '@/components/ui/BrandName';
 import { toppingImage } from '@/lib/toppingImage';
 import { SITE_URL } from '@/lib/siteConfig';
-import { errorText, fetchBarStates, fetchOrder, fetchSession, ordersConfigured, pingOwner, placeOrder, type FontKey, type OrderState, type OrderTheme, type PublicBar, type PublicSession } from '@/lib/orderApi';
+import { errorText, fetchBarStates, fetchOrder, fetchSession, joinWaitlist, ordersConfigured, pingOwner, placeOrder, type FontKey, type OrderState, type OrderTheme, type PublicBar, type PublicSession } from '@/lib/orderApi';
 
 /**
  * The page behind the QR at the bar and the tables: the event's menu with pictures, a short form, and the live state
@@ -54,13 +54,15 @@ interface Saved {
   phone: string;
   /** Orders placed from this phone on this page, so the cup reminder shows before the second one. */
   orders: { id: string; bar: string }[];
+  /** Bars where this phone asked to be told when the service opens. */
+  waiting?: string[];
 }
 
 const storeKey = (code: string) => `cm-pedido-${code.toUpperCase()}`;
 function readSaved(code: string): Saved {
   try {
     const raw = JSON.parse(localStorage.getItem(storeKey(code)) ?? '{}');
-    return { name: raw.name ?? '', phone: raw.phone ?? '', orders: Array.isArray(raw.orders) ? raw.orders.slice(-12) : [] };
+    return { name: raw.name ?? '', phone: raw.phone ?? '', orders: Array.isArray(raw.orders) ? raw.orders.slice(-12) : [], waiting: Array.isArray(raw.waiting) ? raw.waiting : [] };
   } catch {
     return { name: '', phone: '', orders: [] };
   }
@@ -89,6 +91,8 @@ export default function OrderPage() {
   const [error, setError] = useState('');
   const [saved, setSaved] = useState<Saved>({ name: '', phone: '', orders: [] });
   const [states, setStates] = useState<Record<string, OrderState>>({});
+  const [joining, setJoining] = useState(false);
+  const [joinError, setJoinError] = useState('');
 
   // The menu and each bar's state; refreshed so the page opens by itself when she starts the service
   const loadSession = useCallback(async () => {
@@ -112,8 +116,11 @@ export default function OrderPage() {
           void loadSession();
           return cur;
         }
-        const changed = cur.bars.some((b) => states.find((s) => s.id === b.id)?.status !== b.status);
-        return changed ? { ...cur, bars: cur.bars.map((b) => ({ ...b, status: states.find((s) => s.id === b.id)?.status ?? b.status })) } : cur;
+        const changed = cur.bars.some((b) => {
+          const s = states.find((x) => x.id === b.id);
+          return s?.status !== b.status || (s?.full ?? null) !== (b.full ?? null);
+        });
+        return changed ? { ...cur, bars: cur.bars.map((b) => { const s = states.find((x) => x.id === b.id); return { ...b, status: s?.status ?? b.status, full: s?.full ?? null }; }) } : cur;
       });
     } catch {
       // The light call is not available (older database): ask for the whole menu instead, so the page still opens by itself
@@ -134,6 +141,9 @@ export default function OrderPage() {
     setSaved(s);
     setName(s.name);
     setPhone(s.phone);
+    // The message she sends when the service opens links to the bar the guest was waiting for
+    const wanted = new URLSearchParams(window.location.search).get('barra');
+    if (wanted) setBarId(wanted);
     return () => {
       clearInterval(timer);
       document.removeEventListener('visibilitychange', visible);
@@ -236,7 +246,7 @@ export default function OrderPage() {
     try {
       const order = await placeOrder(code, bar.id, name.trim(), phone, lines, note.trim());
       pingOwner(order.id);
-      const next: Saved = { name: name.trim(), phone, orders: [...saved.orders, { id: order.id, bar: bar.id }] };
+      const next: Saved = { ...saved, name: name.trim(), phone, orders: [...saved.orders, { id: order.id, bar: bar.id }] };
       setSaved(next);
       writeSaved(code, next);
       setStates((s) => ({ ...s, [order.id]: { number: order.number, bar_id: bar.id, status: 'nuevo', is_refill: order.is_refill, name: name.trim(), items: lines, ahead: 0 } }));
@@ -249,6 +259,22 @@ export default function OrderPage() {
       void loadSession();
     }
     setBusy(false);
+  }
+
+  async function askToBeTold() {
+    if (!bar || joining || !name.trim() || digits.length < 10) return;
+    setJoining(true);
+    setJoinError('');
+    try {
+      await joinWaitlist(code, bar.id, name.trim(), phone);
+      const next: Saved = { ...saved, name: name.trim(), phone, waiting: Array.from(new Set([...(saved.waiting ?? []), bar.id])) };
+      setSaved(next);
+      writeSaved(code, next);
+    } catch (e) {
+      setJoinError(errorText(e));
+      void loadSession();
+    }
+    setJoining(false);
   }
 
   const input = 'h-16 w-full rounded-[calc(var(--r)*0.7)] border-2 bg-transparent px-5 text-lg outline-none focus:ring-2';
@@ -384,7 +410,7 @@ export default function OrderPage() {
               return (
                 <button key={b.id} type="button" role="tab" aria-selected={on} onClick={() => { setBarId(b.id); setPicks({}); setError(''); }} className="rounded-[var(--r)] px-4 py-4 text-left transition-colors" style={on ? { background: theme.accent, color: theme.accentInk } : { background: theme.card }}>
                   <span className="block text-xl font-semibold leading-tight">{b.name}</span>
-                  <span className="mt-1 block text-sm opacity-80">{b.status === 'abierta' ? 'Recibiendo pedidos' : b.status === 'espera' ? 'Empieza en un momento' : 'Servicio terminado'}</span>
+                  <span className="mt-1 block text-sm opacity-80">{b.status === 'abierta' ? 'Recibiendo pedidos' : b.status === 'espera' ? 'Empieza en un momento' : b.full === 'pedidos' ? 'Pedidos completos' : 'Servicio terminado'}</span>
                 </button>
               );
             })}
@@ -400,14 +426,48 @@ export default function OrderPage() {
               <p className="mt-3 text-3xl leading-tight" style={headingStyle}>En un momento más empezamos el servicio</p>
               <p className="mt-3 text-lg opacity-80">Mientras tanto, mira lo que tendremos en {bar.name}. Esta página se abre sola cuando comencemos.</p>
             </section>
+
+            {/* Leave a WhatsApp to be told when it opens */}
+            <section className="mx-5 mt-5 rounded-[var(--r)] border-2 p-6" style={{ borderColor: `${theme.accent}55` }} aria-labelledby="avisar-titulo">
+              {(saved.waiting ?? []).includes(bar.id) ? (
+                <div className="text-center">
+                  <p className="text-2xl leading-tight" style={headingStyle}>¡Listo! Te avisaremos ✨</p>
+                  <p className="mt-2 text-lg opacity-85">Cuando abramos {bar.name} te escribimos por WhatsApp con el link para pedir.</p>
+                </div>
+              ) : (
+                <form
+                  className="space-y-4"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    void askToBeTold();
+                  }}
+                >
+                  <p id="avisar-titulo" className="text-2xl leading-tight" style={titleStyle}>¿Te avisamos cuando abramos?</p>
+                  <p className="text-lg opacity-85">Déjanos tu WhatsApp y te escribimos en cuanto empiece el servicio de {bar.name}.</p>
+                  <div>
+                    <label htmlFor="w-nombre" className={label}>Tu nombre</label>
+                    <input id="w-nombre" autoComplete="given-name" value={name} onChange={(e) => setName(e.target.value)} maxLength={60} className={input} style={inputStyle} />
+                  </div>
+                  <div>
+                    <label htmlFor="w-tel" className={label}>Tu teléfono (WhatsApp)</label>
+                    <input id="w-tel" type="tel" inputMode="tel" autoComplete="tel" value={phone} onChange={(e) => setPhone(e.target.value)} maxLength={20} className={input} style={inputStyle} />
+                    <p className="mt-2 text-base opacity-70">Solo lo usamos para avisarte que ya abrimos y cuando tu pedido esté listo.</p>
+                  </div>
+                  {joinError && <p role="alert" className="rounded-[calc(var(--r)*0.7)] px-5 py-4 text-lg font-medium" style={{ background: theme.card }}>{joinError}</p>}
+                  <button type="submit" disabled={joining || !name.trim() || digits.length < 10} className="min-h-[60px] w-full rounded-[var(--rb)] px-6 py-2 text-lg font-semibold shadow-md transition-opacity disabled:opacity-45" style={{ background: theme.accent, color: theme.accentInk }}>
+                    {joining ? 'Guardando…' : !name.trim() || digits.length < 10 ? 'Falta tu nombre y teléfono' : 'Avísame por WhatsApp'}
+                  </button>
+                </form>
+              )}
+            </section>
             <div className="mt-8 space-y-8 px-5">{menu(false)}</div>
           </>
         )}
 
         {bar?.status === 'cerrada' && (
           <section className="mx-5 mt-7 rounded-[var(--r)] p-7 text-center" style={{ background: theme.card }}>
-            <p className="text-3xl leading-tight" style={headingStyle}>El servicio de {bar.name} terminó</p>
-            <p className="mt-3 text-lg opacity-80">¡Gracias por celebrar con nosotros! 💛</p>
+            <p className="text-3xl leading-tight" style={headingStyle}>{bar.full === 'pedidos' ? `Ya se completaron los pedidos de ${bar.name}` : `El servicio de ${bar.name} terminó`}</p>
+            <p className="mt-3 text-lg opacity-80">{bar.full === 'pedidos' ? 'Si te quedaste con ganas de pedir, acércate a la barra. ' : ''}¡Gracias por celebrar con nosotros! 💛</p>
           </section>
         )}
 

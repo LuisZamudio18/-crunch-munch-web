@@ -44,6 +44,8 @@ export interface PublicBar {
   name: string;
   refill: boolean;
   status: BarStatus;
+  /** Why a bar that started is closed anyway: all its orders were taken ('pedidos') or its time ran out ('tiempo'). */
+  full?: 'pedidos' | 'tiempo' | null;
   menu: MenuSection[];
 }
 export interface PublicSession {
@@ -88,10 +90,13 @@ async function rpc<T>(fn: string, args: Record<string, unknown>): Promise<T> {
 export const fetchSession = (code: string) => rpc<PublicSession | null>('get_order_session', { p_code: code });
 
 /** Only the state of each bar (a few bytes), so the page can follow it without downloading the cover picture again. */
-export const fetchBarStates = (code: string) => rpc<{ id: string; status: BarStatus }[] | null>('get_order_bars', { p_code: code });
+export const fetchBarStates = (code: string) => rpc<{ id: string; status: BarStatus; full?: 'pedidos' | 'tiempo' | null }[] | null>('get_order_bars', { p_code: code });
 
 export const placeOrder = (code: string, bar: string, name: string, phone: string, items: { section: string; name: string }[], note: string) =>
   rpc<PlacedOrder>('place_order', { p_code: code, p_bar: bar, p_name: name, p_phone: phone, p_items: items, p_note: note || null });
+
+/** Leaves a WhatsApp number so the owner tells the guest when a bar that has not started opens. */
+export const joinWaitlist = (code: string, bar: string, name: string, phone: string) => rpc<{ ok: boolean }>('join_waitlist', { p_code: code, p_bar: bar, p_name: name, p_phone: phone });
 
 export const fetchOrder = (id: string) => rpc<OrderState | null>('get_order', { p_id: id });
 
@@ -110,6 +115,10 @@ export const ORDER_ERRORS: Record<string, string> = {
   pedidos_cerrados: 'Los pedidos están cerrados por ahora.',
   servicio_no_iniciado: 'Todavía no empieza el servicio de esta barra. En un momento más abrimos.',
   servicio_cerrado: 'El servicio de esta barra ya terminó. ¡Gracias por celebrar con nosotros!',
+  servicio_ya_abierto: '¡Ya abrimos! Puedes pedir ahora mismo.',
+  lista_llena: 'La lista de espera está llena. En un momento abrimos, quédate en esta página.',
+  limite_pedidos: 'Ya se completaron los pedidos de esta barra. ¡Gracias por celebrar con nosotros!',
+  tiempo_terminado: 'El tiempo de esta barra ya terminó. ¡Gracias por celebrar con nosotros!',
   telefono_invalido: 'Revisa tu teléfono: debe tener 10 dígitos.',
   nombre_invalido: 'Escribe tu nombre.',
   pedido_invalido: 'Elige algo del menú para pedir.',
