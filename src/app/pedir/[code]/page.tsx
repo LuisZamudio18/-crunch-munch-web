@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import BrandName from '@/components/ui/BrandName';
 import { toppingImage } from '@/lib/toppingImage';
 import { SITE_URL } from '@/lib/siteConfig';
-import { errorText, fetchBarStates, fetchOrder, fetchSession, joinWaitlist, ordersConfigured, pingOwner, placeOrder, type FontKey, type OrderState, type OrderTheme, type PublicBar, type PublicSession } from '@/lib/orderApi';
+import { errorText, fetchBarStates, fetchOrder, fetchSession, ordersConfigured, pingOwner, placeOrder, type FontKey, type OrderState, type OrderTheme, type PublicBar, type PublicSession } from '@/lib/orderApi';
 
 /**
  * The page behind the QR at the bar and the tables: the event's menu with pictures, a short form, and the live state
@@ -54,15 +54,13 @@ interface Saved {
   phone: string;
   /** Orders placed from this phone on this page, so the cup reminder shows before the second one. */
   orders: { id: string; bar: string }[];
-  /** Bars where this phone asked to be told when the service opens. */
-  waiting?: string[];
 }
 
 const storeKey = (code: string) => `cm-pedido-${code.toUpperCase()}`;
 function readSaved(code: string): Saved {
   try {
     const raw = JSON.parse(localStorage.getItem(storeKey(code)) ?? '{}');
-    return { name: raw.name ?? '', phone: raw.phone ?? '', orders: Array.isArray(raw.orders) ? raw.orders.slice(-12) : [], waiting: Array.isArray(raw.waiting) ? raw.waiting : [] };
+    return { name: raw.name ?? '', phone: raw.phone ?? '', orders: Array.isArray(raw.orders) ? raw.orders.slice(-12) : [] };
   } catch {
     return { name: '', phone: '', orders: [] };
   }
@@ -91,8 +89,6 @@ export default function OrderPage() {
   const [error, setError] = useState('');
   const [saved, setSaved] = useState<Saved>({ name: '', phone: '', orders: [] });
   const [states, setStates] = useState<Record<string, OrderState>>({});
-  const [joining, setJoining] = useState(false);
-  const [joinError, setJoinError] = useState('');
 
   // The menu and each bar's state; refreshed so the page opens by itself when she starts the service
   const loadSession = useCallback(async () => {
@@ -261,22 +257,6 @@ export default function OrderPage() {
     setBusy(false);
   }
 
-  async function askToBeTold() {
-    if (!bar || joining || !name.trim() || digits.length < 10) return;
-    setJoining(true);
-    setJoinError('');
-    try {
-      await joinWaitlist(code, bar.id, name.trim(), phone);
-      const next: Saved = { ...saved, name: name.trim(), phone, waiting: Array.from(new Set([...(saved.waiting ?? []), bar.id])) };
-      setSaved(next);
-      writeSaved(code, next);
-    } catch (e) {
-      setJoinError(errorText(e));
-      void loadSession();
-    }
-    setJoining(false);
-  }
-
   const input = 'h-16 w-full rounded-[calc(var(--r)*0.7)] border-2 bg-transparent px-5 text-lg outline-none focus:ring-2';
   const inputStyle: CSSProperties = { borderColor: `${theme.ink}33`, color: theme.ink };
   const label = 'mb-2 block text-sm font-semibold uppercase tracking-widest opacity-70';
@@ -424,42 +404,9 @@ export default function OrderPage() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={stickerFor(bar.name)} alt="" aria-hidden="true" className="mx-auto h-24 w-24 object-contain drop-shadow-md" />
               <p className="mt-3 text-3xl leading-tight" style={headingStyle}>En un momento más empezamos el servicio</p>
-              <p className="mt-3 text-lg opacity-80">Mientras tanto, mira lo que tendremos en {bar.name}. Esta página se abre sola cuando comencemos.</p>
+              <p className="mt-3 text-lg opacity-80">Avisaremos en el evento cuando abra {bar.name}. Estate pendiente de la apertura para hacer tu pedido. Mientras tanto, mira lo que tendremos; esta página también se abre sola cuando comencemos.</p>
             </section>
 
-            {/* Leave a WhatsApp to be told when it opens */}
-            <section className="mx-5 mt-5 rounded-[var(--r)] border-2 p-6" style={{ borderColor: `${theme.accent}55` }} aria-labelledby="avisar-titulo">
-              {(saved.waiting ?? []).includes(bar.id) ? (
-                <div className="text-center">
-                  <p className="text-2xl leading-tight" style={headingStyle}>¡Listo! Te avisaremos ✨</p>
-                  <p className="mt-2 text-lg opacity-85">Cuando abramos {bar.name} te escribimos por WhatsApp con el link para pedir.</p>
-                </div>
-              ) : (
-                <form
-                  className="space-y-4"
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    void askToBeTold();
-                  }}
-                >
-                  <p id="avisar-titulo" className="text-2xl leading-tight" style={titleStyle}>¿Te avisamos cuando abramos?</p>
-                  <p className="text-lg opacity-85">Déjanos tu WhatsApp y te escribimos en cuanto empiece el servicio de {bar.name}.</p>
-                  <div>
-                    <label htmlFor="w-nombre" className={label}>Tu nombre</label>
-                    <input id="w-nombre" autoComplete="given-name" value={name} onChange={(e) => setName(e.target.value)} maxLength={60} className={input} style={inputStyle} />
-                  </div>
-                  <div>
-                    <label htmlFor="w-tel" className={label}>Tu teléfono (WhatsApp)</label>
-                    <input id="w-tel" type="tel" inputMode="tel" autoComplete="tel" value={phone} onChange={(e) => setPhone(e.target.value)} maxLength={20} className={input} style={inputStyle} />
-                    <p className="mt-2 text-base opacity-70">Solo lo usamos para avisarte que ya abrimos y cuando tu pedido esté listo.</p>
-                  </div>
-                  {joinError && <p role="alert" className="rounded-[calc(var(--r)*0.7)] px-5 py-4 text-lg font-medium" style={{ background: theme.card }}>{joinError}</p>}
-                  <button type="submit" disabled={joining || !name.trim() || digits.length < 10} className="min-h-[60px] w-full rounded-[var(--rb)] px-6 py-2 text-lg font-semibold shadow-md transition-opacity disabled:opacity-45" style={{ background: theme.accent, color: theme.accentInk }}>
-                    {joining ? 'Guardando…' : !name.trim() || digits.length < 10 ? 'Falta tu nombre y teléfono' : 'Avísame por WhatsApp'}
-                  </button>
-                </form>
-              )}
-            </section>
             <div className="mt-8 space-y-8 px-5">{menu(false)}</div>
           </>
         )}

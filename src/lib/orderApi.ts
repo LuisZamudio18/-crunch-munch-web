@@ -95,9 +95,6 @@ export const fetchBarStates = (code: string) => rpc<{ id: string; status: BarSta
 export const placeOrder = (code: string, bar: string, name: string, phone: string, items: { section: string; name: string }[], note: string) =>
   rpc<PlacedOrder>('place_order', { p_code: code, p_bar: bar, p_name: name, p_phone: phone, p_items: items, p_note: note || null });
 
-/** Leaves a WhatsApp number so the owner tells the guest when a bar that has not started opens. */
-export const joinWaitlist = (code: string, bar: string, name: string, phone: string) => rpc<{ ok: boolean }>('join_waitlist', { p_code: code, p_bar: bar, p_name: name, p_phone: phone });
-
 export const fetchOrder = (id: string) => rpc<OrderState | null>('get_order', { p_id: id });
 
 /** Lets the owner's phone know there is a new order (best effort: the order is already saved). */
