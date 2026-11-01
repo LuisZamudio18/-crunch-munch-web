@@ -25,7 +25,14 @@ const FONTS: Record<FontKey, { heading: string; body: string; italic?: boolean }
 };
 
 /** Little shapes in the event's colors, repeated over the top of the page. */
-function decoImage(kind: string, c1: string, c2: string): string | undefined {
+function decoImage(kind: string, c1: string, c2: string, own?: string): string | undefined {
+  if (kind === 'imagen') {
+    // Her own picture, drawn twice per tile (the second one shifted) so it does not look like a grid
+    if (!own || !own.startsWith('data:image/')) return undefined;
+    const href = own.replace(/'/g, '%27');
+    const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><image href='${href}' x='14' y='14' width='72' height='72' preserveAspectRatio='xMidYMid meet'/><image href='${href}' x='114' y='114' width='72' height='72' preserveAspectRatio='xMidYMid meet'/></svg>`;
+    return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+  }
   const shapes: Record<string, string> = {
     confeti: `<circle cx='20' cy='24' r='5' fill='${c1}'/><rect x='78' y='14' width='12' height='5' rx='2' fill='${c2}' transform='rotate(35 84 16)'/><circle cx='128' cy='46' r='4' fill='${c2}'/><rect x='34' y='86' width='12' height='5' rx='2' fill='${c1}' transform='rotate(-30 40 88)'/><circle cx='96' cy='104' r='6' fill='${c1}'/><path d='M140 120l7 12h-14z' fill='${c2}'/><circle cx='14' cy='140' r='4' fill='${c2}'/><rect x='64' y='144' width='11' height='5' rx='2' fill='${c2}' transform='rotate(60 70 146)'/>`,
     estrellas: `<path d='M24 14l3 8 8 3-8 3-3 8-3-8-8-3 8-3z' fill='${c1}'/><path d='M110 40l2.4 6.4 6.4 2.4-6.4 2.4-2.4 6.4-2.4-6.4-6.4-2.4 6.4-2.4z' fill='${c2}'/><path d='M60 100l3 8 8 3-8 3-3 8-3-8-8-3 8-3z' fill='${c2}'/><path d='M136 130l2.4 6.4 6.4 2.4-6.4 2.4-2.4 6.4-2.4-6.4-6.4-2.4 6.4-2.4z' fill='${c1}'/>`,
@@ -201,7 +208,8 @@ export default function OrderPage() {
   const headingStyle: CSSProperties = { fontFamily: font.heading, fontStyle: font.italic ? 'italic' : 'normal' };
   /** Titles take the invitation's second color. */
   const titleStyle: CSSProperties = { ...headingStyle, color: accent2 };
-  const deco = decoImage(theme.deco ?? 'ninguna', theme.accent, accent2);
+  const deco = decoImage(theme.deco ?? 'ninguna', theme.accent, accent2, theme.decoImage);
+  const decoSize = theme.deco === 'imagen' ? '200px 200px' : '160px 160px';
   const cover = theme.cover ?? 'franja';
   const dark = theme.ink.toLowerCase() === '#ffffff';
 
@@ -263,9 +271,9 @@ export default function OrderPage() {
   const summary = lines.map((l) => l.name).join(', ');
 
   /** One menu item: the product picture floating over its card, like on the website. */
-  const item = (sectionId: string, title: string, multi: boolean, itemName: string, selectable: boolean) => {
+  const item = (sectionId: string, title: string, multi: boolean, itemName: string, selectable: boolean, own?: string) => {
     const on = chosen(sectionId).includes(itemName);
-    const img = toppingImage(itemName, title);
+    const img = own && own.startsWith('data:image/') ? own : toppingImage(itemName, title);
     return (
       <label key={itemName} className={`relative flex min-h-[84px] items-center gap-4 rounded-[var(--r)] py-3 pl-3 pr-4 transition-transform ${selectable ? 'cursor-pointer active:scale-[0.98]' : 'opacity-80'}`} style={on ? { background: theme.accent, color: theme.accentInk } : { background: theme.card }}>
         {selectable && <input type={multi ? 'checkbox' : 'radio'} name={sectionId} className="peer sr-only" checked={on} onChange={() => toggle(sectionId, multi, itemName)} />}
@@ -297,13 +305,13 @@ export default function OrderPage() {
           {section.title}
         </legend>
         {selectable && section.multi && <p className="-mt-1 text-base opacity-70">Puedes elegir varios</p>}
-        <div className="grid gap-3">{section.items.map((it) => item(section.id, section.title, section.multi, it.name, selectable))}</div>
+        <div className="grid gap-3">{section.items.map((it) => item(section.id, section.title, section.multi, it.name, selectable, it.image))}</div>
       </fieldset>
     ));
 
   return (
     <main className="relative min-h-screen overflow-x-hidden" style={vars}>
-      {deco && <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-[560px] opacity-60" style={{ backgroundImage: deco, backgroundSize: '160px 160px', WebkitMaskImage: 'linear-gradient(to bottom, #000 35%, transparent)', maskImage: 'linear-gradient(to bottom, #000 35%, transparent)' }} />}
+      {deco && <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-[560px] opacity-60" style={{ backgroundImage: deco, backgroundSize: decoSize, WebkitMaskImage: 'linear-gradient(to bottom, #000 35%, transparent)', maskImage: 'linear-gradient(to bottom, #000 35%, transparent)' }} />}
       <div className="relative mx-auto max-w-md pb-40">
         {/* Cover */}
         <header className="relative">

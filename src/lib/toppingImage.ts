@@ -18,5 +18,8 @@ function norm(s: string) {
  */
 export function toppingImage(name: string, group?: string): string | undefined {
   const file = (group ? MAP[norm(`${group}:${name}`)] : undefined) ?? MAP[norm(name)];
-  return file ? `/toppings/${file}` : undefined;
+  if (file) return `/toppings/${file}`;
+  // Seasonal drinks added by hand in the agenda ("Pumpkin Spice", "Pumpkin spice latte", "Latte de calabaza")
+  if (/\b(pumpkin|calabaza)\b/.test(norm(name))) return '/toppings/pumpkin-spice-latte.webp';
+  return undefined;
 }

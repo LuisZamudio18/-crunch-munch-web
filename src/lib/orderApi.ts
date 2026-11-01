@@ -13,6 +13,8 @@ export const ordersConfigured = Boolean(URL_BASE && KEY);
 export interface MenuItem {
   id: string;
   name: string;
+  /** A picture she added in the agenda (data URL); it wins over the catalog picture. */
+  image?: string;
 }
 export interface MenuSection {
   id: string;
@@ -31,7 +33,9 @@ export interface OrderTheme {
   bg2?: string;
   font: FontKey;
   cover?: 'franja' | 'completa' | 'difuminada';
-  deco?: 'ninguna' | 'confeti' | 'estrellas' | 'corazones';
+  deco?: 'ninguna' | 'confeti' | 'estrellas' | 'corazones' | 'imagen';
+  /** Her own small PNG (data URL), repeated as the decoration when deco is 'imagen'. */
+  decoImage?: string;
   shape?: 'suave' | 'redondeada' | 'recta';
   banner?: string;
   bannerY?: number;
