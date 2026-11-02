@@ -19,7 +19,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: '¿Qué incluye el precio?',
-    a: 'Incluye mobiliario, traslado, staff, desechables y personalización de la barra (decoración, espejo selfie y etiquetas). El estimado de la página es aproximado: el precio final lo confirmamos contigo por WhatsApp.',
+    a: 'Incluye mobiliario, traslado, staff, desechables y personalización de la barra (decoración y etiquetas). El estimado de la página es aproximado: el precio final lo confirmamos contigo por WhatsApp.',
   },
   {
     q: '¿Cómo se aparta la fecha y cuándo se paga?',

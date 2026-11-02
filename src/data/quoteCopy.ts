@@ -5,7 +5,7 @@
  * (what each service is and includes) and from the choices the configurator asks for, so the numbers
  * here are the ones the customer actually picked on the page (e.g. "Elige 12 toppings").
  *
- * The personalization lines are in the catalog for every service ("espejo selfie, flores o globos que
+ * The personalization lines are in the catalog for every service ("flores, globos o imágenes que
  * tu servicio ya incluye"). The service duration is NOT written here: it depends on the guests of the
  * bar and on refill, so it is added when the quote is built (see serviceHours.ts).
  */
@@ -13,7 +13,6 @@
 const PERSONALIZATION: string[] = [
   '',
   '-La barra incluye personalización de decoración como globos, flores o imágenes.',
-  '-Espejo selfie personalizado.',
   '-Etiquetas y diseño personalizables.',
 ];
 
@@ -87,7 +86,6 @@ const DRINKS_BAR: string[] = [
   'Bebidas como: mojitos, mezcalita, ginger tonic, tequila sunrise, piñas coladas, margaritas etc.',
   '',
   '-La barra incluye personalización de decoración como globos, flores o imágenes.',
-  '-Espejo selfie personalizado.',
   '-Etiquetas o imagen personalizable en vaso.',
 ];
 
