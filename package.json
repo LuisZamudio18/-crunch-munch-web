@@ -9,7 +9,8 @@
     "lint": "next lint",
     "verify": "node scripts/verify-agent-readiness.mjs",
     "verify:instagram": "node scripts/verify-instagram-and-hero.mjs",
-    "verify:estimate": "node scripts/verify-estimate.mjs"
+    "verify:estimate": "node scripts/verify-estimate.mjs",
+    "verify:catalog": "node scripts/verify-catalog.mjs"
   },
   "dependencies": {
     "next": "14.2.5",
