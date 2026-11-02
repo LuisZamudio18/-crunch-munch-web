@@ -7,7 +7,7 @@ import PresentationPhoto from '@/components/catalog/PresentationPhoto';
 import PresentationPicker from '@/components/catalog/PresentationPicker';
 import type { PersonalizationData } from '@/types';
 
-const DECORACION_OPTIONS = ['Flores', 'Espejo selfie', 'Imágenes', 'Globos'];
+const DECORACION_OPTIONS = ['Flores', 'Imágenes', 'Globos'];
 
 interface StepPersonalizationProps {
   personalization: PersonalizationData;
