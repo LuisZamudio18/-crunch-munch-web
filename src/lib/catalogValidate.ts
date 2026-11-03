@@ -135,6 +135,8 @@ export function validateCatalog(doc: unknown): string[] {
 
   // Prices
   const pricing = doc.pricing;
+  const minOf = new Map<string, number>();
+  if (services) for (const s of services) if (isObj(s) && typeof s.id === 'string' && isInt(s.minPersonas, 1)) minOf.set(s.id, s.minPersonas);
   if (!isObj(pricing) || !isObj(pricing.services)) out.push('Faltan los precios.');
   else {
     for (const [id, p] of Object.entries(pricing.services)) {
@@ -143,12 +145,24 @@ export function validateCatalog(doc: unknown): string[] {
         out.push(`${id}: el precio no es válido.`);
         continue;
       }
+      // The first range must start at or before the bar's minimum of guests, or the price of a group between the two is missing
+      const covers = (tiers: unknown, where: string) => {
+        const first = Array.isArray(tiers) && isObj(tiers[0]) ? tiers[0].fromPersonas : undefined;
+        const min = minOf.get(id);
+        if (isInt(first, 1) && min !== undefined && first > min) out.push(`${where}: el primer rango empieza en ${first} personas, pero la barra se vende desde ${min}. Empieza el primer rango en ${min} o antes.`);
+      };
       if (p.variants !== undefined) {
         if (!isObj(p.variants)) out.push(`${id}: las variantes de precio no son válidas.`);
-        else for (const [v, tiers] of Object.entries(p.variants)) checkTiers(tiers, `${id} (${v})`, out);
+        else for (const [v, tiers] of Object.entries(p.variants)) {
+          checkTiers(tiers, `${id} (${v})`, out);
+          covers(tiers, `${id} (${v})`);
+        }
         const need = REQUIRED_BARS[id]?.variants ?? [];
         for (const v of need) if (!isObj(p.variants) || !(v in p.variants)) out.push(`${id}: falta el precio de "${v}".`);
-      } else checkTiers(p.tiers, id, out);
+      } else {
+        checkTiers(p.tiers, id, out);
+        covers(p.tiers, id);
+      }
       if (REQUIRED_BARS[id]?.variants && p.variants === undefined) out.push(`${id}: necesita precios por presentación (cristalería y desechables).`);
       if (p.minimumTotal !== undefined && (!isNum(p.minimumTotal) || p.minimumTotal < 0)) out.push(`${id}: el cobro mínimo debe ser un número desde 0.`);
       if (p.takeHomePerPerson !== undefined && (!isNum(p.takeHomePerPerson) || p.takeHomePerPerson < 0)) out.push(`${id}: el cargo por llevarse la pieza debe ser un número desde 0.`);

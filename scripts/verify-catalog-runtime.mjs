@@ -12,6 +12,7 @@ import { PRICING, ESTIMATE_NOTES } from '../src/data/pricing.ts';
 import { FAQ } from '../src/data/faq.ts';
 import { QUOTE_COPY } from '../src/data/quoteCopy.ts';
 import { computeEstimate } from '../src/lib/estimate.ts';
+import { jsonLdText } from '../src/lib/jsonLd.ts';
 
 const failures = [];
 let passCount = 0;
@@ -59,6 +60,14 @@ check('FAQ, quote texts and notes follow the draft', FAQ.length === ORIGINAL.faq
 
 applyDraftCatalog(clone(ORIGINAL));
 check('applying the original puts everything back exactly', snapshot() === original && Object.keys(CATALOG.toppingImages ?? {}).length === 0);
+
+// The structured data of the page cannot be broken out of by her texts
+{
+  const nasty = { a: 'x</script><script>alert(1)</script>', b: '<!-- y', c: 'line' + String.fromCharCode(0x2028) + 'sep' };
+  const text = jsonLdText({ faq: [nasty] });
+  check('structured data: no "<" and no line separators are left in the text', !text.includes('<') && !text.includes(String.fromCharCode(0x2028)));
+  check('structured data: it still reads back exactly the same', JSON.stringify(JSON.parse(text)) === JSON.stringify({ faq: [nasty] }));
+}
 
 console.log(`\n${passCount} passed, ${failures.length} failed.`);
 if (failures.length) {

@@ -4,6 +4,7 @@ import './globals.css';
 import { BRAND_FULL_NAME, CONTACT, SERVICE_AREA, SITE_NAME, SITE_URL } from '@/lib/siteConfig';
 import { FAQ } from '@/data/faq';
 import { SERVICES } from '@/data/services';
+import { jsonLdText } from '@/lib/jsonLd';
 
 // Tipografías de la guía de marca: Bodoni Moda (logotipo y titulares grandes),
 // Cormorant Garamond Italic (títulos) y Montserrat (textos).
@@ -158,7 +159,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           type="application/ld+json"
           // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: jsonLdText(jsonLd) }}
         />
       </head>
       <body>{children}</body>
