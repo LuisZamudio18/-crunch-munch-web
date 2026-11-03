@@ -1,5 +1,6 @@
 'use client';
 
+import { Editable } from '@/components/editor/EditContext';
 import { useMemo } from 'react';
 import { clsx } from 'clsx';
 import {
@@ -175,7 +176,7 @@ export default function EstimateCard({ estimate }: EstimateCardProps) {
 
       <div className="space-y-1.5 text-sm border-t border-gold-200/70 pt-3">
         {estimate.lines.map((l) => (
-          <div key={l.serviceId} className="flex justify-between gap-3 text-coffee-600">
+<Editable target={`price:${l.serviceId}`}>          <div key={l.serviceId} className="flex justify-between gap-3 text-coffee-600">
             <span>
               {l.name}
               <span className="block text-xs text-coffee-400">
@@ -186,16 +187,16 @@ export default function EstimateCard({ estimate }: EstimateCardProps) {
               </span>
             </span>
             <span className="tabular-nums text-coffee-700 shrink-0">{formatMXN(l.subtotal)}</span>
-          </div>
+          </div></Editable>
         ))}
 
         {estimate.discounts.map((d) => (
-          <div key={d.rule.id} className="flex justify-between gap-3 text-gold-600 font-medium">
+<Editable target={'rules'}>          <div key={d.rule.id} className="flex justify-between gap-3 text-gold-600 font-medium">
             <span>
               {d.rule.label} ({d.rule.percent}%)
             </span>
             <span className="tabular-nums">−{formatMXN(d.amount)}</span>
-          </div>
+          </div></Editable>
         ))}
 
         {estimate.unpricedServiceIds.length > 0 && (
@@ -212,11 +213,11 @@ export default function EstimateCard({ estimate }: EstimateCardProps) {
         <strong className="text-coffee-700">Esto es una estimación, no una cotización final.</strong> El precio exacto
         lo confirmamos contigo por WhatsApp, donde también revisamos si te corresponde algún descuento.
       </p>
-      <ul className="mt-3 space-y-1 text-[11px] leading-relaxed text-coffee-500">
+<Editable target={'rules'}>      <ul className="mt-3 space-y-1 text-[11px] leading-relaxed text-coffee-500">
         <li>{ESTIMATE_NOTES.includes}</li>
         <li>{ESTIMATE_NOTES.payment}</li>
         <li>{ESTIMATE_NOTES.travel}</li>
-      </ul>
+      </ul></Editable>
     </div>
   );
 }

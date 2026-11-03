@@ -1,5 +1,6 @@
 'use client';
 
+import { Editable } from '@/components/editor/EditContext';
 import Image from 'next/image';
 import { clsx } from 'clsx';
 import { SERVICE_MAP } from '@/data/services';
@@ -58,8 +59,7 @@ export default function StepServices({ selectedServices, onToggle, onGoToCatalog
       ) : (
         <div className="space-y-3">
           {selected.map((service) => (
-            <div
-              key={service.id}
+            <Editable key={service.id} target={`bar:${service.id}`}><div
               className="flex items-center gap-3 bg-white rounded-2xl border border-cream-200 overflow-hidden shadow-sm"
             >
               {/* Thumbnail */}
@@ -98,7 +98,7 @@ export default function StepServices({ selectedServices, onToggle, onGoToCatalog
               >
                 ×
               </button>
-            </div>
+            </div></Editable>
           ))}
         </div>
       )}

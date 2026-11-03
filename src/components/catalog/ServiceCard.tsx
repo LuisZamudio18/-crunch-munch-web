@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { clsx } from 'clsx';
 import type { Service, ServiceCategory } from '@/types';
+import { useEditAttr } from '@/components/editor/EditContext';
 
 /** Un color de acento de la guía de marca por tipo de servicio. */
 const CATEGORY_TINT: Record<ServiceCategory, string> = {
@@ -26,8 +27,10 @@ interface ServiceCardProps {
 }
 
 export default function ServiceCard({ service, selected = false, onSelect }: ServiceCardProps) {
+  const edit = useEditAttr();
   return (
     <button
+      {...edit(`bar:${service.id}`)}
       type="button"
       onClick={onSelect}
       aria-label={`${service.name}: ver detalle`}

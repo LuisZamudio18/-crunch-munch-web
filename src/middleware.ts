@@ -26,6 +26,7 @@ const MARKDOWN_RENDERERS: Partial<Record<string, () => string>> = {
 // a real page.
 const OTHER_KNOWN_PATHS = new Set([
   '/developers',
+  '/editor',
   '/llms.txt',
   '/sitemap.xml',
   '/robots.txt',

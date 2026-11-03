@@ -1,5 +1,6 @@
 'use client';
 
+import { Editable } from '@/components/editor/EditContext';
 import Chip from '@/components/ui/Chip';
 import { toppingImage } from '@/lib/toppingImage';
 import ExtraPicksNote from '@/components/ui/ExtraPicksNote';
@@ -42,7 +43,7 @@ function GroupPanel({
 
   if (group.type === 'fixed-display') {
     return (
-      <div className="mb-5">
+      <Editable target={`group:${serviceId}:${group.id}`}><div className="mb-5">
         <h4 className="font-semibold text-coffee-700 text-sm mb-2">{group.label}</h4>
         {group.fixedItems?.map((fi) => (
           <div key={fi.label} className="mb-3">
@@ -56,14 +57,14 @@ function GroupPanel({
             </div>
           </div>
         ))}
-      </div>
+      </div></Editable>
     );
   }
 
   if (group.type === 'choose-1') {
     const selected = selections[0] ?? null;
     return (
-      <div className="mb-5">
+      <Editable target={`group:${serviceId}:${group.id}`}><div className="mb-5">
         <div className="flex items-center justify-between mb-2">
           <h4 className="font-semibold text-coffee-700 text-sm">{group.label}</h4>
           <span className="text-xs text-coffee-400">{group.instruction}</span>
@@ -84,14 +85,14 @@ function GroupPanel({
             </button>
           ))}
         </div>
-      </div>
+      </div></Editable>
     );
   }
 
   // choose-n with flat options
   if (group.options && !group.categories) {
     return (
-      <div className="mb-5">
+      <Editable target={`group:${serviceId}:${group.id}`}><div className="mb-5">
         <div className="flex items-center justify-between mb-2">
           <h4 className="font-semibold text-coffee-700 text-sm">{group.label}</h4>
           <span className={clsx('text-xs font-mono', totalReached ? 'text-gold-500 font-bold' : 'text-coffee-400')}>
@@ -115,13 +116,13 @@ function GroupPanel({
             );
           })}
         </div>
-      </div>
+      </div></Editable>
     );
   }
 
   // choose-n with categories
   return (
-    <div className="mb-5">
+    <Editable target={`group:${serviceId}:${group.id}`}><div className="mb-5">
       <div className="flex items-center justify-between mb-2">
         <h4 className="font-semibold text-coffee-700 text-sm">{group.label}</h4>
         <span className={clsx('text-xs font-mono', totalReached ? 'text-gold-500 font-bold' : 'text-coffee-400')}>
@@ -169,7 +170,7 @@ function GroupPanel({
           </div>
         );
       })}
-    </div>
+    </div></Editable>
   );
 }
 

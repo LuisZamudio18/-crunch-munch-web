@@ -1,8 +1,12 @@
+'use client';
+
 import { FAQ } from '@/data/faq';
 import Sticker from '@/components/ui/Sticker';
+import { useEditAttr } from '@/components/editor/EditContext';
 
 /** Preguntas frecuentes en <details>: se leen sin JavaScript y los buscadores y asistentes de IA las ven completas. */
 export default function Faq() {
+  const edit = useEditAttr();
   return (
     <section id="preguntas" className="relative overflow-x-clip bg-white section-padding py-16 md:py-24">
       <Sticker id="jarabe-vainilla" size={56} mdSize={76} pos={{ top: '-30px', right: '16px' }} mdPos={{ top: '8%', right: '6%' }} rotate={8} motion="float" duration={8.5} speed={0.035} />
@@ -20,8 +24,8 @@ export default function Faq() {
         </div>
 
         <div className="divide-y divide-gold-400/40 border-y border-gold-400/40">
-          {FAQ.map((item) => (
-            <details key={item.q} className="group py-5">
+          {FAQ.map((item, i) => (
+            <details key={item.q} {...edit(`faq:${i}`)} className="group py-5">
               <summary className="flex cursor-pointer list-none items-start justify-between gap-6 font-serif italic text-2xl leading-snug text-coffee-700 marker:content-none [&::-webkit-details-marker]:hidden">
                 {item.q}
                 <span className="mt-1 shrink-0 font-sans not-italic text-xl text-gold-500 transition-transform duration-300 group-open:rotate-45" aria-hidden="true">+</span>

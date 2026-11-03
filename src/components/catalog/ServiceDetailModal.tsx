@@ -9,6 +9,7 @@ import { toppingImage } from '@/lib/toppingImage';
 import ExtraPicksNote from '@/components/ui/ExtraPicksNote';
 import PresentationPhoto from './PresentationPhoto';
 import PresentationPicker from './PresentationPicker';
+import { Editable } from '@/components/editor/EditContext';
 import { PRESENTATION_CHOICE_BAR_IDS, PRESENTATION_FIXED } from '@/data/services';
 import { PRESENTATION_PHOTO_BY_BAR } from '@/data/presentations';
 import type { Service, ServiceCategory, SelectionGroup } from '@/types';
@@ -74,6 +75,7 @@ function InteractiveGroup({
   // choose-1
   if (group.type === 'choose-1') {
     return (
+      <Editable target={`group:${serviceId}:${group.id}`}>
       <div className="mb-5">
         <div className="flex items-center justify-between mb-1">
           <h4 className="font-semibold text-coffee-700 text-sm">{group.label}</h4>
@@ -96,12 +98,14 @@ function InteractiveGroup({
           ))}
         </div>
       </div>
+      </Editable>
     );
   }
 
   // choose-n flat
   if (group.options && !group.categories) {
     return (
+      <Editable target={`group:${serviceId}:${group.id}`}>
       <div className="mb-5">
         <div className="flex items-center justify-between mb-1">
           <h4 className="font-semibold text-coffee-700 text-sm">{group.label}</h4>
@@ -127,6 +131,7 @@ function InteractiveGroup({
           })}
         </div>
       </div>
+      </Editable>
     );
   }
 
@@ -136,6 +141,7 @@ function InteractiveGroup({
       catOptions.reduce((acc, opt) => acc + selections.filter((s) => s === opt).length, 0);
 
     return (
+      <Editable target={`group:${serviceId}:${group.id}`}>
       <div className="mb-5">
         <div className="flex items-center justify-between mb-1">
           <h4 className="font-semibold text-coffee-700 text-sm">{group.label}</h4>
@@ -185,6 +191,7 @@ function InteractiveGroup({
           );
         })}
       </div>
+      </Editable>
     );
   }
 
@@ -249,6 +256,7 @@ export default function ServiceDetailModal({
             ×
           </button>
 
+          <Editable target={`bar:${service.id}`}>
           <div className="relative z-10 px-6 pt-14 pb-6">
             {!service.image && <div className="text-5xl mb-3">{service.emoji}</div>}
             <div className="flex items-center flex-wrap gap-2 mb-2">
@@ -267,6 +275,7 @@ export default function ServiceDetailModal({
             <h2 className="text-display text-3xl text-cream-50 leading-tight mb-1">{service.name}</h2>
             <p className="text-coffee-300 text-sm leading-relaxed">{service.description}</p>
           </div>
+          </Editable>
         </div>
 
         {/* Content */}
@@ -304,7 +313,8 @@ export default function ServiceDetailModal({
             // Fixed display — read only
             if (group.type === 'fixed-display') {
               return (
-                <div key={group.id} className="mb-5">
+                <Editable key={group.id} target={`group:${service.id}:${group.id}`}>
+                <div className="mb-5">
                   <h3 className="font-semibold text-coffee-800 text-sm mb-3">{group.label}</h3>
                   {group.fixedItems?.map((fi) => (
                     <div key={fi.label} className="mb-3">
@@ -319,6 +329,7 @@ export default function ServiceDetailModal({
                     </div>
                   ))}
                 </div>
+                </Editable>
               );
             }
 
