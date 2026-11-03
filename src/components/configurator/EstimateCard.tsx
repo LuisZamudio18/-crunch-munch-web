@@ -176,7 +176,8 @@ export default function EstimateCard({ estimate }: EstimateCardProps) {
 
       <div className="space-y-1.5 text-sm border-t border-gold-200/70 pt-3">
         {estimate.lines.map((l) => (
-<Editable target={`price:${l.serviceId}`}>          <div key={l.serviceId} className="flex justify-between gap-3 text-coffee-600">
+          <Editable key={l.serviceId} target={`price:${l.serviceId}`}>
+          <div className="flex justify-between gap-3 text-coffee-600">
             <span>
               {l.name}
               <span className="block text-xs text-coffee-400">
@@ -191,7 +192,8 @@ export default function EstimateCard({ estimate }: EstimateCardProps) {
         ))}
 
         {estimate.discounts.map((d) => (
-<Editable target={'rules'}>          <div key={d.rule.id} className="flex justify-between gap-3 text-gold-600 font-medium">
+          <Editable key={d.rule.id} target={'rules'}>
+          <div className="flex justify-between gap-3 text-gold-600 font-medium">
             <span>
               {d.rule.label} ({d.rule.percent}%)
             </span>
