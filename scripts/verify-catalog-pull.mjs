@@ -59,6 +59,10 @@ const mutations = {
   'FAQ without answer': (d) => (d.faq[0].a = ''),
   'quote text for a missing bar': (d) => (d.quoteCopy['fantasma-bar'] = ['hola']),
   'missing estimate notes': (d) => delete d.estimateNotes.payment,
+  'bar photo that is not an address': (d) => (svc(d, 'coffee-bar').image = 'javascript:alert(1)'),
+  'bar photo on another site written without https': (d) => (svc(d, 'coffee-bar').image = '//evil.example/x.jpg'),
+  'topping photo that is not an address': (d) => (d.toppingImages = { oreo: 'no es una foto' }),
+  'topping photos that are not an object': (d) => (d.toppingImages = ['x']),
 };
 for (const [name, mutate] of Object.entries(mutations)) {
   const doc = clone(CATALOG);
@@ -67,6 +71,12 @@ for (const [name, mutate] of Object.entries(mutations)) {
   check(`refuses: ${name}`, problems.length > 0);
 }
 // a valid change is accepted: a new bar with its price, and a higher price
+{
+  const doc = clone(CATALOG);
+  svc(doc, 'coffee-bar').image = 'https://abc.supabase.co/storage/v1/object/public/site-images/u/1.webp';
+  doc.toppingImages = { 'pumpkin spice': 'https://abc.supabase.co/storage/v1/object/public/site-images/u/2.webp', oreo: '/toppings/oreo.webp' };
+  check('accepts her own photos (bar and toppings)', validateCatalog(doc).length === 0, validateCatalog(doc));
+}
 {
   const doc = clone(CATALOG);
   const bar = clone(svc(doc, 'snack-bar'));

@@ -48,6 +48,7 @@ export default function Chip({
             alt=""
             fill
             sizes="90px"
+            unoptimized={image.startsWith('http')}
             className="object-contain drop-shadow-[0_8px_8px_rgba(74,53,40,0.28)]"
           />
         </div>

@@ -238,6 +238,7 @@ export default function ServiceDetailModal({
           {service.image ? (
             <Image
               src={service.image}
+              unoptimized={service.image.startsWith('http')}
               alt={service.name}
               fill
               className="object-cover pointer-events-none"

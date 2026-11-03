@@ -42,8 +42,16 @@ export default function EditorBridge() {
 
     const onMessage = (e: MessageEvent) => {
       if (e.origin !== parentOrigin || e.source !== window.parent) return;
-      const msg = e.data as { source?: string; type?: string; doc?: unknown; editing?: boolean };
+      const msg = e.data as { source?: string; type?: string; doc?: unknown; editing?: boolean; target?: string };
       if (msg?.source !== 'cm-agenda') return;
+      if (msg.type === 'focus' && typeof msg.target === 'string') {
+        const el = Array.from(document.querySelectorAll<HTMLElement>('[data-edit]')).find((x) => x.dataset.edit === msg.target);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          el.animate([{ outline: '3px solid #C49A2E', outlineOffset: '4px' }, { outline: '3px solid transparent', outlineOffset: '4px' }], { duration: 1600 });
+        }
+        return;
+      }
       if (msg.type === 'mode') {
         setEditing(msg.editing !== false);
         return;

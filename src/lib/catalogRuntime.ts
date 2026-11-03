@@ -3,6 +3,7 @@ import { PRICING, ESTIMATE_NOTES } from '../data/pricing.ts';
 import { FAQ } from '../data/faq.ts';
 import { QUOTE_COPY } from '../data/quoteCopy.ts';
 import type { CatalogDoc } from '../data/catalogTypes.ts';
+import { CATALOG } from '../data/catalog.data.ts';
 
 /**
  * Used only by the editor preview (/editor): swaps the catalog the page was built with for the draft she is editing, in
@@ -46,4 +47,5 @@ export function applyDraftCatalog(doc: CatalogDoc): void {
   replaceObject(ESTIMATE_NOTES, doc.estimateNotes);
   FAQ.splice(0, FAQ.length, ...doc.faq);
   replaceObject(QUOTE_COPY, doc.quoteCopy);
+  CATALOG.toppingImages = { ...(doc.toppingImages ?? {}) };
 }

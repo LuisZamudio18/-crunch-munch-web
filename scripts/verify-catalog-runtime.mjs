@@ -43,6 +43,7 @@ draft.pricing.services['bar-nueva'] = { tiers: [{ fromPersonas: 30, pricePerPers
 draft.quoteCopy['bar-nueva'] = ['-Texto nuevo.'];
 draft.faq = draft.faq.slice(1);
 draft.estimateNotes.payment = 'Pago nuevo';
+draft.toppingImages = { 'pumpkin spice': 'https://abc.supabase.co/x.webp' };
 const bars = SERVICES; // the same array object the components hold
 
 applyDraftCatalog(draft);
@@ -53,10 +54,11 @@ check('prices follow the draft', PRICING.services['coffee-bar'].tiers[0].pricePe
 const names = { 'coffee-bar': 'Coffee Bar', 'bar-nueva': 'Bar nueva' };
 const est = computeEstimate({ selectedServices: ['coffee-bar', 'bar-nueva'], personas: 30, serviceNames: names }, PRICING);
 check('the estimate uses the draft prices', est && est.lines[0].pricePerPerson === 99 && est.lines[1].pricePerPerson === 120, est?.lines);
+check('her topping photos follow the draft', CATALOG.toppingImages?.['pumpkin spice'] === 'https://abc.supabase.co/x.webp');
 check('FAQ, quote texts and notes follow the draft', FAQ.length === ORIGINAL.faq.length - 1 && QUOTE_COPY['bar-nueva'][0] === '-Texto nuevo.' && ESTIMATE_NOTES.payment === 'Pago nuevo');
 
 applyDraftCatalog(clone(ORIGINAL));
-check('applying the original puts everything back exactly', snapshot() === original);
+check('applying the original puts everything back exactly', snapshot() === original && Object.keys(CATALOG.toppingImages ?? {}).length === 0);
 
 console.log(`\n${passCount} passed, ${failures.length} failed.`);
 if (failures.length) {

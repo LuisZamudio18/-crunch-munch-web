@@ -22,6 +22,8 @@ const isObj = (v: unknown): v is Obj => typeof v === 'object' && v !== null && !
 const isText = (v: unknown): v is string => typeof v === 'string' && v.trim().length > 0;
 const isNum = (v: unknown): v is number => typeof v === 'number' && Number.isFinite(v);
 const isInt = (v: unknown, min = 0): v is number => isNum(v) && Number.isInteger(v) && v >= min;
+/** A picture of the site ("/barras/x.jpg") or one she uploaded (an https address). */
+const isImageRef = (v: unknown): v is string => typeof v === 'string' && (/^https:\/\/[^\s]+$/.test(v) || /^\/(?!\/)[^\s]+$/.test(v)) && v.length < 600;
 
 function checkTiers(tiers: unknown, where: string, out: string[]) {
   if (!Array.isArray(tiers) || tiers.length === 0) return void out.push(`${where}: faltan los precios por rango de personas.`);
@@ -51,7 +53,7 @@ function checkService(s: unknown, i: number, out: string[]): string | null {
   if (!isText(s.description)) out.push(`${label}: falta la descripción.`);
   if (typeof s.category !== 'string' || !CATEGORIES.includes(s.category)) out.push(`${label}: la categoría debe ser bebidas, dulce, salado o brunch.`);
   if (!isText(s.emoji)) out.push(`${label}: falta el emoji.`);
-  if (s.image !== undefined && !isText(s.image)) out.push(`${label}: la foto no es válida.`);
+  if (s.image !== undefined && !isImageRef(s.image)) out.push(`${label}: la foto no es válida.`);
   if (!isInt(s.minPersonas, 1) || (s.minPersonas as number) > 1000) out.push(`${label}: el mínimo de personas debe ser un número entero mayor que 0.`);
   if (!Array.isArray(s.selectionGroups)) {
     out.push(`${label}: faltan los grupos de opciones.`);
@@ -175,6 +177,15 @@ export function validateCatalog(doc: unknown): string[] {
       if (!ids.has(id)) out.push(`Hay un texto de cotización para "${id}", que no es una barra.`);
       if (!Array.isArray(lines) || !lines.every((l) => typeof l === 'string')) out.push(`${id}: el texto de la cotización no es válido.`);
     }
+  if (doc.toppingImages !== undefined) {
+    const imgs = doc.toppingImages;
+    if (!isObj(imgs)) out.push('Las fotos de las opciones no son válidas.');
+    else {
+      const entries = Object.entries(imgs);
+      if (entries.length > 800) out.push('Hay demasiadas fotos de opciones.');
+      for (const [name, url] of entries) if (!name.trim() || !isImageRef(url)) out.push(`La foto de la opción "${name}" no es válida.`);
+    }
+  }
   const notes = doc.estimateNotes;
   if (!isObj(notes) || !isText(notes.includes) || !isText(notes.travel) || !isText(notes.payment)) out.push('Faltan las notas del estimado (qué incluye, traslado y pago).');
   return out;

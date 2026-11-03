@@ -44,6 +44,7 @@ export default function ServiceCard({ service, selected = false, onSelect }: Ser
         {service.image ? (
           <Image
             src={service.image}
+            unoptimized={service.image.startsWith('http')}
             alt={`${service.name}: barra móvil de Crunch & Munch`}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-105"

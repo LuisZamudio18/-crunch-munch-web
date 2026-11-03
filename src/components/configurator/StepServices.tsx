@@ -67,6 +67,7 @@ export default function StepServices({ selectedServices, onToggle, onGoToCatalog
                 {service.image ? (
                   <Image
                     src={service.image}
+                    unoptimized={service.image.startsWith('http')}
                     alt={service.name}
                     fill
                     className="object-cover"

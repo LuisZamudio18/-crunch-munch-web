@@ -1,4 +1,5 @@
 import IMAGES from '@/data/toppingImages.json';
+import { CATALOG } from '@/data/catalog.data';
 
 const MAP = IMAGES as Record<string, string>;
 
@@ -17,6 +18,10 @@ function norm(s: string) {
  * `group` is the category or group label, used first so "Sandías" in Gomitas and "Sandía" in Smoothies differ.
  */
 export function toppingImage(name: string, group?: string): string | undefined {
+  // A photo she uploaded wins over the ones that come with the site
+  const own = CATALOG.toppingImages;
+  const mine = (group ? own?.[norm(`${group}:${name}`)] : undefined) ?? own?.[norm(name)];
+  if (mine) return mine;
   const file = (group ? MAP[norm(`${group}:${name}`)] : undefined) ?? MAP[norm(name)];
   if (file) return `/toppings/${file}`;
   // Seasonal drinks added by hand in the agenda ("Pumpkin Spice", "Pumpkin spice latte", "Latte de calabaza")

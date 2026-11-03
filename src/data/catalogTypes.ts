@@ -16,4 +16,9 @@ export interface CatalogDoc {
   /** What goes under each bar in the quote the website writes into WhatsApp, keyed by bar id. */
   quoteCopy: Record<string, string[]>;
   estimateNotes: { includes: string; travel: string; payment: string };
+  /**
+   * Photos she uploaded for toppings and drinks, by name (the name written without capitals or accents, as toppingImage.ts
+   * looks it up) → address of the picture. They win over the photos that come with the site.
+   */
+  toppingImages?: Record<string, string>;
 }
